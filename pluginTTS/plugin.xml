@@ -15,13 +15,14 @@
             </separator>
          </menu>
          <action
-               class="plugintts.actions.SpeakingAction"
+               class="plugintts.actions.SetFocusOnCommandLine"
                icon="icons/sample.gif"
-               id="plugintts.actions.SpeakingAction"
+               id="plugintts.actions.SetFocusOnCommandLine"
                label="&amp;Focus on command line"
                menubarPath="speak!/speakingGroup"
                toolbarPath="sampleGroup"
-               tooltip="Hello, Eclipse world">
+               tooltip="Hello, Eclipse world"
+               accelerator="Alt+F">
          </action>
       </actionSet>
    </extension>

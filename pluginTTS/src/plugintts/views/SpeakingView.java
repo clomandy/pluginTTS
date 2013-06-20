@@ -28,28 +28,40 @@ import plugintts.listeners.CommandLineListener;
 
 public class SpeakingView extends ViewPart {
 
-	private StyledText text;
+	/**
+	 * 
+	 */
+	private StyledText commandArea;
 	private Text commandLine;
 
+	/**
+	 * Constructor 
+	 */
 	public SpeakingView() {
 		super();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.part.WorkbenchPart#setFocus()
+	 */
 	public void setFocus() {
 		commandLine.setFocus();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
+	 */
 	public void createPartControl(Composite parent) {
 		GridLayout gridLay = new GridLayout();
 		GridData horizontalFill = new GridData(SWT.FILL, SWT.FILL, true, false);
 		GridData fill = new GridData(SWT.FILL, SWT.FILL, true, true);
 		parent.setLayout(gridLay);
 
-		text = new StyledText(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL
+		commandArea = new StyledText(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL
 				| SWT.BORDER | SWT.READ_ONLY | SWT.WRAP);
 
-		text.setText("SpeakingView listening....");
-		text.setLayoutData(fill);
+		commandArea.setText("SpeakingView listening....");
+		commandArea.setLayoutData(fill);
 
 		commandLine = new Text(parent, SWT.SINGLE | SWT.BORDER);
 		commandLine.setEditable(true);
@@ -58,32 +70,32 @@ public class SpeakingView extends ViewPart {
 		commandLine.addKeyListener(new CommandLineListener());
 	}
 
-	public void setText(String string) {
-		text.setText("Nuovo testo: " + System.getProperty("line.separator")
-				+ string);
-		scrollTextBottom();
+	public void setTextOnCommandArea(String text) {
+		commandArea.setText("Nuovo testo: " + System.getProperty("line.separator")
+				+ text);
+		scrollCommandAreaBottom();
 	}
 
-	public void addText(String string) {
-		text.setText(text.getText() + System.getProperty("line.separator")
-				+ string);
-		scrollTextBottom();
+	public void addTextOnCommandArea(String text) {
+		commandArea.setText(commandArea.getText() + System.getProperty("line.separator")
+				+ text);
+		scrollCommandAreaBottom();
 	}
 
-	public int getTextOffset() {
-		return text.getText().length() + 1;
+	public int getCommandAreaOffset() {
+		return commandArea.getText().length() + 1;
 	}
 
-	public StyleRange[] getTextStyleRanges() {
-		return text.getStyleRanges();
+	public StyleRange[] getCommandAreaStyleRanges() {
+		return commandArea.getStyleRanges();
 	}
 
-	public void setTextStyleRanges(StyleRange[] ranges) {
-		text.setStyleRanges(ranges);
+	public void setCommandAreaStyleRanges(StyleRange[] ranges) {
+		commandArea.setStyleRanges(ranges);
 	}
 
-	public void scrollTextBottom() {
-		text.setTopIndex(text.getLineCount() - 1);
+	private void scrollCommandAreaBottom() {
+		commandArea.setTopIndex(commandArea.getLineCount() - 1);
 	}
 
 	public String getCommandLineText() {

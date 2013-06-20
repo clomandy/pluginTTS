@@ -5,9 +5,8 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 
+import plugintts.utils.GetPluginElements;
 import plugintts.views.SpeakingView;
 
 /**
@@ -34,12 +33,8 @@ public class SetFocusOnCommandLine implements IWorkbenchWindowActionDelegate {
 	 * @see IWorkbenchWindowActionDelegate#run
 	 */
 	public void run(IAction action) {
-		try {
-			SpeakingView showView = (SpeakingView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("firstplugin.views.SpeakingView");
-			showView.setFocus();
-		} catch (PartInitException e) {
-			e.printStackTrace();
-		}
+		SpeakingView speakingView = GetPluginElements.getSpeakingView();
+		speakingView.setFocus();
 	}
 
 	
