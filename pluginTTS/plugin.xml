@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="pluginTTS.actionSet"
+            label="Sample Action Set"
+            visible="true">
+         <menu
+               id="speak!"
+               label="&amp;Speak!">
+            <separator
+                  name="speakingGroup">
+            </separator>
+         </menu>
+         <action
+               class="plugintts.actions.SpeakingAction"
+               icon="icons/sample.gif"
+               id="plugintts.actions.SpeakingAction"
+               label="&amp;Focus on command line"
+               menubarPath="speak!/speakingGroup"
+               toolbarPath="sampleGroup"
+               tooltip="Hello, Eclipse world">
+         </action>
+      </actionSet>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="pluginTTS"
+            name="pluginTTS">
+      </category>
+      <view
+            category="pluginTTS"
+            class="plugintts.views.SpeakingView"
+            icon="icons/sample.gif"
+            id="pluginTTS.views.SpeakingView"
+            name="Speaking View">
+      </view>
+   </extension>
+
+</plugin>
