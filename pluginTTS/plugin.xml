@@ -15,9 +15,9 @@
             </separator>
          </menu>
          <action
-               class="plugintts.actions.SetFocusOnCommandLine"
+               class="ch.supsi.dti.actions.SetFocusOnCommandLine"
                icon="icons/sample.gif"
-               id="plugintts.actions.SetFocusOnCommandLine"
+               id="pluginTTS.actions.SetFocusOnCommandLine"
                label="&amp;Focus on command line"
                menubarPath="speak!/speakingGroup"
                toolbarPath="sampleGroup"
@@ -34,7 +34,7 @@
       </category>
       <view
             category="pluginTTS"
-            class="plugintts.views.SpeakingView"
+            class="ch.supsi.dti.views.SpeakingView"
             icon="icons/sample.gif"
             id="pluginTTS.views.SpeakingView"
             name="Speaking View">

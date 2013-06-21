@@ -1,4 +1,4 @@
-package plugintts.listeners;
+package ch.supsi.dti.listeners;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
@@ -8,9 +8,10 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.widgets.Display;
 
-import plugintts.tospeech.Speech;
-import plugintts.utils.GetPluginElements;
-import plugintts.views.SpeakingView;
+import ch.supsi.dti.tospeech.Speech;
+import ch.supsi.dti.utils.GetPluginElements;
+import ch.supsi.dti.views.SpeakingView;
+
 
 public class CommandLineListener implements KeyListener {
 	

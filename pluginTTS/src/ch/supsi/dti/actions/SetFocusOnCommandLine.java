@@ -1,4 +1,4 @@
-package plugintts.actions;
+package ch.supsi.dti.actions;
 
 
 import org.eclipse.jface.action.IAction;
@@ -6,8 +6,9 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
-import plugintts.utils.GetPluginElements;
-import plugintts.views.SpeakingView;
+import ch.supsi.dti.utils.GetPluginElements;
+import ch.supsi.dti.views.SpeakingView;
+
 
 /**
  * Our sample action implements workbench action delegate. The action proxy will

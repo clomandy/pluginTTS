@@ -1,4 +1,4 @@
-package plugintts.tospeech;
+package ch.supsi.dti.tospeech;
 
 import java.io.InputStream;
 

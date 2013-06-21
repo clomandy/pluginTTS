@@ -1,9 +1,10 @@
-package plugintts.utils;
+package ch.supsi.dti.utils;
 
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
-import plugintts.views.SpeakingView;
+import ch.supsi.dti.views.SpeakingView;
+
 
 public class GetPluginElements {
 

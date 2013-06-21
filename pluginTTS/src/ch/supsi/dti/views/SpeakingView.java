@@ -1,4 +1,4 @@
-package plugintts.views;
+package ch.supsi.dti.views;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
@@ -9,7 +9,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 
-import plugintts.listeners.CommandLineListener;
+import ch.supsi.dti.listeners.CommandLineListener;
+
 
 /**
  * This sample class demonstrates how to plug-in a new workbench view. The view
