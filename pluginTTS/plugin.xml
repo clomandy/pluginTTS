@@ -17,7 +17,7 @@
          <action
                class="ch.supsi.dti.actions.SetFocusOnCommandLine"
                icon="icons/sample.gif"
-               id="pluginTTS.actions.SetFocusOnCommandLine"
+               id="ch.supsi.dti.actions.SetFocusOnCommandLine"
                label="&amp;Focus on command line"
                menubarPath="speak!/speakingGroup"
                toolbarPath="sampleGroup"
