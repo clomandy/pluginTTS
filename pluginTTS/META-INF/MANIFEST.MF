@@ -11,3 +11,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ClassPath: .,
  lib/gtranslateapi-1.0.jar,
  lib/jl1.0.jar
+Import-Package: org.eclipse.jface.text,
+ org.eclipse.ui.texteditor

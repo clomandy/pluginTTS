@@ -1,0 +1,30 @@
+options {
+	STATIC = false ;
+}
+
+PARSER_BEGIN(CommandParser)
+package ch.supsi.dti.parser;
+import java.io.PrintStream;
+
+public class CommandParser {
+	public static void main( String[] args ) throws ParseException, TokenMgrError, NumberFormatException {
+		CommandParser parser = new CommandParser(System.in);
+		parser.parse(System.out);
+	}
+}
+PARSER_END(CommandParser)
+
+
+// *******************************************************
+// ** TOKENS
+// *******************************************************
+
+SKIP : { " " }
+TOKEN : { < EOL : "\n" | "\r" | "\r\n" > }
+
+TOKEN : { < INSTRUCTIONS : <GETINFO> | <OPEN> | <SET> > }
+TOKEN : { < <GETINFO> : "getinfo" > }
+TOKEN : { < <OPEN> : "open" > }
+TOKEN : { < <SET> : "set" > }
+
+TOKEN : { < <PARAMETERS> : <METHOD> | <CLASS> > | <EDITOR> | <CURSOR> }

@@ -6,9 +6,16 @@ import com.gtranslate.Audio;
 import com.gtranslate.Language;
 
 
-public class Speech {
+public class Speech implements Runnable{
 	
-	public static void say(String toSay){
+	private String toSay;
+	
+	public Speech(String toSay){
+		this.toSay = toSay; 
+	}
+
+	@Override
+	public void run() {
 		Audio audio = Audio.getInstance();
 		
 		//Translator translate = Translator.getInstance();
