@@ -39,7 +39,7 @@ public class CommandLineListener implements KeyListener {
 		SpeakingView speakingView = GetPluginElements.getSpeakingView();
 		String commandLineText = speakingView.getCommandLineText();
 		if(!commandLineText.equals("")){
-			new Speech(commandLineText).run();
+			//new Speech(commandLineText).run();
 			int actualOffset = speakingView.getCommandAreaOffset();
 			Device device = Display.getCurrent();
 			Color red = new Color(device, 165, 0, 0);
@@ -75,11 +75,11 @@ public class CommandLineListener implements KeyListener {
 				e.printStackTrace();
 			}
 			
-			new Speech(rensponse).run();
+			
 			speakingView.addTextOnCommandArea(rensponse);
 			
 			speakingView.setCommandAreaStyleRanges(textStyleRanges);
-			
+			new Speech(rensponse).run();
 		}
 	}
 

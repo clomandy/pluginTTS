@@ -88,7 +88,7 @@ public class CursorInformations {
 						.getEditorInput());
 				int line = textSelection.getStartLine();
 				int column = 0;
-				try {
+				try {	
 					column = textSelection.getOffset()
 							- document.getLineOffset(line);
 				} catch (BadLocationException e) {

@@ -12,45 +12,53 @@ public interface CommandParserConstants {
   /** RegularExpression Id. */
   int GETINFO = 5;
   /** RegularExpression Id. */
-  int OPEN = 6;
+  int BINARY = 6;
   /** RegularExpression Id. */
-  int SET = 7;
+  int METHOD = 7;
   /** RegularExpression Id. */
-  int BINARY = 8;
+  int CLASS = 8;
   /** RegularExpression Id. */
-  int METHOD = 9;
+  int SINGLES = 9;
   /** RegularExpression Id. */
-  int CLASS = 10;
+  int EDITOR = 10;
   /** RegularExpression Id. */
-  int SINGLES = 11;
+  int CURSOR = 11;
   /** RegularExpression Id. */
-  int EDITOR = 12;
+  int OPEN = 12;
   /** RegularExpression Id. */
-  int CURSOR = 13;
+  int SET = 13;
   /** RegularExpression Id. */
-  int NUMBER = 14;
+  int HOWMUCH = 14;
   /** RegularExpression Id. */
-  int FLOAT = 15;
+  int COUNTING = 15;
   /** RegularExpression Id. */
-  int INTEGER = 16;
+  int METHODS = 16;
   /** RegularExpression Id. */
-  int DIGIT = 17;
+  int FIELDS = 17;
   /** RegularExpression Id. */
-  int LINE_COMMENT = 18;
+  int NUMBER = 18;
   /** RegularExpression Id. */
-  int MULTI_LINE_COMMENT = 19;
+  int FLOAT = 19;
   /** RegularExpression Id. */
-  int IDENTIFIER = 20;
+  int INTEGER = 20;
   /** RegularExpression Id. */
-  int LETTER = 21;
+  int DIGIT = 21;
   /** RegularExpression Id. */
-  int SPECIAL_CHARS = 22;
+  int LINE_COMMENT = 22;
   /** RegularExpression Id. */
-  int BIND = 23;
+  int MULTI_LINE_COMMENT = 23;
   /** RegularExpression Id. */
-  int CHAR_LITERAL = 24;
+  int IDENTIFIER = 24;
   /** RegularExpression Id. */
-  int QUOTED_IDENTIFIER = 25;
+  int LETTER = 25;
+  /** RegularExpression Id. */
+  int SPECIAL_CHARS = 26;
+  /** RegularExpression Id. */
+  int BIND = 27;
+  /** RegularExpression Id. */
+  int CHAR_LITERAL = 28;
+  /** RegularExpression Id. */
+  int QUOTED_IDENTIFIER = 29;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -63,14 +71,18 @@ public interface CommandParserConstants {
     "\"\\r\"",
     "\"\\n\"",
     "\"GETINFO\"",
-    "\"OPEN\"",
-    "\"SET\"",
     "<BINARY>",
     "\"METHOD\"",
     "\"CLASS\"",
     "<SINGLES>",
     "\"EDITOR\"",
     "\"CURSOR\"",
+    "\"OPEN\"",
+    "\"SET\"",
+    "\"HOWMUCH\"",
+    "<COUNTING>",
+    "\"METHODS\"",
+    "\"FIELDS\"",
     "<NUMBER>",
     "<FLOAT>",
     "<INTEGER>",
