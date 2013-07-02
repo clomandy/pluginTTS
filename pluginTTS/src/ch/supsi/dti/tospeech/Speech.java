@@ -14,7 +14,6 @@ public class Speech implements Runnable{
 		this.toSay = toSay; 
 	}
 
-	@Override
 	public void run() {
 		Audio audio = Audio.getInstance();
 		
