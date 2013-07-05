@@ -33,8 +33,9 @@ public class CommandLineListener implements KeyListener {
 			checkToSpeechSPACE();
 			break;
 		case SWT.BS:
-			//TODO: non funziona il backspace!
-			wordAccumulator.setLength(wordAccumulator.length()-1);
+			String tmpStr = GetPluginElements.getSpeakingView().getCommandLineText();
+			wordAccumulator = new StringBuilder(tmpStr.substring(tmpStr.lastIndexOf(' ') + 1));
+			break;
 		default:
 			wordAccumulator.append(event.character);
 			break;
@@ -43,16 +44,16 @@ public class CommandLineListener implements KeyListener {
 	}
 
 	private void checkToSpeechCR() {
-		lineAccumulator.append(" " + wordAccumulator.toString());
+		lineAccumulator = new StringBuilder(GetPluginElements.getSpeakingView().getCommandLineText());
 		SpeakerHandler.getInstance().addToQueue(lineAccumulator.toString());
-		wordAccumulator.setLength(0);
-		lineAccumulator.setLength(0);		
+		wordAccumulator = new StringBuilder();
+		lineAccumulator = new StringBuilder();
 	}
 
 	private void checkToSpeechSPACE() {
-		lineAccumulator.append(" " + wordAccumulator.toString());
+		lineAccumulator = new StringBuilder(GetPluginElements.getSpeakingView().getCommandLineText());
 		SpeakerHandler.getInstance().addToQueue(wordAccumulator.toString());
-		wordAccumulator.setLength(0);
+		wordAccumulator = new StringBuilder();
 	}
 
 	@Override

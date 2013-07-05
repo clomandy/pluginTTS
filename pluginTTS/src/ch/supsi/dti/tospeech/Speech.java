@@ -14,6 +14,7 @@ public class Speech implements Runnable{
 		this.toSay = toSay; 
 	}
 
+	@Override
 	public void run() {
 		Audio audio = Audio.getInstance();
 		
@@ -24,7 +25,7 @@ public class Speech implements Runnable{
 			sound = audio.getAudio(toSay, Language.ENGLISH);
 			audio.play(sound);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			// TODO gestione degli errori!!!!
 			e.printStackTrace();
 		}
 	}
