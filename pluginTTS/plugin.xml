@@ -15,16 +15,6 @@
             </separator>
          </menu>
          <action
-               accelerator="Alt+S"
-               class="ch.supsi.dti.actions.StartSpeaking"
-               icon="icons/sample.gif"
-               id="ch.supsi.dti.actions.StartSpeaking"
-               label="&amp;StartSpeaking"
-               menubarPath="speak!/speakingGroup"
-               toolbarPath="sampleGroup"
-               tooltip="Start Speaking on Editor">
-         </action>
-         <action
                class="ch.supsi.dti.actions.SetFocusOnCommandLine"
                icon="icons/sample.gif"
                id="ch.supsi.dti.actions.SetFocusOnCommandLine"
