@@ -1,8 +1,13 @@
 package ch.supsi.dti.utils;
 
+import org.eclipse.core.resources.IResource;
+import org.eclipse.jface.viewers.IStructuredSelection;
+
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.ITextEditor;
+import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
 
 import ch.supsi.dti.views.SpeakingView;
 
@@ -26,4 +31,13 @@ public class GetPluginElements {
 				.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 	}
 
+	public static PackageExplorerPart getPackageExplorer() {
+		PackageExplorerPart part= PackageExplorerPart.getFromActivePerspective();
+		if (part == null)
+			PackageExplorerPart.openInActivePerspective();
+		
+		part= PackageExplorerPart.getFromActivePerspective();
+		
+		return part;
+	}
 }

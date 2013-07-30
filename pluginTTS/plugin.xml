@@ -8,8 +8,8 @@
             label="Sample Action Set"
             visible="true">
          <menu
-               id="speak!"
-               label="&amp;Speak!">
+               id="speak"
+               label="&amp;Speak">
             <separator
                   name="speakingGroup">
             </separator>

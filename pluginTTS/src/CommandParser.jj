@@ -1,0 +1,199 @@
+options {
+	STATIC = false ;
+	IGNORE_CASE=true ;
+}
+
+PARSER_BEGIN(CommandParser)
+import java.io.PrintStream;
+
+public class CommandParser {
+	String value;
+}
+PARSER_END(CommandParser)
+
+
+// *******************************************************
+// ** TOKENS
+// *******************************************************
+
+
+SKIP:
+{
+    " "
+|   "\t"
+|   "\r"
+|   "\n"
+}
+
+TOKEN:
+{
+    <INFO: "INFO">
+|   <OPEN: "OPEN">
+|   <EXPAND: "EXPAND">
+| 	<SELECT: "SELECT">
+|   <BINARY :
+			<PROJECT> |
+			<PACKAGE> |
+			< METHOD >|
+			< CLASS > >
+|   <#PROJECT: "PROJECT">
+|   <#PACKAGE: "PACKAGE">
+|   <#METHOD: "METHOD">
+|   <#CLASS: "CLASS">
+|   <SINGLES :
+			<PROJECTS>|
+			<PACKAGES>|
+			<CLASSES> |
+			<METHODS> |
+			<EDITOR>  |
+			<CURSOR> >
+|   <#PROJECTS: "PROJECTS">
+|   <#PACKAGES: "PACKAGES">
+|   <#CLASSES: "CLASSES">
+|   <#METHODS: "METHODS">			
+|   <#EDITOR: "EDITOR">
+|   <#CURSOR: "CURSOR">
+|   <DEFAULTS :
+			< DEFAULTT > |
+			< SELECTED > > 
+|   <#DEFAULTT: "DEFAULT">
+|   <#SELECTED: "SELECTED">
+
+}
+
+TOKEN : /* Numeric Constants */
+{
+	< NUMBER: <FLOAT>
+	    | <FLOAT> ( ["e","E"] ([ "-","+"])? <FLOAT> )?
+    	>
+  | 	< #FLOAT: <INTEGER>
+	    | <INTEGER> ( "." <INTEGER> )?
+	    | "." <INTEGER>
+    	>
+  | 	< #INTEGER: ( <DIGIT> )+ >
+  | 	< #DIGIT: ["0" - "9"] >
+}
+
+SPECIAL_TOKEN:
+{
+   <LINE_COMMENT: "--"(~["\r","\n"])*>
+|  <MULTI_LINE_COMMENT: "/*" (~["*"])* "*" ("*" | (~["*","/"] (~["*"])* "*"))* "/">
+}
+
+
+TOKEN:
+{
+    < IDENTIFIER: (<LETTER>)+ (<DIGIT> | <LETTER> |<SPECIAL_CHARS>)* >
+  | < #LETTER: ["a"-"z", "A"-"Z"] >
+  | < #SPECIAL_CHARS: "$" | "_" | "#">
+  | < BIND: ":" ( <NUMBER> | <IDENTIFIER> ("." <IDENTIFIER>)?) >
+  | < CHAR_LITERAL: "'" (~["'"])* "'" ("'" (~["'"])* "'")*>
+  | < QUOTED_IDENTIFIER: "\"" (~["\n","\r","\""])* "\"" >
+}
+
+String parse():
+{String ret;}
+{
+  	(
+    	ret = instructions()
+		{ return ret;}
+	)
+	<EOF>
+}
+
+String instructions():
+{
+	String ret;
+	Token t;
+}
+{
+  	{t = new Token();}
+   	<INFO>
+  	(
+   		t = <SINGLES>
+   	 	ret = infoSingles(t)
+   		|
+   		t = <BINARY>
+   	 	ret = infoBinary(t)
+
+   	)
+  	| 
+  	< OPEN >
+  	(
+   		t = <BINARY>
+   	 	ret = openBinary(t)
+
+   	)
+  	| 
+  	< EXPAND >
+  	(
+   		t = <BINARY>
+   	 	ret = expandBinary(t)
+
+   	)
+	| 
+  	< SELECT > 
+   	(
+   		t = <BINARY>
+   	 	ret = selectBinary(t)   	) 
+   	{   	  return ret;
+   	}
+	
+}
+
+String infoSingles(Token t):
+{}
+{
+	{return "singles: " + t.toString();}
+}
+
+String infoBinary(Token t):
+{
+  	String ret;
+  	
+	Token id;
+}
+{
+	id = <IDENTIFIER>
+   	ret = identifier(id)
+	{return "binary: " + t.toString() +  ret;}	
+}
+
+String openBinary(Token t):
+{
+  	String ret;
+	Token id;
+}
+{
+	id = <IDENTIFIER>
+   	ret = identifier(id)
+	{return "binary: " + t.toString() +  ret;}	
+}
+
+String expandBinary(Token t):
+{
+  	String ret;
+	Token id;
+}
+{
+	id = <IDENTIFIER>
+   	ret = identifier(id)
+	{return "binary: " + t.toString() +  ret;}	
+}
+
+String selectBinary(Token t):
+{
+  	String ret;
+	Token id;
+}
+{
+	id = <IDENTIFIER>
+   	ret = identifier(id)
+	{return "binary: " + t.toString() +  ret;}	
+}
+
+String identifier(Token t):
+{}
+{
+	{return "id: " + t.toString();}	
+}

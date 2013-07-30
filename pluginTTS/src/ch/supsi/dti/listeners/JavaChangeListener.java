@@ -7,6 +7,8 @@ import org.eclipse.jdt.core.IElementChangedListener;
 import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.jdt.core.JavaCore;
 
+import ch.supsi.dti.tospeech.SpeakerHandler;
+
 public class JavaChangeListener implements IElementChangedListener {
 	
 	private static final String FILENAME = "clean-cache.properties"; //$NON-NLS-1$
@@ -44,13 +46,16 @@ public class JavaChangeListener implements IElementChangedListener {
 	private void traverseAndPrint(IJavaElementDelta delta) {
         switch (delta.getKind()) {
             case IJavaElementDelta.ADDED:
-                System.out.println(delta.getElement() + " was added");
+            	SpeakerHandler.getInstance().addToQueue(delta.getElement() + " was added");
+               // System.out.println(delta.getElement() + " was added");
                 break;
             case IJavaElementDelta.REMOVED:
-                System.out.println(delta.getElement() + " was removed");
+            	SpeakerHandler.getInstance().addToQueue(delta.getElement() + " was removed");
+               // System.out.println(delta.getElement() + " was removed");
                 break;
             case IJavaElementDelta.CHANGED:
-                System.out.println(delta.getElement() + " was changed");
+            	SpeakerHandler.getInstance().addToQueue(delta.getElement() + " was changed");
+               // System.out.println(delta.getElement() + " was changed");
                 if ((delta.getFlags() & IJavaElementDelta.F_CHILDREN) != 0) {
                     System.out.println("The change was in its children");
                 }

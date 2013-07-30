@@ -10,55 +10,67 @@ public interface CommandParserConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int GETINFO = 5;
+  int INFO = 5;
   /** RegularExpression Id. */
-  int BINARY = 6;
+  int OPEN = 6;
   /** RegularExpression Id. */
-  int METHOD = 7;
+  int EXPAND = 7;
   /** RegularExpression Id. */
-  int CLASS = 8;
+  int SELECT = 8;
   /** RegularExpression Id. */
-  int SINGLES = 9;
+  int BINARY = 9;
   /** RegularExpression Id. */
-  int EDITOR = 10;
+  int PROJECT = 10;
   /** RegularExpression Id. */
-  int CURSOR = 11;
+  int PACKAGE = 11;
   /** RegularExpression Id. */
-  int OPEN = 12;
+  int METHOD = 12;
   /** RegularExpression Id. */
-  int SET = 13;
+  int CLASS = 13;
   /** RegularExpression Id. */
-  int HOWMUCH = 14;
+  int SINGLES = 14;
   /** RegularExpression Id. */
-  int COUNTING = 15;
+  int PROJECTS = 15;
   /** RegularExpression Id. */
-  int METHODS = 16;
+  int PACKAGES = 16;
   /** RegularExpression Id. */
-  int FIELDS = 17;
+  int CLASSES = 17;
   /** RegularExpression Id. */
-  int NUMBER = 18;
+  int METHODS = 18;
   /** RegularExpression Id. */
-  int FLOAT = 19;
+  int EDITOR = 19;
   /** RegularExpression Id. */
-  int INTEGER = 20;
+  int CURSOR = 20;
   /** RegularExpression Id. */
-  int DIGIT = 21;
+  int DEFAULTS = 21;
   /** RegularExpression Id. */
-  int LINE_COMMENT = 22;
+  int DEFAULTT = 22;
   /** RegularExpression Id. */
-  int MULTI_LINE_COMMENT = 23;
+  int SELECTED = 23;
   /** RegularExpression Id. */
-  int IDENTIFIER = 24;
+  int NUMBER = 24;
   /** RegularExpression Id. */
-  int LETTER = 25;
+  int FLOAT = 25;
   /** RegularExpression Id. */
-  int SPECIAL_CHARS = 26;
+  int INTEGER = 26;
   /** RegularExpression Id. */
-  int BIND = 27;
+  int DIGIT = 27;
   /** RegularExpression Id. */
-  int CHAR_LITERAL = 28;
+  int LINE_COMMENT = 28;
   /** RegularExpression Id. */
-  int QUOTED_IDENTIFIER = 29;
+  int MULTI_LINE_COMMENT = 29;
+  /** RegularExpression Id. */
+  int IDENTIFIER = 30;
+  /** RegularExpression Id. */
+  int LETTER = 31;
+  /** RegularExpression Id. */
+  int SPECIAL_CHARS = 32;
+  /** RegularExpression Id. */
+  int BIND = 33;
+  /** RegularExpression Id. */
+  int CHAR_LITERAL = 34;
+  /** RegularExpression Id. */
+  int QUOTED_IDENTIFIER = 35;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -70,19 +82,25 @@ public interface CommandParserConstants {
     "\"\\t\"",
     "\"\\r\"",
     "\"\\n\"",
-    "\"GETINFO\"",
+    "\"INFO\"",
+    "\"OPEN\"",
+    "\"EXPAND\"",
+    "\"SELECT\"",
     "<BINARY>",
+    "\"PROJECT\"",
+    "\"PACKAGE\"",
     "\"METHOD\"",
     "\"CLASS\"",
     "<SINGLES>",
+    "\"PROJECTS\"",
+    "\"PACKAGES\"",
+    "\"CLASSES\"",
+    "\"METHODS\"",
     "\"EDITOR\"",
     "\"CURSOR\"",
-    "\"OPEN\"",
-    "\"SET\"",
-    "\"HOWMUCH\"",
-    "<COUNTING>",
-    "\"METHODS\"",
-    "\"FIELDS\"",
+    "<DEFAULTS>",
+    "\"DEFAULT\"",
+    "\"SELECTED\"",
     "<NUMBER>",
     "<FLOAT>",
     "<INTEGER>",
