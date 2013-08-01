@@ -5,10 +5,17 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.jdt.internal.core.JavaProject;
 import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
+import org.eclipse.jface.viewers.TreeSelection;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.ISelectionService;
+import org.eclipse.ui.PlatformUI;
 
 import ch.supsi.dti.utils.CursorInformations;
 import ch.supsi.dti.utils.GetPluginElements;
+import ch.supsi.dti.utils.PackageInformations;
 import ch.supsi.dti.utils.ProjectInformations;
 
 public class CommandParser implements CommandParserConstants {
@@ -78,7 +85,44 @@ public class CommandParser implements CommandParserConstants {
 			case "projects":
 				return ProjectInformations.getGeneralInfo();
 			case "packages":
-				return "packages informations....";
+				ISelectionService service = PlatformUI.getWorkbench()
+						.getActiveWorkbenchWindow().getSelectionService();
+
+				TreeSelection structured = (TreeSelection) service
+						.getSelection("org.eclipse.jdt.ui.PackageExplorer");
+
+				if (structured.isEmpty())
+					return "No project selected!";
+
+				PackageExplorerPart packageExplorer = GetPluginElements
+						.getPackageExplorer();
+
+				Tree tree = packageExplorer.getTreeViewer().getTree();
+
+				TreeItem[] items = tree.getSelection();
+
+				TreeItem selectedItem = items[0];
+				TreeItem parent = selectedItem.getParentItem();
+				TreeItem tmpParent = null;
+				while (parent != null) {
+					tmpParent = parent;
+					parent = tmpParent.getParentItem();
+				}
+				if (tmpParent != null)
+					parent = tmpParent;
+				else
+					parent = selectedItem;
+
+				tree.setSelection(parent);
+				parent.setExpanded(true);
+				tree.setFocus();
+
+				structured = (TreeSelection) service
+						.getSelection("org.eclipse.jdt.ui.PackageExplorer");
+				JavaProject javaProject = (JavaProject) structured
+						.getFirstElement();				
+
+				return PackageInformations.getGeneralInfo(javaProject);
 			case "classes":
 				return "classes informations....";
 			case "methods":
@@ -101,7 +145,7 @@ public class CommandParser implements CommandParserConstants {
 		{
 			switch (t.toString().toLowerCase()) {
 			case "project":
-				return "Project info " + ret;
+				return ProjectInformations.getPunctalInfo(ret);
 			case "package":
 				return "package info";
 			case "class":
@@ -126,15 +170,17 @@ public class CommandParser implements CommandParserConstants {
 	}
 
 	final public String expandBinary(Token t) throws ParseException {
-		String ret;
-		Token id;
-		id = jj_consume_token(IDENTIFIER);
-		ret = identifier(id);
-		{
-			if (true)
-				return "binary: " + t.toString() + ret;
-		}
-		throw new Error("Missing return statement in function");
+
+		PackageExplorerPart packageExplorer = GetPluginElements
+				.getPackageExplorer();
+
+		Tree tree = packageExplorer.getTreeViewer().getTree();
+
+		TreeItem[] items = tree.getSelection();
+
+		TreeItem selectedItem = items[0];
+		selectedItem.setExpanded(true);
+		return "Done!";
 	}
 
 	final public String selectBinary(Token t) throws ParseException {
@@ -145,10 +191,15 @@ public class CommandParser implements CommandParserConstants {
 		{
 			switch (t.toString().toLowerCase()) {
 			case "project":
-				PackageExplorerPart packageExplorer = GetPluginElements.getPackageExplorer();
+				PackageExplorerPart packageExplorer = GetPluginElements
+						.getPackageExplorer();
 				IWorkspace workspace = ResourcesPlugin.getWorkspace();
 				IWorkspaceRoot root = workspace.getRoot();
 				IProject project = root.getProject(ret);
+				if (!project.exists())
+					return "Project doesn't exist!";
+
+				packageExplorer.setFocus();
 				packageExplorer.selectAndReveal(project);
 				return "Done!";
 			case "package":
@@ -166,7 +217,7 @@ public class CommandParser implements CommandParserConstants {
 		{
 			return t.toString();
 		}
-		//throw new Error("Missing return statement in function");
+		// throw new Error("Missing return statement in function");
 	}
 
 	/** Generated Token Manager. */

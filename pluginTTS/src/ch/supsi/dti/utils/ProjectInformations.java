@@ -1,9 +1,13 @@
 package ch.supsi.dti.utils;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 
 public class ProjectInformations {
 	
@@ -34,8 +38,40 @@ public class ProjectInformations {
 		IProject project = root.getProject(projectName);
 		StringBuilder sb = new StringBuilder();
 		
+		if (project.isOpen())
+			sb.append("Opened project.");
+		else
+			sb.append("Closed project.");
 		
+		sb.append(System.getProperty("line.separator"));
+		
+		try {
+			
+			IProjectDescription projectDescription = project.getDescription();
+			
+			String[] natures = projectDescription.getNatureIds();
+			
+			if(natures.length > 0)
+				sb.append("The nature project: ");
+			for (int i = 0; i < natures.length; i++) {
+				sb.append(natures[i] + ".");
+
+			}
+			
+			
+			String projectDescriptionComment = projectDescription.getComment();
+			if(projectDescriptionComment != null)
+				sb.append(projectDescriptionComment);
+			
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+			
+			
+			
 		return sb.toString();
 	}
-
+	
 }
