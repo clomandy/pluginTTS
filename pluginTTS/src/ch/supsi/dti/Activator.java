@@ -5,6 +5,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import ch.supsi.dti.listeners.JavaChangeListener;
+import ch.supsi.dti.listeners.PackageExplorerSelectionListener;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -30,6 +31,7 @@ public class Activator extends AbstractUIPlugin {
 		super.start(context);
 		plugin = this;
 		JavaChangeListener.getInstance().start();
+		PackageExplorerSelectionListener.getInstance().start();
 	}
 
 	/*

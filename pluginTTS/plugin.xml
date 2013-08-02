@@ -15,14 +15,24 @@
             </separator>
          </menu>
          <action
+               accelerator="Alt+F"
                class="ch.supsi.dti.actions.SetFocusOnCommandLine"
                icon="icons/sample.gif"
                id="ch.supsi.dti.actions.SetFocusOnCommandLine"
                label="&amp;Focus on command line"
                menubarPath="speak!/speakingGroup"
                toolbarPath="sampleGroup"
-               tooltip="Focus on Command Line"
-               accelerator="Alt+F">
+               tooltip="Focus on Command Line">
+         </action>
+         <action
+               class="ch.supsi.dti.actions.SetFocusOnPackageExplorer"
+               icon="icons/sample.gif"
+               id="ch.supsi.dti.actions.SetFocusOnPackageExplorer"
+               label="&amp;Focus on Package Explorer"
+               menubarPath="speak!/speakingGroup"
+               toolbarPath="sampleGroup"
+               tooltip="Focus on Package Explorer"
+               accelerator="Alt+P">
          </action>
       </actionSet>
    </extension>

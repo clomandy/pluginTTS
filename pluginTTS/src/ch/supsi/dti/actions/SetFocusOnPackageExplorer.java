@@ -1,6 +1,7 @@
 package ch.supsi.dti.actions;
 
 
+import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -19,13 +20,13 @@ import ch.supsi.dti.views.SpeakingView;
  * 
  * @see IWorkbenchWindowActionDelegate
  */
-public class SetFocusOnCommandLine implements IWorkbenchWindowActionDelegate {
+public class SetFocusOnPackageExplorer implements IWorkbenchWindowActionDelegate {
 
 	
 	/**
 	 * The constructor.
 	 */
-	public SetFocusOnCommandLine() {
+	public SetFocusOnPackageExplorer() {
 	}
 
 	/**
@@ -35,9 +36,9 @@ public class SetFocusOnCommandLine implements IWorkbenchWindowActionDelegate {
 	 * @see IWorkbenchWindowActionDelegate#run
 	 */
 	public void run(IAction action) {
-		SpeakingView speakingView = GetPluginElements.getSpeakingView();
-		speakingView.setFocus();
-		SpeakerHandler.getInstance().addToQueue("Speaking View focused!");
+		PackageExplorerPart packageExplorer = GetPluginElements.getPackageExplorer();
+		packageExplorer.setFocus();
+		SpeakerHandler.getInstance().addToQueue("Package Explorer focused!");
 	}
 
 	
