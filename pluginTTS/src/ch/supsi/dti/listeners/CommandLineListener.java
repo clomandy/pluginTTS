@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.Display;
 
 import ch.supsi.dti.parser.CommandParser;
 import ch.supsi.dti.parser.ParseException;
-import ch.supsi.dti.tospeech.SpeakerHandler;
+import ch.supsi.dti.tospeech.SpeakingHandler;
 import ch.supsi.dti.utils.GetPluginElements;
 import ch.supsi.dti.views.SpeakingView;
 
@@ -45,14 +45,14 @@ public class CommandLineListener implements KeyListener {
 
 	private void checkToSpeechCR() {
 		lineAccumulator = new StringBuilder(GetPluginElements.getSpeakingView().getCommandLineText());
-		SpeakerHandler.getInstance().addToQueue(lineAccumulator.toString());
+		SpeakingHandler.getInstance().addToQueue(lineAccumulator.toString());
 		wordAccumulator = new StringBuilder();
 		lineAccumulator = new StringBuilder();
 	}
 
 	private void checkToSpeechSPACE() {
 		lineAccumulator = new StringBuilder(GetPluginElements.getSpeakingView().getCommandLineText());
-		SpeakerHandler.getInstance().addToQueue(wordAccumulator.toString());
+		SpeakingHandler.getInstance().addToQueue(wordAccumulator.toString());
 		wordAccumulator = new StringBuilder();
 	}
 
@@ -96,13 +96,13 @@ public class CommandLineListener implements KeyListener {
 			try {
 				rensponse = parser.parse();
 			} catch (ParseException e) {
-				SpeakerHandler.getInstance().addToQueue("Syntax error!");
+				SpeakingHandler.getInstance().addToQueue("Syntax error!");
 			}
 
 			speakingView.addTextOnCommandArea(rensponse);
 
 			speakingView.setCommandAreaStyleRanges(textStyleRanges);
-			SpeakerHandler.getInstance().addToQueue(rensponse);
+			SpeakingHandler.getInstance().addToQueue(rensponse);
 		}
 	}
 

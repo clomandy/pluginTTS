@@ -12,7 +12,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.ISelectionService;
 import org.eclipse.ui.PlatformUI;
 
-import ch.supsi.dti.tospeech.SpeakerHandler;
+import ch.supsi.dti.tospeech.SpeakingHandler;
 import ch.supsi.dti.utils.GetPluginElements;
 
 public class PackageExplorerSelectionListener implements ITreeViewerListener,
@@ -40,20 +40,17 @@ public class PackageExplorerSelectionListener implements ITreeViewerListener,
 
 	@Override
 	public void treeCollapsed(TreeExpansionEvent e) {
-		SpeakerHandler.getInstance().killQueue();
-		SpeakerHandler.getInstance().addToQueue(getTypeSelection() + " collapsed!");
+		SpeakingHandler.getInstance().addToQueue(getTypeSelection() + " collapsed!");
 	}
 
 	@Override
 	public void treeExpanded(TreeExpansionEvent e) {
-		SpeakerHandler.getInstance().killQueue();
-		SpeakerHandler.getInstance().addToQueue(getTypeSelection() + " expanded!");
+		SpeakingHandler.getInstance().addToQueue(getTypeSelection() + " expanded!");
 	}
 
 	@Override
 	public void selectionChanged(SelectionChangedEvent e) {
-		SpeakerHandler.getInstance().killQueue();
-		SpeakerHandler.getInstance().addToQueue(getTypeSelection() + " selected!");
+		SpeakingHandler.getInstance().addToQueue(getTypeSelection() + " selected!");
 	}
 
 	public void shutdown() {

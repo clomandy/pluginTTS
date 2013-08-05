@@ -7,7 +7,7 @@ import org.eclipse.jdt.core.IElementChangedListener;
 import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.jdt.core.JavaCore;
 
-import ch.supsi.dti.tospeech.SpeakerHandler;
+import ch.supsi.dti.tospeech.SpeakingHandler;
 
 public class JavaChangeListener implements IElementChangedListener {
 	
@@ -46,15 +46,15 @@ public class JavaChangeListener implements IElementChangedListener {
 	private void traverseAndPrint(IJavaElementDelta delta) {
         switch (delta.getKind()) {
             case IJavaElementDelta.ADDED:
-            	SpeakerHandler.getInstance().addToQueue(delta.getElement() + " was added");
+            	SpeakingHandler.getInstance().addToQueue(delta.getElement() + " was added");
                // System.out.println(delta.getElement() + " was added");
                 break;
             case IJavaElementDelta.REMOVED:
-            	SpeakerHandler.getInstance().addToQueue(delta.getElement() + " was removed");
+            	SpeakingHandler.getInstance().addToQueue(delta.getElement() + " was removed");
                // System.out.println(delta.getElement() + " was removed");
                 break;
             case IJavaElementDelta.CHANGED:
-            	SpeakerHandler.getInstance().addToQueue(delta.getElement() + " was changed");
+            	SpeakingHandler.getInstance().addToQueue(delta.getElement() + " was changed");
                // System.out.println(delta.getElement() + " was changed");
                 if ((delta.getFlags() & IJavaElementDelta.F_CHILDREN) != 0) {
                     System.out.println("The change was in its children");

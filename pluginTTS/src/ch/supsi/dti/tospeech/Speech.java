@@ -2,15 +2,12 @@ package ch.supsi.dti.tospeech;
 
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Observable;
-import java.util.Observer;
 
 import com.gtranslate.Audio;
 import com.gtranslate.Language;
 
-public class Speech implements Runnable{
+public class Speech extends Thread {
 
 	private String toSay;
 
@@ -27,17 +24,15 @@ public class Speech implements Runnable{
 	public void run() {
 		Audio audio = Audio.getInstance();
 
-		// Translator translate = Translator.getInstance();
-		// String text = translate.translate("I am a computer engeneer",
-		// Language.ENGLISH, Language.ITALIAN);
 		InputStream sound;
 		try {
-			sound = audio.getAudio(toSay, Language.ENGLISH);
+			sound = audio.getAudio(this.toSay, Language.ENGLISH);
 			audio.play(sound);
 		} catch (Exception e) {
 			// TODO gestione degli errori!!!!
 			e.printStackTrace();
 		}
+
 	}
 
 }
