@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.Display;
 import ch.supsi.dti.parser.CommandParser;
 import ch.supsi.dti.parser.ParseException;
 import ch.supsi.dti.tospeech.SpeakingHandler;
-import ch.supsi.dti.utils.GetPluginElements;
+import ch.supsi.dti.utils.PluginElements;
 import ch.supsi.dti.views.SpeakingView;
 
 public class CommandLineListener implements KeyListener {
@@ -33,7 +33,7 @@ public class CommandLineListener implements KeyListener {
 			checkToSpeechSPACE();
 			break;
 		case SWT.BS:
-			String tmpStr = GetPluginElements.getSpeakingView().getCommandLineText();
+			String tmpStr = PluginElements.getSpeakingView().getCommandLineText();
 			wordAccumulator = new StringBuilder(tmpStr.substring(tmpStr.lastIndexOf(' ') + 1));
 			break;
 		default:
@@ -44,14 +44,14 @@ public class CommandLineListener implements KeyListener {
 	}
 
 	private void checkToSpeechCR() {
-		lineAccumulator = new StringBuilder(GetPluginElements.getSpeakingView().getCommandLineText());
-		SpeakingHandler.getInstance().addToQueue(lineAccumulator.toString());
+		lineAccumulator = new StringBuilder(PluginElements.getSpeakingView().getCommandLineText());
+		//SpeakingHandler.getInstance().addToQueue(lineAccumulator.toString());
 		wordAccumulator = new StringBuilder();
 		lineAccumulator = new StringBuilder();
 	}
 
 	private void checkToSpeechSPACE() {
-		lineAccumulator = new StringBuilder(GetPluginElements.getSpeakingView().getCommandLineText());
+		lineAccumulator = new StringBuilder(PluginElements.getSpeakingView().getCommandLineText());
 		SpeakingHandler.getInstance().addToQueue(wordAccumulator.toString());
 		wordAccumulator = new StringBuilder();
 	}
@@ -62,7 +62,7 @@ public class CommandLineListener implements KeyListener {
 	}
 
 	private void executeCommand() {
-		SpeakingView speakingView = GetPluginElements.getSpeakingView();
+		SpeakingView speakingView = PluginElements.getSpeakingView();
 		String commandLineText = speakingView.getCommandLineText();
 		if (!commandLineText.equals("")) {
 			
@@ -95,14 +95,15 @@ public class CommandLineListener implements KeyListener {
 			String rensponse = "";
 			try {
 				rensponse = parser.parse();
+				speakingView.addTextOnCommandArea(rensponse);
+
+				speakingView.setCommandAreaStyleRanges(textStyleRanges);
+				SpeakingHandler.getInstance().addToQueue(commandLineText + "." + System.getProperty("line.separator") + rensponse);
 			} catch (ParseException e) {
 				SpeakingHandler.getInstance().addToQueue("Syntax error!");
 			}
 
-			speakingView.addTextOnCommandArea(rensponse);
-
-			speakingView.setCommandAreaStyleRanges(textStyleRanges);
-			SpeakingHandler.getInstance().addToQueue(rensponse);
+			
 		}
 	}
 

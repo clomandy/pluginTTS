@@ -7,7 +7,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
 import ch.supsi.dti.tospeech.SpeakingHandler;
-import ch.supsi.dti.utils.GetPluginElements;
+import ch.supsi.dti.utils.PluginElements;
 import ch.supsi.dti.views.SpeakingView;
 
 
@@ -35,7 +35,7 @@ public class SetFocusOnCommandLine implements IWorkbenchWindowActionDelegate {
 	 * @see IWorkbenchWindowActionDelegate#run
 	 */
 	public void run(IAction action) {
-		SpeakingView speakingView = GetPluginElements.getSpeakingView();
+		SpeakingView speakingView = PluginElements.getSpeakingView();
 		speakingView.setFocus();
 		SpeakingHandler.getInstance().addToQueue("Speaking View focused!");
 	}

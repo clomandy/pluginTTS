@@ -1,6 +1,6 @@
 package ch.supsi.dti.tospeech;
 
-public class SpeakingReferee extends Thread{
+public class SpeakingReferee extends Thread {
 
 	private static SpeakingReferee instance;
 	private SpeakingQueue queue;
@@ -9,7 +9,7 @@ public class SpeakingReferee extends Thread{
 	private SpeakingReferee() {
 		this.queue = new SpeakingQueue();
 	}
-	
+
 	public static SpeakingReferee getInstance() {
 		if (instance == null)
 			instance = new SpeakingReferee();
@@ -18,16 +18,12 @@ public class SpeakingReferee extends Thread{
 
 	@Override
 	public void run() {
-		while(true){
+		while (true) {
 			Speech speech = new Speech(queue.getElement());
-			if(lastSpeech != null){
+			if (lastSpeech != null) {
 				if (lastSpeech.isAlive()) {
-					System.out.println(lastSpeech.getState());
-				
-						lastSpeech.stop();
-					
+					lastSpeech.stop();
 					lastSpeech.interrupt();
-					System.out.println(lastSpeech.getState());
 				}
 			}
 			speech.start();
@@ -38,9 +34,5 @@ public class SpeakingReferee extends Thread{
 	public SpeakingQueue getQueue() {
 		return queue;
 	}
-	
-	
-	
-	
-	
+
 }

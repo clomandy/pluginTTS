@@ -38,6 +38,9 @@ public class ProjectInformations {
 		IProject project = root.getProject(projectName);
 		StringBuilder sb = new StringBuilder();
 		
+		if(project == null)
+			return "Project not Found";
+		
 		if (project.isOpen())
 			sb.append("Opened project.");
 		else

@@ -13,7 +13,7 @@ import org.eclipse.ui.ISelectionService;
 import org.eclipse.ui.PlatformUI;
 
 import ch.supsi.dti.tospeech.SpeakingHandler;
-import ch.supsi.dti.utils.GetPluginElements;
+import ch.supsi.dti.utils.PluginElements;
 
 public class PackageExplorerSelectionListener implements ITreeViewerListener,
 		ISelectionChangedListener {
@@ -30,7 +30,7 @@ public class PackageExplorerSelectionListener implements ITreeViewerListener,
 	}
 
 	public void start() {
-		PackageExplorerPart packageExplorer = GetPluginElements
+		PackageExplorerPart packageExplorer = PluginElements
 				.getPackageExplorer();
 		TreeViewer treeViewer = packageExplorer.getTreeViewer();
 		treeViewer.addTreeListener(this);
@@ -54,7 +54,7 @@ public class PackageExplorerSelectionListener implements ITreeViewerListener,
 	}
 
 	public void shutdown() {
-		PackageExplorerPart packageExplorer = GetPluginElements
+		PackageExplorerPart packageExplorer = PluginElements
 				.getPackageExplorer();
 		TreeViewer treeViewer = packageExplorer.getTreeViewer();
 		treeViewer.removeTreeListener(this);

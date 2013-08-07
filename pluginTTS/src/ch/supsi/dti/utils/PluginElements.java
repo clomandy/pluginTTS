@@ -11,7 +11,7 @@ import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
 
 import ch.supsi.dti.views.SpeakingView;
 
-public class GetPluginElements {
+public class PluginElements {
 
 	public static SpeakingView getSpeakingView() {
 		SpeakingView speakingView = null;

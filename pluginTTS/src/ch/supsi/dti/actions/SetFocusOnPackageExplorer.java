@@ -8,7 +8,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
 import ch.supsi.dti.tospeech.SpeakingHandler;
-import ch.supsi.dti.utils.GetPluginElements;
+import ch.supsi.dti.utils.PluginElements;
 import ch.supsi.dti.views.SpeakingView;
 
 
@@ -36,7 +36,7 @@ public class SetFocusOnPackageExplorer implements IWorkbenchWindowActionDelegate
 	 * @see IWorkbenchWindowActionDelegate#run
 	 */
 	public void run(IAction action) {
-		PackageExplorerPart packageExplorer = GetPluginElements.getPackageExplorer();
+		PackageExplorerPart packageExplorer = PluginElements.getPackageExplorer();
 		packageExplorer.setFocus();
 		SpeakingHandler.getInstance().addToQueue("Package Explorer focused!");
 	}
