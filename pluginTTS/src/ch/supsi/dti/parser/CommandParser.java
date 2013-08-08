@@ -7,9 +7,11 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.internal.core.JavaElement;
 import org.eclipse.jdt.internal.core.JavaProject;
 import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
 import org.eclipse.jface.viewers.AbstractTreeViewer;
@@ -108,25 +110,26 @@ public class CommandParser implements CommandParserConstants {
 						.getSelection("org.eclipse.jdt.ui.PackageExplorer");
 				Object element = selection.getFirstElement();
 				IPackageFragment thePackage = null;
-				if(element instanceof JavaProject){
+				if (element instanceof JavaProject) {
 					javaProject = (JavaProject) element;
-				}else if(element instanceof IPackageFragment){
+				} else if (element instanceof IPackageFragment) {
 					thePackage = (IPackageFragment) element;
 					try {
 						javaProject = checkSelectionAndReturnProject();
-						
+
 					} catch (ProjectNotFoundException e) {
 						return "Project not selected!";
 					}
-				}else{
+				} else {
 					try {
 						javaProject = checkSelectionAndReturnProject();
-						
+
 					} catch (ProjectNotFoundException e) {
 						return "Project not selected!";
 					}
 				}
-				return ClassInformations.getGeneralInfo(javaProject, thePackage);
+				return ClassInformations
+						.getGeneralInfo(javaProject, thePackage);
 			case "methods":
 				return "methods informations....";
 			case "cursor":
@@ -159,7 +162,34 @@ public class CommandParser implements CommandParserConstants {
 
 				return PackageInformations.getPunctalInfo(javaProject, ret);
 			case "class":
-				return "class info";
+				ISelectionService service = PlatformUI.getWorkbench()
+						.getActiveWorkbenchWindow().getSelectionService();
+				TreeSelection selection = (TreeSelection) service
+						.getSelection("org.eclipse.jdt.ui.PackageExplorer");
+				JavaElement element = (JavaElement) selection.getFirstElement();
+				IPackageFragment thePackage = null;
+				if (element.getElementType() == JavaElement.JAVA_PROJECT) {
+					javaProject = (JavaProject) element;
+				} else if (element.getElementType() == JavaElement.PACKAGE_FRAGMENT) {
+					thePackage = (IPackageFragment) element;
+					try {
+						javaProject = checkSelectionAndReturnProject();
+
+					} catch (ProjectNotFoundException e) {
+						return "Project not selected!";
+					}
+				} else {
+
+					// TODO: entra anche quando  un oggetto sconosciuto
+					try {
+						javaProject = checkSelectionAndReturnProject();
+
+					} catch (ProjectNotFoundException e) {
+						return "Project not selected!";
+					}
+				}
+				return ClassInformations.getPunctalInfo(javaProject,
+						thePackage, ret);
 			case "method":
 				return "method info";
 			}
@@ -183,24 +213,23 @@ public class CommandParser implements CommandParserConstants {
 
 		Token id;
 		jj_consume_token(DEFAULTS);
-		// PackageExplorerPart packageExplorer = PluginElements
-		// .getPackageExplorer();
-		ISelectionService service = PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getSelectionService();
-
-		TreeSelection selection = (TreeSelection) service
-				.getSelection("org.eclipse.jdt.ui.PackageExplorer");
-
-		// TreeViewer treeViewer = packageExplorer.getTreeViewer();
-		// Tree tree = treeViewer.getTree();
-		// TreeItem[] items = tree.getSelection();
+		PackageExplorerPart packageExplorer = PluginElements
+				.getPackageExplorer();
+		// ISelectionService service = PlatformUI.getWorkbench()
+		// .getActiveWorkbenchWindow().getSelectionService();
 		//
-		// TreeItem selectedItem = items[0];
-		// treeViewer.expandToLevel(selectedItem,AbstractTreeViewer.ALL_LEVELS);
-		//
-		// packageExplorer.setFocus();
-		// packageExplorer.selectAndReveal(project);
-		// selectedItem.setExpanded(true);
+		// TreeSelection selection = (TreeSelection) service
+		// .getSelection("org.eclipse.jdt.ui.PackageExplorer");
+
+		TreeViewer treeViewer = packageExplorer.getTreeViewer();
+		Tree tree = treeViewer.getTree();
+		TreeItem[] items = tree.getSelection();
+
+		TreeItem selectedItem = items[0];
+		treeViewer.expandToLevel(selectedItem, AbstractTreeViewer.ALL_LEVELS);
+
+		selectedItem.setExpanded(true);
+		tree.redraw();
 		return "Done!";
 	}
 
@@ -212,6 +241,8 @@ public class CommandParser implements CommandParserConstants {
 		{
 			PackageExplorerPart packageExplorer = PluginElements
 					.getPackageExplorer();
+			JavaProject javaProject = null;
+			IPackageFragment thePackage = null;
 			switch (t.toString().toLowerCase()) {
 			case "project":
 				IWorkspace workspace = ResourcesPlugin.getWorkspace();
@@ -224,13 +255,13 @@ public class CommandParser implements CommandParserConstants {
 				packageExplorer.selectAndReveal(project);
 				return "Done!";
 			case "package":
-				JavaProject javaProject;
+				
 				try {
 					javaProject = checkSelectionAndReturnProject();
 				} catch (ProjectNotFoundException e) {
 					return "Project not selected!";
 				}
-				IPackageFragment thePackage;
+				
 				try {
 					thePackage = PackageInformations.getPackage(javaProject,
 							ret);
@@ -242,7 +273,36 @@ public class CommandParser implements CommandParserConstants {
 
 				return "Done!";
 			case "class":
-				return "class selected";
+				ICompilationUnit theClass = null;
+				try {
+					javaProject = checkSelectionAndReturnProject();
+				} catch (ProjectNotFoundException e) {
+					return "Project not selected!";
+				}
+				ISelectionService service = PlatformUI.getWorkbench()
+						.getActiveWorkbenchWindow().getSelectionService();
+				TreeSelection selection = (TreeSelection) service
+						.getSelection("org.eclipse.jdt.ui.PackageExplorer");
+				JavaElement element = (JavaElement) selection.getFirstElement();
+				if (element.getElementType() == JavaElement.PACKAGE_FRAGMENT) {
+					thePackage = (IPackageFragment) element;
+					try {
+						javaProject = checkSelectionAndReturnProject();
+
+					} catch (ProjectNotFoundException e) {
+						return "Project not selected!";
+					}
+				}
+				try {
+					theClass = ClassInformations.getClass(javaProject, thePackage, ret);
+				} catch (ClassMultipleException e) {
+					return "Multiple class founded, reduce the selection!";
+				}
+				if (theClass == null)
+					return "No class founded, expand the selection!";
+				packageExplorer.setFocus();
+				packageExplorer.selectAndReveal(theClass);
+				return "Done!";
 			case "method":
 				return "method selected";
 			}
@@ -487,7 +547,7 @@ public class CommandParser implements CommandParserConstants {
 		else
 			parent = selectedItem;
 
-		 tree.setSelection(parent);
+		tree.setSelection(parent);
 		// parent.setExpanded(true);
 		// tree.setFocus();
 
@@ -495,5 +555,22 @@ public class CommandParser implements CommandParserConstants {
 				.getSelection("org.eclipse.jdt.ui.PackageExplorer");
 		return (JavaProject) structured.getFirstElement();
 	}
+
+	// public void expandTreeItem(Tree p0, TreeItem p1, boolean p2) {
+	// p0.setRedraw(false);
+	// p1.setExpanded(p2);
+	// expandTreeItem(p1, p2);
+	// p0.setRedraw(true);
+	// p0.redraw();
+	// }
+	//
+	// private static void expandTreeItem(TreeItem p0, boolean p1){
+	// int c = p0.getItemCount();
+	// for(int i = 0; i > TreeItem s = p0.getItems()[0];
+	// s.setExpanded(p1);
+	// if(s.getItemCount() > 0)
+	// expandTreeItem(s, p1);
+	// }
+	// }
 
 }
