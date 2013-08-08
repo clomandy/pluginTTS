@@ -107,4 +107,8 @@ public class SpeakingView extends ViewPart {
 		commandLine.setText("");
 	}
 
+	public void setCommandLineText(String str) {
+		commandLine.setText(str);
+	}
+
 }
