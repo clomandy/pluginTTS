@@ -7,6 +7,7 @@ import org.eclipse.jdt.core.IElementChangedListener;
 import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.jdt.core.JavaCore;
 
+import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.tospeech.SpeakingHandler;
 
 public class JavaChangeListener implements IElementChangedListener {
@@ -46,21 +47,21 @@ public class JavaChangeListener implements IElementChangedListener {
 	private void traverseAndPrint(IJavaElementDelta delta) {
         switch (delta.getKind()) {
             case IJavaElementDelta.ADDED:
-            	SpeakingHandler.getInstance().addToQueue(delta.getElement() + " was added");
+            	SpeakingHandler.getInstance().addToQueue(delta.getElement() + Messages.JavaChangeListener_0);
                // System.out.println(delta.getElement() + " was added");
                 break;
             case IJavaElementDelta.REMOVED:
-            	SpeakingHandler.getInstance().addToQueue(delta.getElement() + " was removed");
+            	SpeakingHandler.getInstance().addToQueue(delta.getElement() + Messages.JavaChangeListener_1);
                // System.out.println(delta.getElement() + " was removed");
                 break;
             case IJavaElementDelta.CHANGED:
-            	SpeakingHandler.getInstance().addToQueue(delta.getElement() + " was changed");
+            	SpeakingHandler.getInstance().addToQueue(delta.getElement() + Messages.JavaChangeListener_2);
                // System.out.println(delta.getElement() + " was changed");
                 if ((delta.getFlags() & IJavaElementDelta.F_CHILDREN) != 0) {
-                    System.out.println("The change was in its children");
+                    System.out.println(Messages.JavaChangeListener_3);
                 }
                 if ((delta.getFlags() & IJavaElementDelta.F_CONTENT) != 0) {
-                    System.out.println("The change was in its content");
+                    System.out.println(Messages.JavaChangeListener_4);
                 }
                 /* Others flags can also be checked */
                 break;

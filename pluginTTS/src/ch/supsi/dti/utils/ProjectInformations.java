@@ -6,8 +6,8 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jdt.core.IPackageFragment;
-import org.eclipse.jdt.core.IPackageFragmentRoot;
+
+import ch.supsi.dti.multilanguage.Messages;
 
 public class ProjectInformations {
 	
@@ -17,13 +17,13 @@ public class ProjectInformations {
 		IProject[] projects = root.getProjects();
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("There are " + projects.length + " project.");
-		sb.append(System.getProperty("line.separator"));
+		sb.append(Messages.ProjectInformations_0 + projects.length + Messages.ProjectInformations_1);
+		sb.append(System.getProperty(Messages.lineSeparator));
 		int i = 1;
 		for (IProject project : projects) {
 			
-			sb.append(i + ", " + project.getName() +".");
-			sb.append(System.getProperty("line.separator"));
+			sb.append(i + Messages.comma + project.getName() +Messages.dot);
+			sb.append(System.getProperty(Messages.lineSeparator));
 			i++;
 		}
 		
@@ -39,14 +39,14 @@ public class ProjectInformations {
 		StringBuilder sb = new StringBuilder();
 		
 		if(project == null)
-			return "Project not Found";
+			return Messages.ProjectInformations_6;
 		
 		if (project.isOpen())
-			sb.append("Opened project.");
+			sb.append(Messages.ProjectInformations_7);
 		else
-			sb.append("Closed project.");
+			sb.append(Messages.ProjectInformations_8);
 		
-		sb.append(System.getProperty("line.separator"));
+		sb.append(System.getProperty(Messages.lineSeparator));
 		
 		try {
 			
@@ -55,9 +55,9 @@ public class ProjectInformations {
 			String[] natures = projectDescription.getNatureIds();
 			
 			if(natures.length > 0)
-				sb.append("The nature project: ");
+				sb.append(Messages.ProjectInformations_10);
 			for (int i = 0; i < natures.length; i++) {
-				sb.append(natures[i] + ".");
+				sb.append(natures[i] + Messages.dot);
 
 			}
 			

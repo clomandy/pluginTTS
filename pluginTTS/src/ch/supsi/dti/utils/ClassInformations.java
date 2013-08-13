@@ -2,11 +2,11 @@ package ch.supsi.dti.utils;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IPackageFragment;
-import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.JavaProject;
 
+import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.parser.ClassMultipleException;
 
 public class ClassInformations {
@@ -26,8 +26,8 @@ public class ClassInformations {
 					for (ICompilationUnit unit : mypackage
 							.getCompilationUnits()) {
 						i++;
-						sb.append(i + ", " + unit.getElementName());
-						sb.append(System.getProperty("line.separator"));
+						sb.append(i + Messages.comma + unit.getElementName());
+						sb.append(System.getProperty(Messages.lineSeparator));
 					}
 				}
 			}
@@ -36,8 +36,8 @@ public class ClassInformations {
 			e.printStackTrace();
 		}
 
-		first.append("There are " + String.valueOf(i) + " classes:");
-		first.append(System.getProperty("line.separator"));
+		first.append(Messages.ClassInformations_2 + String.valueOf(i) + Messages.ClassInformations_3);
+		first.append(System.getProperty(Messages.lineSeparator));
 		return first.toString() + sb.toString();
 	}
 
@@ -49,23 +49,23 @@ public class ClassInformations {
 		try {
 			theClass = getClass(javaProject, thePackage, className);
 		} catch (ClassMultipleException e) {
-			return "Multiple class founded, reduce the selection!";
+			return Messages.ClassInformations_5;
 		}
 
 		if(theClass == null)
-			return "No class with the name "+ className + ", expands the selection!";
+			return Messages.ClassInformations_6+ className + Messages.ClassInformations_7;
 		
 		if(theClass.isOpen()){
-			sb.append("It is Opened.");
-			sb.append(System.getProperty("line.separator"));
+			sb.append(Messages.ClassInformations_8);
+			sb.append(System.getProperty(Messages.lineSeparator));
 		}else{
-			sb.append("It is Closed.");
-			sb.append(System.getProperty("line.separator"));
+			sb.append(Messages.ClassInformations_10);
+			sb.append(System.getProperty(Messages.lineSeparator));
 		}
 		
 		if(theClass.isReadOnly()){
-			sb.append("It is read-only");
-			sb.append(System.getProperty("line.separator"));
+			sb.append(Messages.ClassInformations_12);
+			sb.append(System.getProperty(Messages.lineSeparator));
 		}
 		
 		try {
@@ -74,7 +74,7 @@ public class ClassInformations {
 				numberOfMethods += type.getMethods().length;
 				
 			}
-			sb.append("It has " + numberOfMethods + " methods");
+			sb.append(Messages.ClassInformations_14 + numberOfMethods + Messages.ClassInformations_15);
 		} catch (JavaModelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -94,7 +94,7 @@ public class ClassInformations {
 				if (mypackage.equals(thePackage) || thePackage == null) {
 					for (ICompilationUnit unit : mypackage
 							.getCompilationUnits()) {
-						if (unit.getElementName().equals(className + ".java")) {
+						if (unit.getElementName().equals(className + Messages.ClassInformations_16)) {
 							if (i > 1) {
 								throw new ClassMultipleException();
 							} else {

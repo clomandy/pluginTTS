@@ -3,7 +3,6 @@ package ch.supsi.dti.listeners;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
-import org.eclipse.jdt.internal.core.SetContainerOperation;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.events.KeyEvent;
@@ -11,8 +10,8 @@ import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.internal.handlers.WizardHandler.New;
 
+import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.parser.CommandParser;
 import ch.supsi.dti.parser.ParseException;
 import ch.supsi.dti.tospeech.SpeakingHandler;
@@ -95,7 +94,7 @@ public class CommandLineListener implements KeyListener {
 	private void executeCommand() {
 		SpeakingView speakingView = PluginElements.getSpeakingView();
 		String commandLineText = speakingView.getCommandLineText();
-		if (!commandLineText.equals("")) {
+		if (!commandLineText.equals(Messages.CommandLineListener_0)) {
 			
 			int actualOffset = speakingView.getCommandAreaOffset();
 			Device device = Display.getCurrent();
@@ -123,16 +122,16 @@ public class CommandLineListener implements KeyListener {
 
 			CommandParser parser = new CommandParser(new ByteArrayInputStream(
 					commandLineText.getBytes()));
-			String rensponse = "";
+			String rensponse = Messages.CommandLineListener_1;
 			try {
 				rensponse = parser.parse();
 				speakingView.addTextOnCommandArea(rensponse);
 
 				speakingView.setCommandAreaStyleRanges(textStyleRanges);
 				commandList.add(commandLineText);
-				SpeakingHandler.getInstance().addToQueue(commandLineText + "." + System.getProperty("line.separator") + rensponse);
+				SpeakingHandler.getInstance().addToQueue(commandLineText + Messages.dot + System.getProperty(Messages.lineSeparator) + rensponse);
 			} catch (ParseException e) {
-				SpeakingHandler.getInstance().addToQueue("Syntax error!");
+				SpeakingHandler.getInstance().addToQueue(Messages.CommandLineListener_4);
 			}
 
 			

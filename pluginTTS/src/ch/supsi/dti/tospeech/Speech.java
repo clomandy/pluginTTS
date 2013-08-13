@@ -4,6 +4,8 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import ch.supsi.dti.multilanguage.Messages;
+
 import com.gtranslate.Audio;
 import com.gtranslate.Language;
 
@@ -13,7 +15,7 @@ public class Speech extends Thread {
 
 	public Speech(String toSay) {
 		try {
-			this.toSay = URLEncoder.encode(toSay, "UTF-8");
+			this.toSay = URLEncoder.encode(toSay, Messages.Speech_0);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

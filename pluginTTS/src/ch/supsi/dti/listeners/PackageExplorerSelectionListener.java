@@ -12,6 +12,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.ISelectionService;
 import org.eclipse.ui.PlatformUI;
 
+import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.tospeech.SpeakingHandler;
 import ch.supsi.dti.utils.PluginElements;
 
@@ -40,17 +41,17 @@ public class PackageExplorerSelectionListener implements ITreeViewerListener,
 
 	@Override
 	public void treeCollapsed(TreeExpansionEvent e) {
-		SpeakingHandler.getInstance().addToQueue(getTypeSelection() + " collapsed!");
+		SpeakingHandler.getInstance().addToQueue(getTypeSelection() + Messages.PackageExplorerSelectionListener_0);
 	}
 
 	@Override
 	public void treeExpanded(TreeExpansionEvent e) {
-		SpeakingHandler.getInstance().addToQueue(getTypeSelection() + " expanded!");
+		SpeakingHandler.getInstance().addToQueue(getTypeSelection() + Messages.PackageExplorerSelectionListener_1);
 	}
 
 	@Override
 	public void selectionChanged(SelectionChangedEvent e) {
-		SpeakingHandler.getInstance().addToQueue(getTypeSelection() + " selected!");
+		SpeakingHandler.getInstance().addToQueue(getTypeSelection() + Messages.PackageExplorerSelectionListener_2);
 	}
 
 	public void shutdown() {
@@ -66,10 +67,10 @@ public class PackageExplorerSelectionListener implements ITreeViewerListener,
 				.getActiveWorkbenchWindow().getSelectionService();
 
 		TreeSelection structured = (TreeSelection) service
-				.getSelection("org.eclipse.jdt.ui.PackageExplorer");
+				.getSelection(Messages.PackageExplorerSelectionListener_3);
 
 		structured = (TreeSelection) service
-				.getSelection("org.eclipse.jdt.ui.PackageExplorer");
+				.getSelection(Messages.PackageExplorerSelectionListener_4);
 		
 		Object ob = structured.getFirstElement();
 		if(ob instanceof JavaElement){
@@ -81,21 +82,21 @@ public class PackageExplorerSelectionListener implements ITreeViewerListener,
 			sb.append(javaElement.getElementName());
 			
 			if(javaElement.getElementType() == IJavaElement.JAVA_PROJECT){
-				return "Project " + sb.toString();
+				return Messages.PackageExplorerSelectionListener_5 + sb.toString();
 			}else if(javaElement.getElementType() == IJavaElement.PACKAGE_FRAGMENT_ROOT){
-				return "Folder " + sb.toString();
+				return Messages.PackageExplorerSelectionListener_6 + sb.toString();
 			}else if(javaElement.getElementType() == IJavaElement.PACKAGE_FRAGMENT){
-				return "Package " + sb.toString();
+				return Messages.PackageExplorerSelectionListener_7 + sb.toString();
 			}else if(javaElement.getElementType() == IJavaElement.COMPILATION_UNIT){
-				return "Class " + sb.toString();
+				return Messages.PackageExplorerSelectionListener_8 + sb.toString();
 			}else if(javaElement.getElementType() == IJavaElement.METHOD){
-				return "Method " + sb.toString();
+				return Messages.PackageExplorerSelectionListener_9 + sb.toString();
 			}else{
-				return "Unknown Java element";
+				return Messages.PackageExplorerSelectionListener_10;
 			}
 			
 		}else{
-			return "No Java Element";
+			return Messages.PackageExplorerSelectionListener_11;
 		}
 	}
 

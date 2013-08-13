@@ -5,6 +5,8 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.JavaProject;
 
+import ch.supsi.dti.multilanguage.Messages;
+
 public class PackageInformations {
 
 	public static String getGeneralInfo(JavaProject javaProject) {
@@ -20,8 +22,8 @@ public class PackageInformations {
 				try {
 					if (thePackage.getKind() == IPackageFragmentRoot.K_SOURCE) {
 						i++;
-						sb.append(i + ", " + thePackage.getElementName() + ".");
-						sb.append(System.getProperty("line.separator"));
+						sb.append(i + Messages.comma + thePackage.getElementName() + Messages.dot);
+						sb.append(System.getProperty(Messages.lineSeparator));
 				
 					}
 				} catch (JavaModelException e) {
@@ -35,8 +37,8 @@ public class PackageInformations {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		first.append("There are " + String.valueOf(i) + " packages:");
-		first.append(System.getProperty("line.separator"));
+		first.append(Messages.PackageInformations_3 + String.valueOf(i) + Messages.PackageInformations_4);
+		first.append(System.getProperty(Messages.lineSeparator));
 		return first.toString() + sb.toString();
 	}
 
@@ -50,15 +52,17 @@ public class PackageInformations {
 
 			
 			if(thePackage == null)
-				return "Package not Found";
+				return Messages.PackageInformations_6;
 			
 			if (thePackage.isOpen())
-				sb.append("Opened package.");
+				sb.append(Messages.PackageInformations_7);
 			else
-				sb.append("Closed package.");
+				sb.append(Messages.PackageInformations_8);
 
-			sb.append(System.getProperty("line.separator"));
-
+			sb.append(System.getProperty(Messages.lineSeparator));
+			
+			sb.append(Messages.PackageInformations_10 + thePackage.getCompilationUnits().length + Messages.PackageInformations_11);
+			sb.append(System.getProperty(Messages.lineSeparator));
 		} catch (JavaModelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

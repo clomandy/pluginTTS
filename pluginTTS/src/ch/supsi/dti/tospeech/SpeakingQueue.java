@@ -2,6 +2,8 @@ package ch.supsi.dti.tospeech;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
+import ch.supsi.dti.multilanguage.Messages;
+
 public class SpeakingQueue{
 
 	private LinkedBlockingQueue<String> queue;
@@ -30,7 +32,7 @@ public class SpeakingQueue{
 		try {
 			return queue.take();
 		} catch (InterruptedException e) {
-			return "Error";
+			return Messages.SpeakingQueue_0;
 		}
 	}
 	

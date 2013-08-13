@@ -1,14 +1,11 @@
 package ch.supsi.dti.utils;
 
-import org.eclipse.core.resources.IResource;
-import org.eclipse.jface.viewers.IStructuredSelection;
-
-import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.ITextEditor;
-import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
 
+import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.views.SpeakingView;
 
 public class PluginElements {
@@ -18,7 +15,7 @@ public class PluginElements {
 		try {
 			speakingView = (SpeakingView) PlatformUI.getWorkbench()
 					.getActiveWorkbenchWindow().getActivePage()
-					.showView("pluginTTS.views.SpeakingView");
+					.showView(Messages.PluginElements_0);
 		} catch (PartInitException e) {
 			// TODO manage exception: add tab speakingview
 			e.printStackTrace();

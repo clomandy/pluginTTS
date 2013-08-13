@@ -13,6 +13,8 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.IDocumentProvider;
 import org.eclipse.ui.texteditor.ITextEditor;
 
+import ch.supsi.dti.multilanguage.Messages;
+
 
 
 public class CursorInformations {
@@ -96,7 +98,7 @@ public class CursorInformations {
 					e.printStackTrace();
 				}
 
-				return "line:" + (line + 1) + ", column:" + (column + 1);
+				return Messages.CursorInformations_0 + (line + 1) + Messages.CursorInformations_1 + (column + 1);
 
 			}
 		}
