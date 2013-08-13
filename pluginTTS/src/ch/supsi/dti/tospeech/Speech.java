@@ -15,7 +15,7 @@ public class Speech extends Thread {
 
 	public Speech(String toSay) {
 		try {
-			this.toSay = URLEncoder.encode(toSay, Messages.Speech_0);
+			this.toSay = URLEncoder.encode(toSay, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -15,7 +15,7 @@ public class PluginElements {
 		try {
 			speakingView = (SpeakingView) PlatformUI.getWorkbench()
 					.getActiveWorkbenchWindow().getActivePage()
-					.showView(Messages.PluginElements_0);
+					.showView("pluginTTS.views.SpeakingView");
 		} catch (PartInitException e) {
 			// TODO manage exception: add tab speakingview
 			e.printStackTrace();

@@ -67,11 +67,8 @@ public class PackageExplorerSelectionListener implements ITreeViewerListener,
 				.getActiveWorkbenchWindow().getSelectionService();
 
 		TreeSelection structured = (TreeSelection) service
-				.getSelection(Messages.PackageExplorerSelectionListener_3);
+				.getSelection("org.eclipse.jdt.ui.PackageExplorer");
 
-		structured = (TreeSelection) service
-				.getSelection(Messages.PackageExplorerSelectionListener_4);
-		
 		Object ob = structured.getFirstElement();
 		if(ob instanceof JavaElement){
 		JavaElement javaElement = (JavaElement) structured.getFirstElement();
