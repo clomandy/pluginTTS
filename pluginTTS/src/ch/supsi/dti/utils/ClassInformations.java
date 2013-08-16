@@ -36,7 +36,7 @@ public class ClassInformations {
 			e.printStackTrace();
 		}
 
-		first.append(Messages.ClassInformations_2 + String.valueOf(i) + Messages.ClassInformations_3);
+		first.append(Messages.thereAre + String.valueOf(i) + Messages.spaceClasses);
 		first.append(System.getProperty(Messages.lineSeparator));
 		return first.toString() + sb.toString();
 	}
@@ -49,22 +49,22 @@ public class ClassInformations {
 		try {
 			theClass = getClass(javaProject, thePackage, className);
 		} catch (ClassMultipleException e) {
-			return Messages.ClassInformations_5;
+			return Messages.multipleClass;
 		}
 
 		if(theClass == null)
-			return Messages.ClassInformations_6+ className + Messages.ClassInformations_7;
+			return Messages.noClass+ className + Messages.commaExpand;
 		
 		if(theClass.isOpen()){
-			sb.append(Messages.ClassInformations_8);
+			sb.append(Messages.isOpened);
 			sb.append(System.getProperty(Messages.lineSeparator));
 		}else{
-			sb.append(Messages.ClassInformations_10);
+			sb.append(Messages.isClosed);
 			sb.append(System.getProperty(Messages.lineSeparator));
 		}
 		
 		if(theClass.isReadOnly()){
-			sb.append(Messages.ClassInformations_12);
+			sb.append(Messages.isReadOnly);
 			sb.append(System.getProperty(Messages.lineSeparator));
 		}
 		
@@ -74,7 +74,7 @@ public class ClassInformations {
 				numberOfMethods += type.getMethods().length;
 				
 			}
-			sb.append(Messages.ClassInformations_14 + numberOfMethods + Messages.ClassInformations_15);
+			sb.append(Messages.itHas + numberOfMethods + Messages.spaceMethods);
 		} catch (JavaModelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -94,7 +94,7 @@ public class ClassInformations {
 				if (mypackage.equals(thePackage) || thePackage == null) {
 					for (ICompilationUnit unit : mypackage
 							.getCompilationUnits()) {
-						if (unit.getElementName().equals(className + Messages.ClassInformations_16)) {
+						if (unit.getElementName().equals(className + ".java")) {
 							if (i > 1) {
 								throw new ClassMultipleException();
 							} else {

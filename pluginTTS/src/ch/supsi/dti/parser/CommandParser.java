@@ -38,7 +38,7 @@ public class CommandParser implements CommandParserConstants {
 				return ret;
 		}
 		jj_consume_token(0);
-		throw new Error(Messages.CommandParser_0);
+		throw new Error("Missing return statement in function");
 	}
 
 	final public String instructions() throws ParseException {
@@ -102,7 +102,7 @@ public class CommandParser implements CommandParserConstants {
 				try {
 					javaProject = checkSelectionAndReturnProject();
 				} catch (ProjectNotFoundException e) {
-					return Messages.CommandParser_4;
+					return Messages.projectNotSelected;
 				}
 
 				return PackageInformations.getGeneralInfo(javaProject);
@@ -118,14 +118,14 @@ public class CommandParser implements CommandParserConstants {
 						javaProject = checkSelectionAndReturnProject();
 
 					} catch (ProjectNotFoundException e) {
-						return Messages.CommandParser_6;
+						return Messages.projectNotSelected;
 					}
 				} else {
 					try {
 						javaProject = checkSelectionAndReturnProject();
 
 					} catch (ProjectNotFoundException e) {
-						return Messages.CommandParser_7;
+						return Messages.projectNotSelected;
 					}
 				}
 				return ClassInformations
@@ -147,12 +147,12 @@ public class CommandParser implements CommandParserConstants {
 			case "cursor":
 				return CursorInformations.getCursorLineAndColumn();
 			case "editor":
-				return "editor informations..";
+				return EditorInformations.getGeneralInformations();
 			}
 				
 			
 		}
-		throw new Error(Messages.CommandParser_13);
+		throw new Error("Missing return statement in function");
 	}
 
 	final public String infoBinary(Token t) throws ParseException {
@@ -177,7 +177,7 @@ public class CommandParser implements CommandParserConstants {
 				try {
 					javaProject = checkSelectionAndReturnProject();
 				} catch (ProjectNotFoundException e) {
-					return Messages.CommandParser_17;
+					return Messages.projectNotSelected;
 				}
 
 				return PackageInformations.getPunctalInfo(javaProject, ret);
@@ -192,7 +192,7 @@ public class CommandParser implements CommandParserConstants {
 						javaProject = checkSelectionAndReturnProject();
 
 					} catch (ProjectNotFoundException e) {
-						return Messages.CommandParser_19;
+						return Messages.projectNotSelected;
 					}
 				} else {
 
@@ -201,7 +201,7 @@ public class CommandParser implements CommandParserConstants {
 						javaProject = checkSelectionAndReturnProject();
 
 					} catch (ProjectNotFoundException e) {
-						return Messages.CommandParser_20;
+						return Messages.projectNotSelected;
 					}
 				}
 				return ClassInformations.getPunctalInfo(javaProject,
@@ -236,19 +236,91 @@ public class CommandParser implements CommandParserConstants {
 				return MethodInformations.getPunctalInfo(theClass, ret);
 			}
 		}
-		throw new Error(Messages.CommandParser_26);
+		throw new Error("Missing return statement in function");
 	}
 
 	final public String openBinary(Token t) throws ParseException {
-		String ret;
-		Token id;
-		id = jj_consume_token(IDENTIFIER);
-		ret = identifier(id);
-		{
-			if (true)
-				return Messages.CommandParser_27 + t.toString() + ret;
-		}
-		throw new Error(Messages.CommandParser_28);
+//		String ret;
+//
+//		Token id;
+//		id = jj_consume_token(IDENTIFIER);
+//		ret = identifier(id);
+//		{
+//
+//			ISelectionService service = PlatformUI.getWorkbench()
+//					.getActiveWorkbenchWindow().getSelectionService();
+//			TreeSelection selection = (TreeSelection) service
+//					.getSelection("org.eclipse.jdt.ui.PackageExplorer");
+//			JavaElement element = null;
+//			IPackageFragment thePackage = null;
+//			JavaProject javaProject = null;
+//			switch(t.toString().toLowerCase()){
+//			case "project":
+//				return ProjectInformations.getPunctalInfo(ret);
+//			case "package":
+//				try {
+//					javaProject = checkSelectionAndReturnProject();
+//				} catch (ProjectNotFoundException e) {
+//					return Messages.projectNotSelected;
+//				}
+//
+//				return PackageInformations.getPunctalInfo(javaProject, ret);
+//			case "class":
+//				element = (JavaElement) selection.getFirstElement();
+//				
+//				if (element.getElementType() == JavaElement.JAVA_PROJECT) {
+//					javaProject = (JavaProject) element;
+//				} else if (element.getElementType() == JavaElement.PACKAGE_FRAGMENT) {
+//					thePackage = (IPackageFragment) element;
+//					try {
+//						javaProject = checkSelectionAndReturnProject();
+//
+//					} catch (ProjectNotFoundException e) {
+//						return Messages.projectNotSelected;
+//					}
+//				} else {
+//
+//					// TODO: entra anche quando è un oggetto sconosciuto
+//					try {
+//						javaProject = checkSelectionAndReturnProject();
+//
+//					} catch (ProjectNotFoundException e) {
+//						return Messages.projectNotSelected;
+//					}
+//				}
+//				return ClassInformations.getPunctalInfo(javaProject,
+//						thePackage, ret);
+//			case "method":
+//				element = (JavaElement) selection.getFirstElement();
+//				IMethod method = null;
+//				ICompilationUnit theClass;
+//				if (element == null)
+//					return Messages.CommandParser_22;
+//
+//				if (element.getElementType() == JavaElement.COMPILATION_UNIT) {
+//					theClass = (ICompilationUnit)element;
+//					
+//					try {
+//						method = MethodInformations.getMethod(theClass, ret);
+//					} catch (MethodNotFoundException e) {
+//						return Messages.CommandParser_23;
+//					}
+//
+//				}else{
+//					theClass = element.getCompilationUnit();
+//					if(theClass == null)
+//						return Messages.CommandParser_24;
+//					try {
+//						method = MethodInformations.getMethod(theClass, ret);
+//						
+//					} catch (MethodNotFoundException e) {
+//						return Messages.CommandParser_25;
+//					}
+//				}
+//				return MethodInformations.getPunctalInfo(theClass, ret);
+//			}
+//		}
+		throw new Error("Missing return statement in function");
 	}
 
 	final public String expandBinary() throws ParseException {
@@ -308,7 +380,7 @@ public class CommandParser implements CommandParserConstants {
 				try {
 					javaProject = checkSelectionAndReturnProject();
 				} catch (ProjectNotFoundException e) {
-					return Messages.CommandParser_35;
+					return Messages.projectNotSelected;
 				}
 
 				try {
@@ -320,12 +392,12 @@ public class CommandParser implements CommandParserConstants {
 					return Messages.CommandParser_36;
 				}
 
-				return Messages.CommandParser_37;
+				return Messages.done;
 			case "class":
 				try {
 					javaProject = checkSelectionAndReturnProject();
 				} catch (ProjectNotFoundException e) {
-					return Messages.CommandParser_39;
+					return Messages.projectNotSelected;
 				}
 
 				element = (JavaElement) selection.getFirstElement();
@@ -335,7 +407,7 @@ public class CommandParser implements CommandParserConstants {
 						javaProject = checkSelectionAndReturnProject();
 
 					} catch (ProjectNotFoundException e) {
-						return Messages.CommandParser_40;
+						return Messages.projectNotSelected;
 					}
 				}
 				try {
@@ -381,7 +453,7 @@ public class CommandParser implements CommandParserConstants {
 				return Messages.done;
 			}
 		}
-		throw new Error(Messages.CommandParser_50);
+		throw new Error("Missing return statement in function");
 	}
 
 	final public String identifier(Token t) throws ParseException {

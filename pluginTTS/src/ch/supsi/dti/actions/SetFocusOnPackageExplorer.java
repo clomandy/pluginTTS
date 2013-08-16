@@ -39,7 +39,7 @@ public class SetFocusOnPackageExplorer implements IWorkbenchWindowActionDelegate
 	public void run(IAction action) {
 		PackageExplorerPart packageExplorer = PluginElements.getPackageExplorer();
 		packageExplorer.setFocus();
-		SpeakingHandler.getInstance().addToQueue(Messages.SetFocusOnPackageExplorer_0);
+		SpeakingHandler.getInstance().addToQueue(Messages.packageExplorerFocused);
 	}
 
 	

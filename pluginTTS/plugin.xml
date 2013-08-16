@@ -20,7 +20,7 @@
                icon="icons/sample.gif"
                id="ch.supsi.dti.actions.SetFocusOnCommandLine"
                label="&amp;Focus on command line"
-               menubarPath="speak!/speakingGroup"
+               menubarPath="speak/speakingGroup"
                toolbarPath="sampleGroup"
                tooltip="Focus on Command Line">
          </action>
@@ -29,7 +29,7 @@
                icon="icons/sample.gif"
                id="ch.supsi.dti.actions.SetFocusOnPackageExplorer"
                label="&amp;Focus on Package Explorer"
-               menubarPath="speak!/speakingGroup"
+               menubarPath="speak/speakingGroup"
                toolbarPath="sampleGroup"
                tooltip="Focus on Package Explorer"
                accelerator="Alt+P">
@@ -45,10 +45,24 @@
       <view
             category="pluginTTS"
             class="ch.supsi.dti.views.SpeakingView"
-            icon="icons/sample.gif"
+            icon="icons/speak.png"
             id="pluginTTS.views.SpeakingView"
             name="Speaking View">
       </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="ch.supsi.dti.preferences.SpeakingPreferences"
+            id="ch.supsi.dti.preferences.SpeakingPreferences"
+            name="Speaking">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="ch.supsi.dti.preferences.PreferenceInitializer">
+      </initializer>
    </extension>
 
 </plugin>

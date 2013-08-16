@@ -94,7 +94,7 @@ public class CommandLineListener implements KeyListener {
 	private void executeCommand() {
 		SpeakingView speakingView = PluginElements.getSpeakingView();
 		String commandLineText = speakingView.getCommandLineText();
-		if (!commandLineText.equals(Messages.CommandLineListener_0)) {
+		if (!commandLineText.equals("")) {
 			
 			int actualOffset = speakingView.getCommandAreaOffset();
 			Device device = Display.getCurrent();
@@ -122,7 +122,7 @@ public class CommandLineListener implements KeyListener {
 
 			CommandParser parser = new CommandParser(new ByteArrayInputStream(
 					commandLineText.getBytes()));
-			String rensponse = Messages.CommandLineListener_1;
+			String rensponse = "";
 			try {
 				rensponse = parser.parse();
 				speakingView.addTextOnCommandArea(rensponse);
@@ -131,7 +131,7 @@ public class CommandLineListener implements KeyListener {
 				commandList.add(commandLineText);
 				SpeakingHandler.getInstance().addToQueue(commandLineText + Messages.dot + System.getProperty(Messages.lineSeparator) + rensponse);
 			} catch (ParseException e) {
-				SpeakingHandler.getInstance().addToQueue(Messages.CommandLineListener_4);
+				SpeakingHandler.getInstance().addToQueue(Messages.syntaxError);
 			}
 
 			

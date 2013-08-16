@@ -32,7 +32,7 @@ public class SpeakingQueue{
 		try {
 			return queue.take();
 		} catch (InterruptedException e) {
-			return Messages.SpeakingQueue_0;
+			return Messages.error;
 		}
 	}
 	
