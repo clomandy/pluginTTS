@@ -3,7 +3,8 @@ package ch.supsi.dti.multilanguage;
 import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
-	private static final String BUNDLE_NAME = "ch.supsi.dti.multilanguage.en"; //$NON-NLS-1$
+	public static final String BUNDLE_NAME_EN = "ch.supsi.dti.multilanguage.en";
+	public static final String BUNDLE_NAME_IT = "ch.supsi.dti.multilanguage.it";
 	public static String lineSeparator;
 	public static String comma;
 	public static String dot;
@@ -35,7 +36,6 @@ public class Messages extends NLS {
 	public static String ProjectInformations_8;
 	public static String ProjectInformations_10;
 	public static String projectNotSelected;
-	public static String CommandParser_21;
 	public static String CommandParser_22;
 	public static String CommandParser_23;
 	public static String CommandParser_24;
@@ -77,7 +77,12 @@ public class Messages extends NLS {
 	
 	static {
 		// initialize resource bundle
-		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
+		
+		NLS.initializeMessages(BUNDLE_NAME_EN, Messages.class);
+	}
+	
+	public static void reinitializeMessages(String str){
+		NLS.initializeMessages(str, Messages.class);
 	}
 
 	private Messages() {

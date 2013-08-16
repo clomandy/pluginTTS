@@ -5,7 +5,7 @@ public class SpeakingHandler{
 
 	private static SpeakingHandler instance;
 	private SpeakingQueue queue;
-
+	
 	private SpeakingHandler() {
 		SpeakingReferee referee = SpeakingReferee.getInstance();
 		queue = referee.getQueue();

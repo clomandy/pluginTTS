@@ -12,8 +12,10 @@ import com.gtranslate.Language;
 public class Speech extends Thread {
 
 	private String toSay;
+	private String language;
 
-	public Speech(String toSay) {
+	public Speech(String toSay, String language) {
+		this.language = language;
 		try {
 			this.toSay = URLEncoder.encode(toSay, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
@@ -28,7 +30,7 @@ public class Speech extends Thread {
 
 		InputStream sound;
 		try {
-			sound = audio.getAudio(this.toSay, Language.ENGLISH);
+			sound = audio.getAudio(this.toSay, this.language);
 			audio.play(sound);
 		} catch (Exception e) {
 			// TODO gestione degli errori!!!!
