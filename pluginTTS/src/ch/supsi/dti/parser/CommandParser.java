@@ -23,6 +23,7 @@ import org.eclipse.ui.PlatformUI;
 import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.utils.ClassInformations;
 import ch.supsi.dti.utils.CursorInformations;
+import ch.supsi.dti.utils.EditorInformations;
 import ch.supsi.dti.utils.PackageInformations;
 import ch.supsi.dti.utils.PluginElements;
 import ch.supsi.dti.utils.ProjectInformations;

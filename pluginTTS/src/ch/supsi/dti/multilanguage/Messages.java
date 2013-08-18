@@ -8,6 +8,7 @@ public class Messages extends NLS {
 	public static String lineSeparator;
 	public static String comma;
 	public static String dot;
+	public static String space;
 	public static String done;
 	public static String syntaxError;
 	public static String thereAre;
@@ -49,11 +50,9 @@ public class Messages extends NLS {
 	public static String CommandParser_47;
 	public static String CommandParser_48;
 	public static String CommandParser_9;
-	public static String JavaChangeListener_0;
-	public static String JavaChangeListener_1;
-	public static String JavaChangeListener_2;
-	public static String JavaChangeListener_3;
-	public static String JavaChangeListener_4;
+	public static String wasAdded;
+	public static String wasRemoved;
+	public static String wasChanged;
 	public static String MethodInformations_10;
 	public static String MethodInformations_13;
 	public static String MethodInformations_2;
@@ -74,6 +73,7 @@ public class Messages extends NLS {
 	public static String speakingViewFocused;
 	public static String packageExplorerFocused;
 	public static String error;
+	public static String activeEditorFocused;
 	
 	static {
 		// initialize resource bundle

@@ -1,4 +1,4 @@
-package ch.supsi.dti.parser;
+package ch.supsi.dti.utils;
 
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;

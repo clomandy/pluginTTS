@@ -28,7 +28,6 @@ public class CommandLineListener implements KeyListener {
 	
 	
 	public CommandLineListener() {
-		
 		counter = 0;
 		commandList = new ArrayList<>();
 		wordAccumulator = new StringBuilder();
@@ -75,12 +74,12 @@ public class CommandLineListener implements KeyListener {
 
 	private void checkToSpeechCR() {
 		lineAccumulator = new StringBuilder(PluginElements.getSpeakingView().getCommandLineText());
-		//SpeakingHandler.getInstance().addToQueue(lineAccumulator.toString());
 		wordAccumulator = new StringBuilder();
 		lineAccumulator = new StringBuilder();
 	}
 
 	private void checkToSpeechSPACE() {
+		counter++;
 		lineAccumulator = new StringBuilder(PluginElements.getSpeakingView().getCommandLineText());
 		SpeakingHandler.getInstance().addToQueue(wordAccumulator.toString());
 		wordAccumulator = new StringBuilder();

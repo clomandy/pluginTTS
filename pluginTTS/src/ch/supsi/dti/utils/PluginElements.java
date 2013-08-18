@@ -1,6 +1,7 @@
 package ch.supsi.dti.utils;
 
 import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.ITextEditor;
@@ -36,5 +37,10 @@ public class PluginElements {
 		part= PackageExplorerPart.getFromActivePerspective();
 		
 		return part;
+	}
+	
+	public static IEditorPart getActiveEditor(){
+		return PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 	}
 }

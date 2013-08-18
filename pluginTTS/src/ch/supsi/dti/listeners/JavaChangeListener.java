@@ -6,6 +6,7 @@ import org.eclipse.jdt.core.ElementChangedEvent;
 import org.eclipse.jdt.core.IElementChangedListener;
 import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.internal.core.JavaModel;
 
 import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.tospeech.SpeakingHandler;
@@ -45,31 +46,41 @@ public class JavaChangeListener implements IElementChangedListener {
 	}
 
 	private void traverseAndPrint(IJavaElementDelta delta) {
+		StringBuilder sb = new StringBuilder();
+		
+		switch (delta.getElement().getElementType()) {
+		case JavaModel.COMPILATION_UNIT:
+			sb.append(Messages.PackageExplorerSelectionListener_8 + " ");
+			break;
+		case JavaModel.METHOD:
+			sb.append(Messages.PackageExplorerSelectionListener_9 + " ");
+			break;
+		default:
+			break;
+		}
+		
         switch (delta.getKind()) {
             case IJavaElementDelta.ADDED:
-            	SpeakingHandler.getInstance().addToQueue(delta.getElement() + Messages.JavaChangeListener_0);
-               // System.out.println(delta.getElement() + " was added");
+            	sb.append(delta.getElement().getElementName() + Messages.wasAdded);
                 break;
             case IJavaElementDelta.REMOVED:
-            	SpeakingHandler.getInstance().addToQueue(delta.getElement() + Messages.JavaChangeListener_1);
-               // System.out.println(delta.getElement() + " was removed");
+            	sb.append(delta.getElement().getElementName() + Messages.wasRemoved);
                 break;
             case IJavaElementDelta.CHANGED:
-            	SpeakingHandler.getInstance().addToQueue(delta.getElement() + Messages.JavaChangeListener_2);
-               // System.out.println(delta.getElement() + " was changed");
+            	sb.append(delta.getElement().getElementName() + Messages.wasChanged);
                 if ((delta.getFlags() & IJavaElementDelta.F_CHILDREN) != 0) {
-                    System.out.println(Messages.JavaChangeListener_3);
+//                    System.out.println("The change was in its children");
                 }
                 if ((delta.getFlags() & IJavaElementDelta.F_CONTENT) != 0) {
-                    System.out.println(Messages.JavaChangeListener_4);
+//                    System.out.println("The change was in its content");
                 }
                 /* Others flags can also be checked */
                 break;
         }
+        SpeakingHandler.getInstance().addToQueue(sb.toString());
         IJavaElementDelta[] children = delta.getAffectedChildren();
         for (int i = 0; i < children.length; i++) {
             traverseAndPrint(children[i]);
-            System.out.println();
         }
     }
 
