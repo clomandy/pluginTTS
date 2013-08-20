@@ -13,6 +13,7 @@ Bundle-ClassPath: .,
  lib/gtranslateapi-1.0.jar,
  lib/jl1.0.jar
 Import-Package: org.eclipse.core.resources,
+ org.eclipse.jdt.internal.ui.javaeditor,
  org.eclipse.jdt.internal.ui.packageview,
  org.eclipse.jface.text,
  org.eclipse.pde.core.plugin,

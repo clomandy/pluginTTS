@@ -2,6 +2,12 @@ package ch.supsi.dti.multilanguage;
 
 import org.eclipse.osgi.util.NLS;
 
+import ch.supsi.dti.preferences.PreferenceConstants;
+import ch.supsi.dti.preferences.SpeakingPreferences;
+import ch.supsi.dti.tospeech.SpeakingReferee;
+
+import com.gtranslate.Language;
+
 public class Messages extends NLS {
 	public static final String BUNDLE_NAME_EN = "ch.supsi.dti.multilanguage.en";
 	public static final String BUNDLE_NAME_IT = "ch.supsi.dti.multilanguage.it";
@@ -74,11 +80,19 @@ public class Messages extends NLS {
 	public static String packageExplorerFocused;
 	public static String error;
 	public static String activeEditorFocused;
+	public static String focused;
 	
 	static {
 		// initialize resource bundle
+		switch(new SpeakingPreferences().getPreferenceStore().getString(PreferenceConstants.MULTILANGUAGE)){
+		case "en":
+			NLS.initializeMessages(BUNDLE_NAME_EN, Messages.class);
+			break;
+		case "it":
+			NLS.initializeMessages(BUNDLE_NAME_IT, Messages.class);
+			break;
+		}
 		
-		NLS.initializeMessages(BUNDLE_NAME_EN, Messages.class);
 	}
 	
 	public static void reinitializeMessages(String str){

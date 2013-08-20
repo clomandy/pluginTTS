@@ -700,7 +700,9 @@ public class CommandParser implements CommandParserConstants {
 
 		structured = (TreeSelection) service
 				.getSelection("org.eclipse.jdt.ui.PackageExplorer");
-		return (JavaProject) structured.getFirstElement();
+		JavaProject project = (JavaProject) structured.getFirstElement();
+		tree.setSelection(selectedItem);
+		return project; 
 	}
 
 	// public void expandTreeItem(Tree p0, TreeItem p1, boolean p2) {
