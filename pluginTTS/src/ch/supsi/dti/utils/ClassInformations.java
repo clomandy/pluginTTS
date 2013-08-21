@@ -26,8 +26,8 @@ public class ClassInformations {
 					for (ICompilationUnit unit : mypackage
 							.getCompilationUnits()) {
 						i++;
-						sb.append(i + Messages.comma + unit.getElementName());
-						sb.append(System.getProperty(Messages.lineSeparator));
+						sb.append(i + ", " + unit.getElementName() + ".");
+						sb.append(System.getProperty("line.separator"));
 					}
 				}
 			}
@@ -36,8 +36,8 @@ public class ClassInformations {
 			e.printStackTrace();
 		}
 
-		first.append(Messages.thereAre + String.valueOf(i) + Messages.spaceClasses);
-		first.append(System.getProperty(Messages.lineSeparator));
+		first.append(Messages.thereAre + " " + String.valueOf(i)  + " " + Messages.classes + ".");
+		first.append(System.getProperty("line.separator"));
 		return first.toString() + sb.toString();
 	}
 
@@ -56,16 +56,16 @@ public class ClassInformations {
 			return Messages.noClass+ className + Messages.commaExpand;
 		
 		if(theClass.isOpen()){
-			sb.append(Messages.isOpened);
-			sb.append(System.getProperty(Messages.lineSeparator));
+			sb.append(Messages.theClass + " " + Messages.openedF + ".");
+			sb.append(System.getProperty("line.separator"));
 		}else{
-			sb.append(Messages.isClosed);
-			sb.append(System.getProperty(Messages.lineSeparator));
+			sb.append(Messages.theClass + " " + Messages.closedF + ".");
+			sb.append(System.getProperty("line.separator"));
 		}
 		
 		if(theClass.isReadOnly()){
-			sb.append(Messages.isReadOnly);
-			sb.append(System.getProperty(Messages.lineSeparator));
+			sb.append(Messages.theClass + " " + Messages.readOnly + ".");
+			sb.append(System.getProperty("line.separator"));
 		}
 		
 		try {
@@ -74,7 +74,7 @@ public class ClassInformations {
 				numberOfMethods += type.getMethods().length;
 				
 			}
-			sb.append(Messages.itHas + numberOfMethods + Messages.spaceMethods);
+			sb.append(Messages.itHas + " " + numberOfMethods  + " " + Messages.methods + ".");
 		} catch (JavaModelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

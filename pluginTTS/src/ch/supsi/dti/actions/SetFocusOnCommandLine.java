@@ -38,7 +38,7 @@ public class SetFocusOnCommandLine implements IWorkbenchWindowActionDelegate {
 	public void run(IAction action) {
 		SpeakingView speakingView = PluginElements.getSpeakingView();
 		speakingView.setFocus();
-		SpeakingHandler.getInstance().addToQueue(Messages.speakingViewFocused);
+		SpeakingHandler.getInstance().addToQueue(Messages.speakingView + " " + Messages.focusedF);
 	}
 
 	

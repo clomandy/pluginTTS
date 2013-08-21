@@ -22,8 +22,8 @@ public class PackageInformations {
 				try {
 					if (thePackage.getKind() == IPackageFragmentRoot.K_SOURCE) {
 						i++;
-						sb.append(i + Messages.comma + thePackage.getElementName() + Messages.dot);
-						sb.append(System.getProperty(Messages.lineSeparator));
+						sb.append(i + ", " + thePackage.getElementName() + ".");
+						sb.append(System.getProperty("line.separator"));
 				
 					}
 				} catch (JavaModelException e) {
@@ -37,8 +37,8 @@ public class PackageInformations {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		first.append(Messages.PackageInformations_3 + String.valueOf(i) + Messages.PackageInformations_4);
-		first.append(System.getProperty(Messages.lineSeparator));
+		first.append(Messages.thereAre + " " +String.valueOf(i) + " " +Messages.packages + ".");
+		first.append(System.getProperty("line.separator"));
 		return first.toString() + sb.toString();
 	}
 
@@ -52,17 +52,17 @@ public class PackageInformations {
 
 			
 			if(thePackage == null)
-				return Messages.PackageInformations_6;
+				return Messages.packageNotFound;
 			
 			if (thePackage.isOpen())
-				sb.append(Messages.PackageInformations_7);
+				sb.append(Messages.thePackage + " " + Messages.openedM + ".");
 			else
-				sb.append(Messages.PackageInformations_8);
+				sb.append(Messages.thePackage + " " + Messages.closedM + ".");
 
-			sb.append(System.getProperty(Messages.lineSeparator));
+			sb.append(System.getProperty("line.separator"));
 			
-			sb.append(Messages.PackageInformations_10 + thePackage.getCompilationUnits().length + Messages.PackageInformations_11);
-			sb.append(System.getProperty(Messages.lineSeparator));
+			sb.append(Messages.thereAre + " " + thePackage.getCompilationUnits().length + " " + Messages.classes + ".");
+			sb.append(System.getProperty("line.separator"));
 		} catch (JavaModelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

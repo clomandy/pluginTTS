@@ -50,31 +50,36 @@ public class JavaChangeListener implements IElementChangedListener {
 		
 		switch (delta.getElement().getElementType()) {
 		case JavaModel.COMPILATION_UNIT:
-			sb.append(Messages.PackageExplorerSelectionListener_8 + " ");
+			sb.append(Messages.theClass + " ");
 			break;
 		case JavaModel.METHOD:
-			sb.append(Messages.PackageExplorerSelectionListener_9 + " ");
+			sb.append(Messages.method + " ");
+			break;
+		case JavaModel.FIELD:
+			sb.append(Messages.field + " ");
 			break;
 		default:
 			break;
 		}
 		
         switch (delta.getKind()) {
-            case IJavaElementDelta.ADDED:
-            	sb.append(delta.getElement().getElementName() + Messages.wasAdded);
-                break;
+        	case IJavaElementDelta.CHANGED:
+        	//sb.append(delta.getElement().getElementName() + " " + Messages.wasChanged);
+            if ((delta.getFlags() & IJavaElementDelta.F_CHILDREN) != 0) {
+//                System.out.println("The change was in its children");
+            }
+            if ((delta.getFlags() & IJavaElementDelta.F_CONTENT) != 0) {
+//                System.out.println("The change was in its content");
+            }
+            /* Others flags can also be checked */
+            break;
             case IJavaElementDelta.REMOVED:
-            	sb.append(delta.getElement().getElementName() + Messages.wasRemoved);
+            	sb.append(delta.getElement().getElementName() + " " + Messages.wasRemoved);
                 break;
-            case IJavaElementDelta.CHANGED:
-            	sb.append(delta.getElement().getElementName() + Messages.wasChanged);
-                if ((delta.getFlags() & IJavaElementDelta.F_CHILDREN) != 0) {
-//                    System.out.println("The change was in its children");
-                }
-                if ((delta.getFlags() & IJavaElementDelta.F_CONTENT) != 0) {
-//                    System.out.println("The change was in its content");
-                }
-                /* Others flags can also be checked */
+            
+            case IJavaElementDelta.ADDED:
+            	sb.append(delta.getElement().getElementName() + " " + Messages.wasAdded);
+                
                 break;
         }
         SpeakingHandler.getInstance().addToQueue(sb.toString());

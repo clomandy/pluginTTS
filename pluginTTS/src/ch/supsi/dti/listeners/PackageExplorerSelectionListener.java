@@ -41,17 +41,17 @@ public class PackageExplorerSelectionListener implements ITreeViewerListener,
 
 	@Override
 	public void treeCollapsed(TreeExpansionEvent e) {
-		SpeakingHandler.getInstance().addToQueue(getTypeSelection() + Messages.PackageExplorerSelectionListener_0);
+		SpeakingHandler.getInstance().addToQueue(getTypeSelection() + " " + Messages.PackageExplorerSelectionListener_0);
 	}
 
 	@Override
 	public void treeExpanded(TreeExpansionEvent e) {
-		SpeakingHandler.getInstance().addToQueue(getTypeSelection() + Messages.PackageExplorerSelectionListener_1);
+		SpeakingHandler.getInstance().addToQueue(getTypeSelection() + " " + Messages.PackageExplorerSelectionListener_1);
 	}
 
 	@Override
 	public void selectionChanged(SelectionChangedEvent e) {
-		SpeakingHandler.getInstance().addToQueue(getTypeSelection() + Messages.PackageExplorerSelectionListener_2);
+		SpeakingHandler.getInstance().addToQueue(getTypeSelection() + " " + Messages.PackageExplorerSelectionListener_2);
 	}
 
 	public void shutdown() {
@@ -79,21 +79,21 @@ public class PackageExplorerSelectionListener implements ITreeViewerListener,
 			sb.append(javaElement.getElementName());
 			
 			if(javaElement.getElementType() == IJavaElement.JAVA_PROJECT){
-				return Messages.PackageExplorerSelectionListener_5 + sb.toString();
+				return Messages.project + " " + sb.toString();
 			}else if(javaElement.getElementType() == IJavaElement.PACKAGE_FRAGMENT_ROOT){
-				return Messages.PackageExplorerSelectionListener_6 + sb.toString();
+				return Messages.folder + " " + sb.toString();
 			}else if(javaElement.getElementType() == IJavaElement.PACKAGE_FRAGMENT){
-				return Messages.PackageExplorerSelectionListener_7 + sb.toString();
+				return Messages.thePackage + " " + sb.toString();
 			}else if(javaElement.getElementType() == IJavaElement.COMPILATION_UNIT){
-				return Messages.PackageExplorerSelectionListener_8 + sb.toString();
+				return Messages.theClass + " " + sb.toString();
 			}else if(javaElement.getElementType() == IJavaElement.METHOD){
-				return Messages.PackageExplorerSelectionListener_9 + sb.toString();
+				return Messages.method + " " + sb.toString();
 			}else{
-				return Messages.PackageExplorerSelectionListener_10;
+				return Messages.unknownJavaElement;
 			}
 			
 		}else{
-			return Messages.PackageExplorerSelectionListener_11;
+			return Messages.noJavaElement;
 		}
 	}
 

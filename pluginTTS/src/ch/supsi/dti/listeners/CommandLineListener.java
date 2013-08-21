@@ -128,7 +128,7 @@ public class CommandLineListener implements KeyListener {
 
 				speakingView.setCommandAreaStyleRanges(textStyleRanges);
 				commandList.add(commandLineText);
-				SpeakingHandler.getInstance().addToQueue(commandLineText + Messages.dot + System.getProperty(Messages.lineSeparator) + rensponse);
+				SpeakingHandler.getInstance().addToQueue(commandLineText + "." + System.getProperty("line.separator") + rensponse);
 			} catch (ParseException e) {
 				SpeakingHandler.getInstance().addToQueue(Messages.syntaxError);
 			}

@@ -1,4 +1,4 @@
-package ch.supsi.dti.parser;
+package ch.supsi.dti.utils;
 
 import java.lang.reflect.Method;
 
@@ -10,6 +10,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.JavaProject;
 
 import ch.supsi.dti.multilanguage.Messages;
+import ch.supsi.dti.parser.MethodNotFoundException;
 
 public class MethodInformations {
 
@@ -24,8 +25,8 @@ public class MethodInformations {
 
 				for (IMethod method : methods) {
 					i++;
-					sb.append(i + Messages.comma + method.getElementName());
-					sb.append(System.getProperty(Messages.lineSeparator));
+					sb.append(i + ", " + method.getElementName() + ".");
+					sb.append(System.getProperty("line.separator"));
 				}
 
 			}
@@ -33,8 +34,8 @@ public class MethodInformations {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		first.append(Messages.MethodInformations_2 + String.valueOf(i) + Messages.MethodInformations_3);
-		first.append(System.getProperty(Messages.lineSeparator));
+		first.append(Messages.thereAre + " " + String.valueOf(i) + " " + Messages.methods + ".");
+		first.append(System.getProperty("line.separator"));
 		return first.toString() + sb.toString();
 	}
 
@@ -47,24 +48,24 @@ public class MethodInformations {
 		try {
 			method = getMethod(theClass, methodName);
 		} catch (MethodNotFoundException e) {
-			return Messages.MethodInformations_5;
+			return Messages.methodNotFoundInClass;
 		}
 
 		try {
 			if(method.isConstructor()){
-				sb.append(Messages.MethodInformations_6);
-				sb.append(System.getProperty(Messages.lineSeparator));
+				sb.append(Messages.constuctor + ".");
+				sb.append(System.getProperty("line.separator"));
 			}
 			
 			if(method.isMainMethod()){
-				sb.append(Messages.MethodInformations_8);
-				sb.append(System.getProperty(Messages.lineSeparator));
+				sb.append(Messages.mainMethod + ".");
+				sb.append(System.getProperty("line.separator"));
 			}
 			
-			sb.append(Messages.MethodInformations_10 + method.getSignature() + Messages.dot);
-			sb.append(System.getProperty(Messages.lineSeparator));
-			sb.append(Messages.MethodInformations_13 + method.getReturnType() + Messages.dot);
-			sb.append(System.getProperty(Messages.lineSeparator));
+			sb.append(Messages.signature + " " + method.getSignature() + ".");
+			sb.append(System.getProperty("line.separator"));
+			sb.append(Messages.returnType + " " + method.getReturnType() + ".");
+			sb.append(System.getProperty("line.separator"));
 		} catch (JavaModelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

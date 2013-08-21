@@ -17,13 +17,13 @@ public class ProjectInformations {
 		IProject[] projects = root.getProjects();
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(Messages.ProjectInformations_0 + projects.length + Messages.ProjectInformations_1);
-		sb.append(System.getProperty(Messages.lineSeparator));
+		sb.append(Messages.thereAre + " " + projects.length + " " + Messages.projects + ".");
+		sb.append(System.getProperty("line.separator"));
 		int i = 1;
 		for (IProject project : projects) {
 			
-			sb.append(i + Messages.comma + project.getName() +Messages.dot);
-			sb.append(System.getProperty(Messages.lineSeparator));
+			sb.append(i + ", " + project.getName() + ".");
+			sb.append(System.getProperty("line.separator"));
 			i++;
 		}
 		
@@ -39,14 +39,14 @@ public class ProjectInformations {
 		StringBuilder sb = new StringBuilder();
 		
 		if(project == null)
-			return Messages.ProjectInformations_6;
+			return Messages.natureProject;
 		
 		if (project.isOpen())
-			sb.append(Messages.ProjectInformations_7);
+			sb.append(Messages.project + " " + Messages.openedM + ".");
 		else
-			sb.append(Messages.ProjectInformations_8);
+			sb.append(Messages.project + " " + Messages.closedM + ".");
 		
-		sb.append(System.getProperty(Messages.lineSeparator));
+		sb.append(System.getProperty("line.separator"));
 		
 		try {
 			
@@ -55,9 +55,9 @@ public class ProjectInformations {
 			String[] natures = projectDescription.getNatureIds();
 			
 			if(natures.length > 0)
-				sb.append(Messages.ProjectInformations_10);
+				sb.append(Messages.natureProject + " ");
 			for (int i = 0; i < natures.length; i++) {
-				sb.append(natures[i] + Messages.dot);
+				sb.append(natures[i] + ".");
 
 			}
 			

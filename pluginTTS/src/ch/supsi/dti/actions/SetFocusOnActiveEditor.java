@@ -40,7 +40,7 @@ public class SetFocusOnActiveEditor implements IWorkbenchWindowActionDelegate {
 	public void run(IAction action) {
 		IEditorPart editor = PluginElements.getActiveEditor();
 		editor.setFocus();
-		SpeakingHandler.getInstance().addToQueue(editor.getTitle() + Messages.activeEditorFocused);
+		SpeakingHandler.getInstance().addToQueue(editor.getTitle() + " " + Messages.editor + " " + Messages.focusedM);
 	}
 
 	

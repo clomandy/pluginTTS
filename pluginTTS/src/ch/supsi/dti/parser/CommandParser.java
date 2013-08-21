@@ -24,6 +24,7 @@ import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.utils.ClassInformations;
 import ch.supsi.dti.utils.CursorInformations;
 import ch.supsi.dti.utils.EditorInformations;
+import ch.supsi.dti.utils.MethodInformations;
 import ch.supsi.dti.utils.PackageInformations;
 import ch.supsi.dti.utils.PluginElements;
 import ch.supsi.dti.utils.ProjectInformations;
@@ -135,7 +136,7 @@ public class CommandParser implements CommandParserConstants {
 				JavaElement javaElement = (JavaElement) selection
 						.getFirstElement();
 				if (javaElement == null)
-					return Messages.CommandParser_9;
+					return Messages.classNotSelected;
 
 				ICompilationUnit theClass = null;
 
@@ -143,7 +144,7 @@ public class CommandParser implements CommandParserConstants {
 					theClass = (ICompilationUnit) javaElement;
 					return MethodInformations.getGeneralInfo(theClass);
 				} else {
-					return Messages.CommandParser_9;
+					return Messages.classNotSelected;
 				}
 			case "cursor":
 				return CursorInformations.getCursorLineAndColumn();
@@ -212,7 +213,7 @@ public class CommandParser implements CommandParserConstants {
 				IMethod method = null;
 				ICompilationUnit theClass;
 				if (element == null)
-					return Messages.CommandParser_22;
+					return Messages.classNotSelected;
 
 				if (element.getElementType() == JavaElement.COMPILATION_UNIT) {
 					theClass = (ICompilationUnit)element;
@@ -220,18 +221,18 @@ public class CommandParser implements CommandParserConstants {
 					try {
 						method = MethodInformations.getMethod(theClass, ret);
 					} catch (MethodNotFoundException e) {
-						return Messages.CommandParser_23;
+						return Messages.methodNotFoundInClass;
 					}
 
 				}else{
 					theClass = element.getCompilationUnit();
 					if(theClass == null)
-						return Messages.CommandParser_24;
+						return Messages.classNotSelected;
 					try {
 						method = MethodInformations.getMethod(theClass, ret);
 						
 					} catch (MethodNotFoundException e) {
-						return Messages.CommandParser_25;
+						return Messages.methodNotFoundInClass;
 					}
 				}
 				return MethodInformations.getPunctalInfo(theClass, ret);
@@ -371,7 +372,7 @@ public class CommandParser implements CommandParserConstants {
 				IWorkspaceRoot root = workspace.getRoot();
 				IProject project = root.getProject(ret);
 				if (!project.exists())
-					return Messages.CommandParser_32;
+					return Messages.projectNotExist;
 
 				packageExplorer.setFocus();
 				packageExplorer.selectAndReveal(project);
@@ -390,7 +391,7 @@ public class CommandParser implements CommandParserConstants {
 					packageExplorer.setFocus();
 					packageExplorer.selectAndReveal(thePackage);
 				} catch (JavaModelException e) {
-					return Messages.CommandParser_36;
+					return Messages.packageNotFound;
 				}
 
 				return Messages.done;
@@ -415,10 +416,10 @@ public class CommandParser implements CommandParserConstants {
 					theClass = ClassInformations.getClass(javaProject,
 							thePackage, ret);
 				} catch (ClassMultipleException e) {
-					return Messages.CommandParser_41;
+					return Messages.multipleClass;
 				}
 				if (theClass == null)
-					return Messages.CommandParser_42;
+					return Messages.noClass;
 				packageExplorer.setFocus();
 				packageExplorer.selectAndReveal(theClass);
 				return Messages.done;
@@ -427,7 +428,7 @@ public class CommandParser implements CommandParserConstants {
 				element = (JavaElement) selection.getFirstElement();
 				IMethod method = null;
 				if (element == null)
-					return Messages.CommandParser_45;
+					return Messages.classNotSelected;
 
 				if (element.getElementType() == JavaElement.COMPILATION_UNIT) {
 					theClass = (ICompilationUnit)element;
@@ -435,18 +436,18 @@ public class CommandParser implements CommandParserConstants {
 					try {
 						method = MethodInformations.getMethod(theClass, ret);
 					} catch (MethodNotFoundException e) {
-						return Messages.CommandParser_46;
+						return Messages.methodNotFoundInClass;
 					}
 
 				}else{
 					theClass = element.getCompilationUnit();
 					if(theClass == null)
-						return Messages.CommandParser_47;
+						return Messages.classNotSelected;
 					try {
 						method = MethodInformations.getMethod(theClass, ret);
 						
 					} catch (MethodNotFoundException e) {
-						return Messages.CommandParser_48;
+						return Messages.methodNotFoundInClass;
 					}
 				}
 				packageExplorer.setFocus();
