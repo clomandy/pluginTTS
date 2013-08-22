@@ -20,6 +20,7 @@ public class PackageExplorerSelectionListener implements ITreeViewerListener,
 		ISelectionChangedListener {
 
 	private static PackageExplorerSelectionListener instance;
+	private String genre = "";
 
 	private PackageExplorerSelectionListener() {
 	}
@@ -41,17 +42,32 @@ public class PackageExplorerSelectionListener implements ITreeViewerListener,
 
 	@Override
 	public void treeCollapsed(TreeExpansionEvent e) {
-		SpeakingHandler.getInstance().addToQueue(getTypeSelection() + " " + Messages.PackageExplorerSelectionListener_0);
+		StringBuilder sb = new StringBuilder(getTypeSelection() + " ");
+		if (genre.equals("m"))
+			sb.append(Messages.collapsedM);
+		else
+			sb.append(Messages.collapsedF);
+		SpeakingHandler.getInstance().addToQueue(sb.toString());
 	}
 
 	@Override
 	public void treeExpanded(TreeExpansionEvent e) {
-		SpeakingHandler.getInstance().addToQueue(getTypeSelection() + " " + Messages.PackageExplorerSelectionListener_1);
+		StringBuilder sb = new StringBuilder(getTypeSelection() + " ");
+		if (genre.equals("m"))
+			sb.append(Messages.expandedM);
+		else
+			sb.append(Messages.expandedF);
+		SpeakingHandler.getInstance().addToQueue(sb.toString());
 	}
 
 	@Override
 	public void selectionChanged(SelectionChangedEvent e) {
-		SpeakingHandler.getInstance().addToQueue(getTypeSelection() + " " + Messages.PackageExplorerSelectionListener_2);
+		StringBuilder sb = new StringBuilder(getTypeSelection() + " ");
+		if (genre.equals("m"))
+			sb.append(Messages.selectedM);
+		else
+			sb.append(Messages.selectedF);
+		SpeakingHandler.getInstance().addToQueue(sb.toString());
 	}
 
 	public void shutdown() {
@@ -61,8 +77,8 @@ public class PackageExplorerSelectionListener implements ITreeViewerListener,
 		treeViewer.removeTreeListener(this);
 		treeViewer.removeSelectionChangedListener(this);
 	}
-	
-	private String getTypeSelection(){
+
+	private String getTypeSelection() {
 		ISelectionService service = PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getSelectionService();
 
@@ -70,29 +86,36 @@ public class PackageExplorerSelectionListener implements ITreeViewerListener,
 				.getSelection("org.eclipse.jdt.ui.PackageExplorer");
 
 		Object ob = structured.getFirstElement();
-		if(ob instanceof JavaElement){
-		JavaElement javaElement = (JavaElement) structured.getFirstElement();
-		
-		
+		if (ob instanceof JavaElement) {
+			JavaElement javaElement = (JavaElement) structured
+					.getFirstElement();
+
 			StringBuilder sb = new StringBuilder();
-			
+
 			sb.append(javaElement.getElementName());
-			
-			if(javaElement.getElementType() == IJavaElement.JAVA_PROJECT){
+
+			if (javaElement.getElementType() == IJavaElement.JAVA_PROJECT) {
+				this.genre = "m";
 				return Messages.project + " " + sb.toString();
-			}else if(javaElement.getElementType() == IJavaElement.PACKAGE_FRAGMENT_ROOT){
-				return Messages.folder + " " + sb.toString();
-			}else if(javaElement.getElementType() == IJavaElement.PACKAGE_FRAGMENT){
+			} else if (javaElement.getElementType() == IJavaElement.PACKAGE_FRAGMENT_ROOT) {
+				this.genre = "f";
+				return Messages.folder + " " + sb.toString();				
+			} else if (javaElement.getElementType() == IJavaElement.PACKAGE_FRAGMENT) {
+				this.genre = "m";
 				return Messages.thePackage + " " + sb.toString();
-			}else if(javaElement.getElementType() == IJavaElement.COMPILATION_UNIT){
+			} else if (javaElement.getElementType() == IJavaElement.COMPILATION_UNIT) {
+				this.genre = "f";
 				return Messages.theClass + " " + sb.toString();
-			}else if(javaElement.getElementType() == IJavaElement.METHOD){
+			} else if (javaElement.getElementType() == IJavaElement.METHOD) {
+				this.genre = "m";
 				return Messages.method + " " + sb.toString();
-			}else{
+			} else {
+				this.genre = "m";
 				return Messages.unknownJavaElement;
 			}
-			
-		}else{
+
+		} else {
+			this.genre = "m";
 			return Messages.noJavaElement;
 		}
 	}

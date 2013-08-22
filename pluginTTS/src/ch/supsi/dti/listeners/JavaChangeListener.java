@@ -48,15 +48,19 @@ public class JavaChangeListener implements IElementChangedListener {
 	private void traverseAndPrint(IJavaElementDelta delta) {
 		StringBuilder sb = new StringBuilder();
 		
+		String genre = "";
 		switch (delta.getElement().getElementType()) {
 		case JavaModel.COMPILATION_UNIT:
 			sb.append(Messages.theClass + " ");
+			genre = "f";
 			break;
 		case JavaModel.METHOD:
 			sb.append(Messages.method + " ");
+			genre = "m";
 			break;
 		case JavaModel.FIELD:
 			sb.append(Messages.field + " ");
+			genre = "m";
 			break;
 		default:
 			break;
@@ -74,12 +78,19 @@ public class JavaChangeListener implements IElementChangedListener {
             /* Others flags can also be checked */
             break;
             case IJavaElementDelta.REMOVED:
-            	sb.append(delta.getElement().getElementName() + " " + Messages.wasRemoved);
+            	sb.append(delta.getElement().getElementName() + " ");
+            	if(genre.equals("m"))
+            		sb.append(Messages.wasRemovedM);
+            	else
+            		sb.append(Messages.wasRemovedF);
                 break;
             
             case IJavaElementDelta.ADDED:
-            	sb.append(delta.getElement().getElementName() + " " + Messages.wasAdded);
-                
+            	sb.append(delta.getElement().getElementName() + " ");
+            	if(genre.equals("m"))
+            		sb.append(Messages.wasAddedM);
+            	else
+            		sb.append(Messages.wasAddedF);
                 break;
         }
         SpeakingHandler.getInstance().addToQueue(sb.toString());

@@ -10,7 +10,6 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.tospeech.SpeakingHandler;
 import ch.supsi.dti.utils.PluginElements;
-import ch.supsi.dti.views.SpeakingView;
 
 
 /**
