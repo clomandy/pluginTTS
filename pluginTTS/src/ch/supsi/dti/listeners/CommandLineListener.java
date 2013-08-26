@@ -11,6 +11,9 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.widgets.Display;
 
+import com.gtranslate.Language;
+import com.gtranslate.Translator;
+
 import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.parser.CommandParser;
 import ch.supsi.dti.parser.ParseException;
@@ -64,7 +67,6 @@ public class CommandLineListener implements KeyListener {
 			wordAccumulator.append(event.character);
 			break;
 		}
-		System.err.println(wordAccumulator);
 	}
 
 	private void checkToSpeechCR() {
@@ -78,7 +80,7 @@ public class CommandLineListener implements KeyListener {
 		counter++;
 		lineAccumulator = new StringBuilder(PluginElements.getSpeakingView()
 				.getCommandLineText());
-		SpeakingHandler.getInstance().addToQueue(wordAccumulator.toString());
+		SpeakingHandler.getInstance().addToQueue(Messages.traduceText(wordAccumulator.toString()));
 		wordAccumulator = new StringBuilder();
 	}
 
@@ -133,8 +135,10 @@ public class CommandLineListener implements KeyListener {
 
 				speakingView.setCommandAreaStyleRanges(textStyleRanges);
 				commandList.add(commandLineText);
+				
 				SpeakingHandler.getInstance().addToQueue(
-						commandLineText + "."
+						Messages.traduceText(commandLineText) + "."
+//						commandLineText + "."
 								+ System.getProperty("line.separator")
 								+ rensponse);
 			} catch (ParseException e) {

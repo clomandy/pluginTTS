@@ -57,7 +57,16 @@ public class ProjectInformations {
 			if(natures.length > 0)
 				sb.append(Messages.natureProject + " ");
 			for (int i = 0; i < natures.length; i++) {
-				sb.append(natures[i] + ".");
+				switch (natures[i]) {
+				case "org.eclipse.jdt.core.javanature":
+					sb.append("Java" + ".");
+					break;
+
+				default:
+					sb.append(natures[i] + ".");
+					break;
+				}
+				
 
 			}
 			
