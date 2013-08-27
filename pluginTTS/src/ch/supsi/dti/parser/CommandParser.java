@@ -147,7 +147,7 @@ public class CommandParser implements CommandParserConstants {
 					return Messages.classNotSelected;
 				}
 			case "cursor":
-				return CursorInformations.getCursorLineAndColumn();
+				return CursorInformations.getGeneralInfo();
 			case "editor":
 				return EditorInformations.getGeneralInformations();
 			}

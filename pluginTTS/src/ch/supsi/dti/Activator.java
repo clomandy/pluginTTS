@@ -2,11 +2,14 @@ package ch.supsi.dti;
 
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.osgi.framework.BundleContext;
 
 import ch.supsi.dti.listeners.ActiveEditorListener;
+import ch.supsi.dti.listeners.ChangeSelectionOnPackageExplorerLisener;
 import ch.supsi.dti.listeners.JavaChangeListener;
 import ch.supsi.dti.listeners.PackageExplorerSelectionListener;
+import ch.supsi.dti.utils.PluginElements;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -27,6 +30,8 @@ public class Activator extends AbstractUIPlugin {
 		PackageExplorerSelectionListener.getInstance().start();
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow()
         .getActivePage().addPostSelectionListener(new ActiveEditorListener());
+		PluginElements.getOutline().addSelectionChangedListener(new ChangeSelectionOnPackageExplorerLisener());
+		
 	}
 
 	/*

@@ -32,31 +32,32 @@ public class ActiveEditorListener implements ISelectionListener {
 				SpeakingHandler.getInstance().addToQueue(
 						titleFocused + " " + Messages.focusedF);
 				i = textSelection.getOffset();
-			} else {
-				if (textSelection.getLength() == 0) {
-					CompilationUnitEditor editor = (CompilationUnitEditor) part;
-					IDocumentProvider provider = ((ITextEditor) editor)
-							.getDocumentProvider();
-					IDocument document = provider.getDocument(editor
-							.getEditorInput());
-					line = textSelection.getStartLine();
-					String toSay = "";
-					try {
-						toSay = document.get(document.getLineOffset(line),
-								document.getLineLength(line));
-					} catch (BadLocationException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
-					if (!toSay.equals("") && !toSay.equals(toSayOld) && this.line != line) {
-						toSayOld = toSay;
-						this.line = line;
-						SpeakingHandler.getInstance().addToQueue(toSay);
-					}
-
-				}
-			}
+			} 
+//			else {
+//				if (textSelection.getLength() == 0) {
+//					CompilationUnitEditor editor = (CompilationUnitEditor) part;
+//					IDocumentProvider provider = ((ITextEditor) editor)
+//							.getDocumentProvider();
+//					IDocument document = provider.getDocument(editor
+//							.getEditorInput());
+//					line = textSelection.getStartLine();
+//					String toSay = "";
+//					try {
+//						toSay = document.get(document.getLineOffset(line),
+//								document.getLineLength(line));
+//					} catch (BadLocationException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//
+//					if (!toSay.equals("") && !toSay.equals(toSayOld) && this.line != line) {
+//						toSayOld = toSay;
+//						this.line = line;
+//						SpeakingHandler.getInstance().addToQueue(toSay);
+//					}
+//
+//				}
+//			}
 
 		}
 	}

@@ -2,11 +2,14 @@ package ch.supsi.dti.utils;
 
 import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IPageLayout;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.ITextEditor;
+import org.eclipse.ui.views.contentoutline.ContentOutline;
 
-import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.views.SpeakingView;
 
 public class PluginElements {
@@ -30,17 +33,25 @@ public class PluginElements {
 	}
 
 	public static PackageExplorerPart getPackageExplorer() {
-		PackageExplorerPart part= PackageExplorerPart.getFromActivePerspective();
+		PackageExplorerPart part = PackageExplorerPart
+				.getFromActivePerspective();
 		if (part == null)
 			PackageExplorerPart.openInActivePerspective();
-		
-		part= PackageExplorerPart.getFromActivePerspective();
-		
+
+		part = PackageExplorerPart.getFromActivePerspective();
+
 		return part;
 	}
-	
-	public static IEditorPart getActiveEditor(){
-		return PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+
+	public static IEditorPart getActiveEditor() {
+		return PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+				.getActivePage().getActiveEditor();
+	}
+
+	public static ContentOutline getOutline() {
+
+		return (ContentOutline) PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow().getActivePage()
+				.findViewReference(IPageLayout.ID_OUTLINE).getView(true);
 	}
 }

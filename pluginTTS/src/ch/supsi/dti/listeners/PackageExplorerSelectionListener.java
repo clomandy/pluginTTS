@@ -1,5 +1,7 @@
 package ch.supsi.dti.listeners;
 
+import java.util.Map;
+
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.internal.core.JavaElement;
 import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
@@ -10,7 +12,9 @@ import org.eclipse.jface.viewers.TreeExpansionEvent;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.ISelectionService;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.part.IPartPropertyProvider;
 
 import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.tospeech.SpeakingHandler;
@@ -62,12 +66,14 @@ public class PackageExplorerSelectionListener implements ITreeViewerListener,
 
 	@Override
 	public void selectionChanged(SelectionChangedEvent e) {
-		StringBuilder sb = new StringBuilder(getTypeSelection() + " ");
-		if (genre.equals("m"))
-			sb.append(Messages.selectedM);
-		else
-			sb.append(Messages.selectedF);
-		SpeakingHandler.getInstance().addToQueue(sb.toString());
+		if(PluginElements.getPackageExplorer().getTreeViewer().getTree().isFocusControl()){
+			StringBuilder sb = new StringBuilder(getTypeSelection() + " ");
+			if (genre.equals("m"))
+				sb.append(Messages.selectedM);
+			else
+				sb.append(Messages.selectedF);
+			SpeakingHandler.getInstance().addToQueue(sb.toString());
+		}
 	}
 
 	public void shutdown() {

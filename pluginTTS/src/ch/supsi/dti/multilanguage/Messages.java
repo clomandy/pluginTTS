@@ -21,8 +21,6 @@ public class Messages extends NLS {
 	public static String commaExpand;
 	public static String readOnly;
 	public static String itHas;
-	public static String CursorInformations_0;
-	public static String CursorInformations_1;
 	public static String packages;
 	public static String openedM;
 	public static String closedM;
@@ -70,6 +68,8 @@ public class Messages extends NLS {
 	public static String areOpenedF;
 	public static String select;
 	public static String info;
+	public static String cursorIn;
+	public static String cursor;
 
 	static {
 		// initialize resource bundle
@@ -142,6 +142,10 @@ public class Messages extends NLS {
 				break;
 			case "methods":
 				sb.append(Messages.methods);
+				sb.append(" ");
+				break;
+			case "cursor":
+				sb.append(Messages.cursor);
 				sb.append(" ");
 				break;
 			default:
