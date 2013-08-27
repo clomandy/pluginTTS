@@ -16,6 +16,9 @@ public class Speech extends Thread {
 
 	public Speech(String toSay, String language) {
 		this.language = language;
+		//In italian doesn't speek the dot.
+		toSay = toSay.replace(".java", "");
+		
 		try {
 			this.toSay = URLEncoder.encode(toSay, "UTF-8");
 		} catch (UnsupportedEncodingException e) {

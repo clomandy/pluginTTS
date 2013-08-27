@@ -1,6 +1,5 @@
 package ch.supsi.dti.utils;
 
-import org.eclipse.jdt.core.dom.Message;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PlatformUI;
@@ -17,17 +16,17 @@ public class EditorInformations {
 			sb.append(iEditorReference.getName() + ", ");
 			
 		}
-		sb.append(" are opened" + ".");
+		sb.append(" " + Messages.areOpenedF + ".");
 		sb.append(System.getProperty("line.separator"));
 		IEditorPart editor = PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 		if (editor instanceof ITextEditor) {
 			ITextEditor textEditor = (ITextEditor) editor;
 			
-			sb.append(textEditor.getTitle() + Messages.focusedM + ".");
+			sb.append(textEditor.getTitle() + " " + Messages.focusedF + ".");
 			return sb.toString();
 		}else{
-			return "No editor opened" + ".";
+			return Messages.noOpenedEditor + ".";
 		}
 	}
 

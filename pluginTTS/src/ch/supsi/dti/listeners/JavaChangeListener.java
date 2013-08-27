@@ -69,48 +69,48 @@ public class JavaChangeListener implements IElementChangedListener {
 			check = false;
 			break;
 		}
-		if (check) {
-			switch (delta.getKind()) {
-			case IJavaElementDelta.CHANGED:
-				// sb.append(delta.getElement().getElementName() + " " +
-				// Messages.wasChanged);
-				if ((delta.getFlags() & IJavaElementDelta.F_CHILDREN) != 0) {
-					// System.out.println("The change was in its children");
-					sb = new StringBuilder();
-					check = false;
-				}
-				if ((delta.getFlags() & IJavaElementDelta.F_CONTENT) != 0) {
-					// System.out.println("The change was in its content");
-					sb = new StringBuilder();
-					check = false;
-				}
-				/* Others flags can also be checked */
-				break;
-			case IJavaElementDelta.REMOVED:
-				sb.append(delta.getElement().getElementName() + " ");
-				if (genre.equals("m"))
-					sb.append(Messages.wasRemovedM);
-				else
-					sb.append(Messages.wasRemovedF);
-				break;
 
-			case IJavaElementDelta.ADDED:
-				sb.append(delta.getElement().getElementName() + " ");
-				if (genre.equals("m"))
-					sb.append(Messages.wasAddedM);
-				else
-					sb.append(Messages.wasAddedF);
-				break;
+		switch (delta.getKind()) {
+		case IJavaElementDelta.CHANGED:
+			// sb.append(delta.getElement().getElementName() + " " +
+			// Messages.wasChanged);
+			if ((delta.getFlags() & IJavaElementDelta.F_CHILDREN) != 0) {
+				// System.out.println("The change was in its children");
+				sb = new StringBuilder();
+				check = false;
 			}
-
-			if (check)
-				SpeakingHandler.getInstance().addToQueue(sb.toString());
-
-			IJavaElementDelta[] children = delta.getAffectedChildren();
-			for (int i = 0; i < children.length; i++) {
-				traverseAndPrint(children[i]);
+			if ((delta.getFlags() & IJavaElementDelta.F_CONTENT) != 0) {
+				// System.out.println("The change was in its content");
+				sb = new StringBuilder();
+				check = false;
 			}
+			/* Others flags can also be checked */
+			break;
+		case IJavaElementDelta.REMOVED:
+			sb.append(delta.getElement().getElementName() + " ");
+			if (genre.equals("m"))
+				sb.append(Messages.wasRemovedM);
+			else
+				sb.append(Messages.wasRemovedF);
+			break;
+
+		case IJavaElementDelta.ADDED:
+			sb.append(delta.getElement().getElementName() + " ");
+			if (genre.equals("m"))
+				sb.append(Messages.wasAddedM);
+			else
+				sb.append(Messages.wasAddedF);
+			break;
 		}
+
+		if (check)
+			SpeakingHandler.getInstance().addToQueue(sb.toString());
+
+		IJavaElementDelta[] children = delta.getAffectedChildren();
+		for (int i = 0; i < children.length; i++) {
+			traverseAndPrint(children[i]);
+		}
+
 	}
 
 	public void shutdown() {

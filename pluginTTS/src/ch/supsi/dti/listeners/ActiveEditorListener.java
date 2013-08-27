@@ -21,10 +21,12 @@ public class ActiveEditorListener implements ISelectionListener {
 
 	@Override
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-		TextSelection textSelection = (TextSelection) selection;
+
+
 		int i = 0;
 		int line;
 		if (part instanceof CompilationUnitEditor) {
+			TextSelection textSelection = (TextSelection) selection;
 			if (!part.getTitle().equals(titleFocused)) {
 				titleFocused = part.getTitle();
 				SpeakingHandler.getInstance().addToQueue(

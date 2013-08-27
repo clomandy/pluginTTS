@@ -66,6 +66,10 @@ public class Messages extends NLS {
 	public static String editor;
 	public static String focusedM;
 	public static String focusedF;
+	public static String noOpenedEditor;
+	public static String areOpenedF;
+	public static String select;
+	public static String info;
 
 	static {
 		// initialize resource bundle
@@ -93,66 +97,60 @@ public class Messages extends NLS {
 		Translator translate = Translator.getInstance();
 		StringBuilder sb = new StringBuilder();
 		String[] arrCommands = commandLineText.split(" ");
-		switch (new SpeakingPreferences().getPreferenceStore().getString(
-				PreferenceConstants.MULTILANGUAGE)) {
-		case "en":
-			return commandLineText;
-		case "it":
-			for (int i = 0; i < arrCommands.length; i++) {
-				switch (arrCommands[i]) {
-				case "select":
-					sb.append("seleziona");
-					sb.append(" ");
-					break;
-				case "info":
-					sb.append("informazioni");
-					sb.append(" ");
-					break;
-				case "project":
-					sb.append("progetto");
-					sb.append(" ");
-					break;
-				case "projects":
-					sb.append("progetti");
-					sb.append(" ");
-					break;
-				case "folder":
-					sb.append("cartella");
-					sb.append(" ");
-					break;
-				case "package":
-					sb.append("package");
-					sb.append(" ");
-					break;
-				case "packages":
-					sb.append("packages");
-					sb.append(" ");
-					break;
-				case "class":
-					sb.append("classe");
-					sb.append(" ");
-					break;
-				case "classes":
-					sb.append("classi");
-					sb.append(" ");
-					break;
-				case "method":
-					sb.append("metodo");
-					sb.append(" ");
-					break;
-				case "methods":
-					sb.append("metodi");
-					sb.append(" ");
-					break;
-				default:
-					sb.append(arrCommands[i]);
-					sb.append(" ");
-					break;
-				}
+
+		for (int i = 0; i < arrCommands.length; i++) {
+			switch (arrCommands[i]) {
+			case "select":
+				sb.append(Messages.select);
+				sb.append(" ");
+				break;
+			case "info":
+				sb.append(Messages.info);
+				sb.append(" ");
+				break;
+			case "project":
+				sb.append(Messages.project);
+				sb.append(" ");
+				break;
+			case "projects":
+				sb.append(Messages.projects);
+				sb.append(" ");
+				break;
+			case "folder":
+				sb.append(Messages.folder);
+				sb.append(" ");
+				break;
+			case "package":
+				sb.append(Messages.thePackage);
+				sb.append(" ");
+				break;
+			case "packages":
+				sb.append(Messages.packages);
+				sb.append(" ");
+				break;
+			case "class":
+				sb.append(Messages.theClass);
+				sb.append(" ");
+				break;
+			case "classes":
+				sb.append(Messages.classes);
+				sb.append(" ");
+				break;
+			case "method":
+				sb.append(Messages.method);
+				sb.append(" ");
+				break;
+			case "methods":
+				sb.append(Messages.methods);
+				sb.append(" ");
+				break;
+			default:
+				sb.append(arrCommands[i]);
+				sb.append(" ");
+				break;
 			}
-			return sb.toString();
-		default:
-			return commandLineText;
 		}
+		return sb.toString();
+
 	}
 }
