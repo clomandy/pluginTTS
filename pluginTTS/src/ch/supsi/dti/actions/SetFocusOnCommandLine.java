@@ -35,6 +35,7 @@ public class SetFocusOnCommandLine implements IWorkbenchWindowActionDelegate {
 	 * 
 	 * @see IWorkbenchWindowActionDelegate#run
 	 */
+	@Override
 	public void run(IAction action) {
 		SpeakingView speakingView = PluginElements.getSpeakingView();
 		speakingView.setFocus();
@@ -50,6 +51,7 @@ public class SetFocusOnCommandLine implements IWorkbenchWindowActionDelegate {
 	 * 
 	 * @see IWorkbenchWindowActionDelegate#selectionChanged
 	 */
+	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 	}
 
@@ -59,6 +61,7 @@ public class SetFocusOnCommandLine implements IWorkbenchWindowActionDelegate {
 	 * 
 	 * @see IWorkbenchWindowActionDelegate#dispose
 	 */
+	@Override
 	public void dispose() {
 	}
 
@@ -68,6 +71,7 @@ public class SetFocusOnCommandLine implements IWorkbenchWindowActionDelegate {
 	 * 
 	 * @see IWorkbenchWindowActionDelegate#init
 	 */
+	@Override
 	public void init(IWorkbenchWindow window) {
 	}
 }

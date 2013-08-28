@@ -1,16 +1,18 @@
 package ch.supsi.dti.actions;
 
-
-import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
+import org.eclipse.ui.texteditor.IDocumentProvider;
+import org.eclipse.ui.texteditor.ITextEditor;
 
-import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.tospeech.SpeakingHandler;
 import ch.supsi.dti.utils.PluginElements;
-
 
 /**
  * Our sample action implements workbench action delegate. The action proxy will
@@ -20,13 +22,12 @@ import ch.supsi.dti.utils.PluginElements;
  * 
  * @see IWorkbenchWindowActionDelegate
  */
-public class SetFocusOnPackageExplorer implements IWorkbenchWindowActionDelegate {
+public class ReadLineOfCursor implements IWorkbenchWindowActionDelegate {
 
-	
 	/**
 	 * The constructor.
 	 */
-	public SetFocusOnPackageExplorer() {
+	public ReadLineOfCursor() {
 	}
 
 	/**
@@ -37,12 +38,25 @@ public class SetFocusOnPackageExplorer implements IWorkbenchWindowActionDelegate
 	 */
 	@Override
 	public void run(IAction action) {
-		PackageExplorerPart packageExplorer = PluginElements.getPackageExplorer();
-		packageExplorer.setFocus();
-		SpeakingHandler.getInstance().addToQueue(Messages.packageExplorer + " " + Messages.focusedM);
-	}
+		IEditorPart editor = PluginElements.getActiveEditor();
+		IDocumentProvider provider = ((ITextEditor) editor)
+				.getDocumentProvider();
+		IDocument document = provider.getDocument(editor.getEditorInput());
+		ITextSelection textSelection = (ITextSelection) editor
+		        .getSite().getSelectionProvider().getSelection();
+		int line = textSelection.getStartLine();
+		String toSay = "";
+		try {
+			toSay = document.get(document.getLineOffset(line),
+					document.getLineLength(line));
+		} catch (BadLocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-	
+		SpeakingHandler.getInstance().addToQueue(toSay);
+		
+	}
 
 	/**
 	 * Selection in the workbench has been changed. We can change the state of

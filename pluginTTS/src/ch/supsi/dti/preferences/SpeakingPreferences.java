@@ -1,16 +1,16 @@
 package ch.supsi.dti.preferences;
 
+import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.ComboFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
-import com.gtranslate.Language;
-
 import ch.supsi.dti.Activator;
 import ch.supsi.dti.multilanguage.Messages;
-import ch.supsi.dti.tospeech.SpeakingHandler;
 import ch.supsi.dti.tospeech.SpeakingReferee;
+
+import com.gtranslate.Language;
 
 /**
  * This class represents a preference page that is contributed to the
@@ -39,11 +39,14 @@ public class SpeakingPreferences extends FieldEditorPreferencePage implements
 	 * GUI blocks needed to manipulate various types of preferences. Each field
 	 * editor knows how to save and restore itself.
 	 */
+	@Override
 	public void createFieldEditors() {
 		addField(new ComboFieldEditor(PreferenceConstants.MULTILANGUAGE,
 				"&Select the speaking language:", new String[][] {
 						{ "English", "en" }, { "Italian", "it" } },
 				getFieldEditorParent()));
+		addField(new BooleanFieldEditor(PreferenceConstants.DYNAMIC_READER,
+		        "&Enable dynamic reader", getFieldEditorParent()));
 	}
 
 	/*
@@ -52,6 +55,7 @@ public class SpeakingPreferences extends FieldEditorPreferencePage implements
 	 * @see
 	 * org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
 	 */
+	@Override
 	public void init(IWorkbench workbench) {
 
 	}

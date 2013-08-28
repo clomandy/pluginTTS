@@ -1,7 +1,6 @@
 package ch.supsi.dti.actions;
 
 
-import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorPart;
@@ -11,7 +10,6 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.tospeech.SpeakingHandler;
 import ch.supsi.dti.utils.PluginElements;
-import ch.supsi.dti.views.SpeakingView;
 
 
 /**
@@ -37,6 +35,7 @@ public class SetFocusOnActiveEditor implements IWorkbenchWindowActionDelegate {
 	 * 
 	 * @see IWorkbenchWindowActionDelegate#run
 	 */
+	@Override
 	public void run(IAction action) {
 		IEditorPart editor = PluginElements.getActiveEditor();
 		editor.setFocus();
@@ -52,6 +51,7 @@ public class SetFocusOnActiveEditor implements IWorkbenchWindowActionDelegate {
 	 * 
 	 * @see IWorkbenchWindowActionDelegate#selectionChanged
 	 */
+	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 	}
 
@@ -61,6 +61,7 @@ public class SetFocusOnActiveEditor implements IWorkbenchWindowActionDelegate {
 	 * 
 	 * @see IWorkbenchWindowActionDelegate#dispose
 	 */
+	@Override
 	public void dispose() {
 	}
 
@@ -70,6 +71,7 @@ public class SetFocusOnActiveEditor implements IWorkbenchWindowActionDelegate {
 	 * 
 	 * @see IWorkbenchWindowActionDelegate#init
 	 */
+	@Override
 	public void init(IWorkbenchWindow window) {
 	}
 }

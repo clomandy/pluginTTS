@@ -4,9 +4,6 @@ import org.eclipse.osgi.util.NLS;
 
 import ch.supsi.dti.preferences.PreferenceConstants;
 import ch.supsi.dti.preferences.SpeakingPreferences;
-import ch.supsi.dti.tospeech.SpeakingReferee;
-
-import com.gtranslate.Language;
 import com.gtranslate.Translator;
 
 public class Messages extends NLS {

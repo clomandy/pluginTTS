@@ -6,6 +6,7 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.JavaModelException;
@@ -140,7 +141,7 @@ public class CommandParser implements CommandParserConstants {
 
 				ICompilationUnit theClass = null;
 
-				if (javaElement.getElementType() == JavaElement.COMPILATION_UNIT) {
+				if (javaElement.getElementType() == IJavaElement.COMPILATION_UNIT) {
 					theClass = (ICompilationUnit) javaElement;
 					return MethodInformations.getGeneralInfo(theClass);
 				} else {
@@ -186,9 +187,9 @@ public class CommandParser implements CommandParserConstants {
 			case "class":
 				element = (JavaElement) selection.getFirstElement();
 				
-				if (element.getElementType() == JavaElement.JAVA_PROJECT) {
+				if (element.getElementType() == IJavaElement.JAVA_PROJECT) {
 					javaProject = (JavaProject) element;
-				} else if (element.getElementType() == JavaElement.PACKAGE_FRAGMENT) {
+				} else if (element.getElementType() == IJavaElement.PACKAGE_FRAGMENT) {
 					thePackage = (IPackageFragment) element;
 					try {
 						javaProject = checkSelectionAndReturnProject();
@@ -215,7 +216,7 @@ public class CommandParser implements CommandParserConstants {
 				if (element == null)
 					return Messages.classNotSelected;
 
-				if (element.getElementType() == JavaElement.COMPILATION_UNIT) {
+				if (element.getElementType() == IJavaElement.COMPILATION_UNIT) {
 					theClass = (ICompilationUnit)element;
 					
 					try {
@@ -403,7 +404,7 @@ public class CommandParser implements CommandParserConstants {
 				}
 
 				element = (JavaElement) selection.getFirstElement();
-				if (element.getElementType() == JavaElement.PACKAGE_FRAGMENT) {
+				if (element.getElementType() == IJavaElement.PACKAGE_FRAGMENT) {
 					thePackage = (IPackageFragment) element;
 					try {
 						javaProject = checkSelectionAndReturnProject();
@@ -430,7 +431,7 @@ public class CommandParser implements CommandParserConstants {
 				if (element == null)
 					return Messages.classNotSelected;
 
-				if (element.getElementType() == JavaElement.COMPILATION_UNIT) {
+				if (element.getElementType() == IJavaElement.COMPILATION_UNIT) {
 					theClass = (ICompilationUnit)element;
 					
 					try {

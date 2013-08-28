@@ -45,6 +45,7 @@ public class SpeakingView extends ViewPart {
 	/* (non-Javadoc)
 	 * @see org.eclipse.ui.part.WorkbenchPart#setFocus()
 	 */
+	@Override
 	public void setFocus() {
 		commandLine.setFocus();
 	}
@@ -52,6 +53,7 @@ public class SpeakingView extends ViewPart {
 	/* (non-Javadoc)
 	 * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	public void createPartControl(Composite parent) {
 		GridLayout gridLay = new GridLayout();
 		GridData horizontalFill = new GridData(SWT.FILL, SWT.FILL, true, false);

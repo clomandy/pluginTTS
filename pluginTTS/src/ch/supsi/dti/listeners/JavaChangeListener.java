@@ -4,6 +4,7 @@ import java.util.Properties;
 
 import org.eclipse.jdt.core.ElementChangedEvent;
 import org.eclipse.jdt.core.IElementChangedListener;
+import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.internal.core.JavaModel;
@@ -38,6 +39,7 @@ public class JavaChangeListener implements IElementChangedListener {
 	 * org.eclipse.jdt.core.IElementChangedListener#elementChanged(org.eclipse
 	 * .jdt.core.ElementChangedEvent)
 	 */
+	@Override
 	public void elementChanged(ElementChangedEvent event) {
 		IJavaElementDelta delta = event.getDelta();
 		IJavaElementDelta[] children = delta.getAffectedChildren();
@@ -53,15 +55,15 @@ public class JavaChangeListener implements IElementChangedListener {
 		boolean check = true;
 		int elementType = delta.getElement().getElementType();
 		switch (elementType) {
-		case JavaModel.COMPILATION_UNIT:
+		case IJavaElement.COMPILATION_UNIT:
 			sb.append(Messages.theClass + " ");
 			genre = "f";
 			break;
-		case JavaModel.METHOD:
+		case IJavaElement.METHOD:
 			sb.append(Messages.method + " ");
 			genre = "m";
 			break;
-		case JavaModel.FIELD:
+		case IJavaElement.FIELD:
 			sb.append(Messages.field + " ");
 			genre = "m";
 			break;

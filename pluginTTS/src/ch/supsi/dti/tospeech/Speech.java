@@ -4,10 +4,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import ch.supsi.dti.multilanguage.Messages;
-
 import com.gtranslate.Audio;
-import com.gtranslate.Language;
 
 public class Speech extends Thread {
 

@@ -1,14 +1,9 @@
 package ch.supsi.dti.utils;
 
-import java.lang.reflect.Method;
-
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IMethod;
-import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jdt.internal.core.JavaProject;
-
 import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.parser.MethodNotFoundException;
 

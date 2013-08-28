@@ -11,9 +11,6 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.widgets.Display;
 
-import com.gtranslate.Language;
-import com.gtranslate.Translator;
-
 import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.parser.CommandParser;
 import ch.supsi.dti.parser.ParseException;

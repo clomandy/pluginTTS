@@ -3,8 +3,6 @@ package ch.supsi.dti.utils;
 import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPageLayout;
-import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.ITextEditor;
