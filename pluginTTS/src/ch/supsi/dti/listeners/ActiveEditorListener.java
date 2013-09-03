@@ -17,8 +17,8 @@ import ch.supsi.dti.tospeech.SpeakingHandler;
 
 public class ActiveEditorListener implements ISelectionListener {
 
-	private String titleFocused;
 	private int line;
+	private String titleFocused;
 	private String toSayOld = "";
 
 	@Override

@@ -31,45 +31,6 @@ public class ReadLineOfCursor implements IWorkbenchWindowActionDelegate {
 	}
 
 	/**
-	 * The action has been activated. The argument of the method represents the
-	 * 'real' action sitting in the workbench UI.
-	 * 
-	 * @see IWorkbenchWindowActionDelegate#run
-	 */
-	@Override
-	public void run(IAction action) {
-		IEditorPart editor = PluginElements.getActiveEditor();
-		IDocumentProvider provider = ((ITextEditor) editor)
-				.getDocumentProvider();
-		IDocument document = provider.getDocument(editor.getEditorInput());
-		ITextSelection textSelection = (ITextSelection) editor
-		        .getSite().getSelectionProvider().getSelection();
-		int line = textSelection.getStartLine();
-		String toSay = "";
-		try {
-			toSay = document.get(document.getLineOffset(line),
-					document.getLineLength(line));
-		} catch (BadLocationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		SpeakingHandler.getInstance().addToQueue(toSay);
-		
-	}
-
-	/**
-	 * Selection in the workbench has been changed. We can change the state of
-	 * the 'real' action here if we want, but this can only happen after the
-	 * delegate has been created.
-	 * 
-	 * @see IWorkbenchWindowActionDelegate#selectionChanged
-	 */
-	@Override
-	public void selectionChanged(IAction action, ISelection selection) {
-	}
-
-	/**
 	 * We can use this method to dispose of any system resources we previously
 	 * allocated.
 	 * 
@@ -87,5 +48,44 @@ public class ReadLineOfCursor implements IWorkbenchWindowActionDelegate {
 	 */
 	@Override
 	public void init(IWorkbenchWindow window) {
+	}
+
+	/**
+	 * The action has been activated. The argument of the method represents the
+	 * 'real' action sitting in the workbench UI.
+	 * 
+	 * @see IWorkbenchWindowActionDelegate#run
+	 */
+	@Override
+	public void run(IAction action) {
+		IEditorPart editor = PluginElements.getActiveEditor();
+		IDocumentProvider provider = ((ITextEditor) editor)
+				.getDocumentProvider();
+		IDocument document = provider.getDocument(editor.getEditorInput());
+		ITextSelection textSelection = (ITextSelection) editor.getSite()
+				.getSelectionProvider().getSelection();
+		int line = textSelection.getStartLine();
+		String toSay = "";
+		try {
+			toSay = document.get(document.getLineOffset(line),
+					document.getLineLength(line));
+		} catch (BadLocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		SpeakingHandler.getInstance().addToQueue(toSay);
+
+	}
+
+	/**
+	 * Selection in the workbench has been changed. We can change the state of
+	 * the 'real' action here if we want, but this can only happen after the
+	 * delegate has been created.
+	 * 
+	 * @see IWorkbenchWindowActionDelegate#selectionChanged
+	 */
+	@Override
+	public void selectionChanged(IAction action, ISelection selection) {
 	}
 }

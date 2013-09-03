@@ -12,11 +12,12 @@ public class ChangeSelectionOnPackageExplorerLisener implements
 
 	@Override
 	public void selectionChanged(SelectionChangedEvent arg0) {
-		
+
 		ContentOutline outline = PluginElements.getOutline();
-		
+
 		TreeSelection treeSelection = (TreeSelection) outline.getSelection();
-		PluginElements.getPackageExplorer().selectAndReveal(treeSelection.getFirstElement());
+		PluginElements.getPackageExplorer().selectAndReveal(
+				treeSelection.getFirstElement());
 	}
 
 }

@@ -11,10 +11,12 @@ public class EditorInformations {
 
 	public static String getGeneralInformations() {
 		StringBuilder sb = new StringBuilder();
-		IEditorReference[] editorReferences = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
+		IEditorReference[] editorReferences = PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow().getActivePage()
+				.getEditorReferences();
 		for (IEditorReference iEditorReference : editorReferences) {
 			sb.append(iEditorReference.getName() + ", ");
-			
+
 		}
 		sb.append(" " + Messages.areOpenedF + ".");
 		sb.append(System.getProperty("line.separator"));
@@ -22,10 +24,10 @@ public class EditorInformations {
 				.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 		if (editor instanceof ITextEditor) {
 			ITextEditor textEditor = (ITextEditor) editor;
-			
+
 			sb.append(textEditor.getTitle() + " " + Messages.focusedF + ".");
 			return sb.toString();
-		}else{
+		} else {
 			return Messages.noOpenedEditor + ".";
 		}
 	}

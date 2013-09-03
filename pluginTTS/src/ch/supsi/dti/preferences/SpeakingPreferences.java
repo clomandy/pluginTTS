@@ -25,9 +25,9 @@ import com.gtranslate.Language;
 
 public class SpeakingPreferences extends FieldEditorPreferencePage implements
 		IWorkbenchPreferencePage {
-	
+
 	private static SpeakingPreferences instance;
-	
+
 	public SpeakingPreferences() {
 		super(GRID);
 		setPreferenceStore(Activator.getDefault().getPreferenceStore());
@@ -46,7 +46,8 @@ public class SpeakingPreferences extends FieldEditorPreferencePage implements
 						{ "English", "en" }, { "Italian", "it" } },
 				getFieldEditorParent()));
 		addField(new BooleanFieldEditor(PreferenceConstants.DYNAMIC_READER,
-		        "&Enable dynamic reader", getFieldEditorParent()));
+				"&Enable dynamic reader on active editor.",
+				getFieldEditorParent()));
 	}
 
 	/*
@@ -63,8 +64,9 @@ public class SpeakingPreferences extends FieldEditorPreferencePage implements
 	@Override
 	public boolean performOk() {
 		boolean ret = super.performOk();
-		if(ret){
-			switch(this.getPreferenceStore().getString(PreferenceConstants.MULTILANGUAGE)){
+		if (ret) {
+			switch (this.getPreferenceStore().getString(
+					PreferenceConstants.MULTILANGUAGE)) {
 			case "en":
 				Messages.reinitializeMessages(Messages.BUNDLE_NAME_EN);
 				SpeakingReferee.getInstance().setLanguage(Language.ENGLISH);

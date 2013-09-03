@@ -11,6 +11,7 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.ISelectionService;
 import org.eclipse.ui.PlatformUI;
+
 import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.tospeech.SpeakingHandler;
 import ch.supsi.dti.utils.PluginElements;
@@ -19,15 +20,79 @@ public class PackageExplorerSelectionListener implements ITreeViewerListener,
 		ISelectionChangedListener {
 
 	private static PackageExplorerSelectionListener instance;
-	private String genre = "";
-
-	private PackageExplorerSelectionListener() {
-	}
 
 	public static PackageExplorerSelectionListener getInstance() {
 		if (instance == null)
 			instance = new PackageExplorerSelectionListener();
 		return instance;
+	}
+
+	private String genre = "";
+
+	private PackageExplorerSelectionListener() {
+	}
+
+	private String getTypeSelection() {
+		ISelectionService service = PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow().getSelectionService();
+
+		TreeSelection structured = (TreeSelection) service
+				.getSelection("org.eclipse.jdt.ui.PackageExplorer");
+
+		Object ob = structured.getFirstElement();
+		if (ob instanceof JavaElement) {
+			JavaElement javaElement = (JavaElement) structured
+					.getFirstElement();
+
+			StringBuilder sb = new StringBuilder();
+
+			sb.append(javaElement.getElementName());
+
+			if (javaElement.getElementType() == IJavaElement.JAVA_PROJECT) {
+				this.genre = "m";
+				return Messages.project + " " + sb.toString();
+			} else if (javaElement.getElementType() == IJavaElement.PACKAGE_FRAGMENT_ROOT) {
+				this.genre = "f";
+				return Messages.folder + " " + sb.toString();
+			} else if (javaElement.getElementType() == IJavaElement.PACKAGE_FRAGMENT) {
+				this.genre = "m";
+				return Messages.thePackage + " " + sb.toString();
+			} else if (javaElement.getElementType() == IJavaElement.COMPILATION_UNIT) {
+				this.genre = "f";
+				return Messages.theClass + " " + sb.toString();
+			} else if (javaElement.getElementType() == IJavaElement.METHOD) {
+				this.genre = "m";
+				return Messages.method + " " + sb.toString();
+			} else {
+				this.genre = "m";
+				return Messages.unknownJavaElement;
+			}
+
+		} else {
+			this.genre = "m";
+			return Messages.noJavaElement;
+		}
+	}
+
+	@Override
+	public void selectionChanged(SelectionChangedEvent e) {
+		if (PluginElements.getPackageExplorer().getTreeViewer().getTree()
+				.isFocusControl()) {
+			StringBuilder sb = new StringBuilder(getTypeSelection() + " ");
+			if (genre.equals("m"))
+				sb.append(Messages.selectedM);
+			else
+				sb.append(Messages.selectedF);
+			SpeakingHandler.getInstance().addToQueue(sb.toString());
+		}
+	}
+
+	public void shutdown() {
+		PackageExplorerPart packageExplorer = PluginElements
+				.getPackageExplorer();
+		TreeViewer treeViewer = packageExplorer.getTreeViewer();
+		treeViewer.removeTreeListener(this);
+		treeViewer.removeSelectionChangedListener(this);
 	}
 
 	public void start() {
@@ -57,68 +122,6 @@ public class PackageExplorerSelectionListener implements ITreeViewerListener,
 		else
 			sb.append(Messages.expandedF);
 		SpeakingHandler.getInstance().addToQueue(sb.toString());
-	}
-
-	@Override
-	public void selectionChanged(SelectionChangedEvent e) {
-		if(PluginElements.getPackageExplorer().getTreeViewer().getTree().isFocusControl()){
-			StringBuilder sb = new StringBuilder(getTypeSelection() + " ");
-			if (genre.equals("m"))
-				sb.append(Messages.selectedM);
-			else
-				sb.append(Messages.selectedF);
-			SpeakingHandler.getInstance().addToQueue(sb.toString());
-		}
-	}
-
-	public void shutdown() {
-		PackageExplorerPart packageExplorer = PluginElements
-				.getPackageExplorer();
-		TreeViewer treeViewer = packageExplorer.getTreeViewer();
-		treeViewer.removeTreeListener(this);
-		treeViewer.removeSelectionChangedListener(this);
-	}
-
-	private String getTypeSelection() {
-		ISelectionService service = PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getSelectionService();
-
-		TreeSelection structured = (TreeSelection) service
-				.getSelection("org.eclipse.jdt.ui.PackageExplorer");
-
-		Object ob = structured.getFirstElement();
-		if (ob instanceof JavaElement) {
-			JavaElement javaElement = (JavaElement) structured
-					.getFirstElement();
-
-			StringBuilder sb = new StringBuilder();
-
-			sb.append(javaElement.getElementName());
-
-			if (javaElement.getElementType() == IJavaElement.JAVA_PROJECT) {
-				this.genre = "m";
-				return Messages.project + " " + sb.toString();
-			} else if (javaElement.getElementType() == IJavaElement.PACKAGE_FRAGMENT_ROOT) {
-				this.genre = "f";
-				return Messages.folder + " " + sb.toString();				
-			} else if (javaElement.getElementType() == IJavaElement.PACKAGE_FRAGMENT) {
-				this.genre = "m";
-				return Messages.thePackage + " " + sb.toString();
-			} else if (javaElement.getElementType() == IJavaElement.COMPILATION_UNIT) {
-				this.genre = "f";
-				return Messages.theClass + " " + sb.toString();
-			} else if (javaElement.getElementType() == IJavaElement.METHOD) {
-				this.genre = "m";
-				return Messages.method + " " + sb.toString();
-			} else {
-				this.genre = "m";
-				return Messages.unknownJavaElement;
-			}
-
-		} else {
-			this.genre = "m";
-			return Messages.noJavaElement;
-		}
 	}
 
 }

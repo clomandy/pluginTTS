@@ -7,7 +7,6 @@ import org.eclipse.jdt.core.IElementChangedListener;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.internal.core.JavaModel;
 
 import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.tospeech.SpeakingHandler;
@@ -16,10 +15,6 @@ public class JavaChangeListener implements IElementChangedListener {
 
 	private static final String FILENAME = "clean-cache.properties"; //$NON-NLS-1$
 	private static JavaChangeListener instance;
-	private Properties fTable = new Properties();
-
-	private JavaChangeListener() {
-	}
 
 	public static JavaChangeListener getInstance() {
 		if (instance == null)
@@ -27,9 +22,9 @@ public class JavaChangeListener implements IElementChangedListener {
 		return instance;
 	}
 
-	public void start() {
-		JavaCore.addElementChangedListener(this);
-		// load();
+	private Properties fTable = new Properties();
+
+	private JavaChangeListener() {
 	}
 
 	/*
@@ -46,6 +41,16 @@ public class JavaChangeListener implements IElementChangedListener {
 		for (int i = 0; i < children.length; i++) {
 			traverseAndPrint(children[i]);
 		}
+	}
+
+	public void shutdown() {
+		JavaCore.removeElementChangedListener(this);
+		// save();
+	}
+
+	public void start() {
+		JavaCore.addElementChangedListener(this);
+		// load();
 	}
 
 	private void traverseAndPrint(IJavaElementDelta delta) {
@@ -113,11 +118,6 @@ public class JavaChangeListener implements IElementChangedListener {
 			traverseAndPrint(children[i]);
 		}
 
-	}
-
-	public void shutdown() {
-		JavaCore.removeElementChangedListener(this);
-		// save();
 	}
 
 }

@@ -8,14 +8,14 @@ import com.gtranslate.Audio;
 
 public class Speech extends Thread {
 
-	private String toSay;
 	private String language;
+	private String toSay;
 
 	public Speech(String toSay, String language) {
 		this.language = language;
-		//In italian doesn't speek the dot.
+		// In italian doesn't speek the dot.
 		toSay = toSay.replace(".java", "");
-		
+
 		try {
 			this.toSay = URLEncoder.encode(toSay, "UTF-8");
 		} catch (UnsupportedEncodingException e) {

@@ -12,22 +12,21 @@ import ch.supsi.dti.views.SpeakingView;
 
 public class PluginElements {
 
-	public static SpeakingView getSpeakingView() {
-		SpeakingView speakingView = null;
-		try {
-			speakingView = (SpeakingView) PlatformUI.getWorkbench()
-					.getActiveWorkbenchWindow().getActivePage()
-					.showView("pluginTTS.views.SpeakingView");
-		} catch (PartInitException e) {
-			// TODO manage exception: add tab speakingview
-			e.printStackTrace();
-		}
-		return speakingView;
+	public static IEditorPart getActiveEditor() {
+		return PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+				.getActivePage().getActiveEditor();
 	}
 
 	public static ITextEditor getActiveTextEditor() {
 		return (ITextEditor) PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+	}
+
+	public static ContentOutline getOutline() {
+
+		return (ContentOutline) PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow().getActivePage()
+				.findViewReference(IPageLayout.ID_OUTLINE).getView(true);
 	}
 
 	public static PackageExplorerPart getPackageExplorer() {
@@ -41,15 +40,16 @@ public class PluginElements {
 		return part;
 	}
 
-	public static IEditorPart getActiveEditor() {
-		return PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-				.getActivePage().getActiveEditor();
-	}
-
-	public static ContentOutline getOutline() {
-
-		return (ContentOutline) PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getActivePage()
-				.findViewReference(IPageLayout.ID_OUTLINE).getView(true);
+	public static SpeakingView getSpeakingView() {
+		SpeakingView speakingView = null;
+		try {
+			speakingView = (SpeakingView) PlatformUI.getWorkbench()
+					.getActiveWorkbenchWindow().getActivePage()
+					.showView("pluginTTS.views.SpeakingView");
+		} catch (PartInitException e) {
+			// TODO manage exception: add tab speakingview
+			e.printStackTrace();
+		}
+		return speakingView;
 	}
 }

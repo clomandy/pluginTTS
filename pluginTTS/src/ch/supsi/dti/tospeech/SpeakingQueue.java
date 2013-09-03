@@ -4,18 +4,18 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import ch.supsi.dti.multilanguage.Messages;
 
-public class SpeakingQueue{
+public class SpeakingQueue {
 
 	private LinkedBlockingQueue<String> queue;
 
 	public SpeakingQueue() {
 		queue = new LinkedBlockingQueue<>();
 	}
-	
-	public void add(String toSay){
-		if(!queue.isEmpty())
+
+	public void add(String toSay) {
+		if (!queue.isEmpty())
 			queue.remove();
-		
+
 		try {
 			queue.put(toSay);
 		} catch (InterruptedException e) {
@@ -23,19 +23,17 @@ public class SpeakingQueue{
 			e.printStackTrace();
 		}
 	}
-	
-	public boolean isEmpty(){
-		return queue.isEmpty();
-	}
-	
-	public String getElement(){
+
+	public String getElement() {
 		try {
 			return queue.take();
 		} catch (InterruptedException e) {
 			return Messages.error;
 		}
 	}
-	
-	
-	
+
+	public boolean isEmpty() {
+		return queue.isEmpty();
+	}
+
 }

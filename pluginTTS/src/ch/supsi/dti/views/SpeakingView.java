@@ -11,7 +11,6 @@ import org.eclipse.ui.part.ViewPart;
 
 import ch.supsi.dti.listeners.CommandLineListener;
 
-
 /**
  * This sample class demonstrates how to plug-in a new workbench view. The view
  * shows data obtained from the model. The sample creates a dummy model on the
@@ -36,22 +35,24 @@ public class SpeakingView extends ViewPart {
 	private Text commandLine;
 
 	/**
-	 * Constructor 
+	 * Constructor
 	 */
 	public SpeakingView() {
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.part.WorkbenchPart#setFocus()
-	 */
-	@Override
-	public void setFocus() {
-		commandLine.setFocus();
+	public void addTextOnCommandArea(String text) {
+		commandArea.setText(commandArea.getText()
+				+ System.getProperty("line.separator") + text);
+		scrollCommandAreaBottom();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets
+	 * .Composite)
 	 */
 	@Override
 	public void createPartControl(Composite parent) {
@@ -60,8 +61,8 @@ public class SpeakingView extends ViewPart {
 		GridData fill = new GridData(SWT.FILL, SWT.FILL, true, true);
 		parent.setLayout(gridLay);
 
-		commandArea = new StyledText(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL
-				| SWT.BORDER | SWT.READ_ONLY | SWT.WRAP);
+		commandArea = new StyledText(parent, SWT.MULTI | SWT.H_SCROLL
+				| SWT.V_SCROLL | SWT.BORDER | SWT.READ_ONLY | SWT.WRAP);
 
 		commandArea.setText("SpeakingView listening....");
 		commandArea.setLayoutData(fill);
@@ -73,32 +74,12 @@ public class SpeakingView extends ViewPart {
 		commandLine.addKeyListener(new CommandLineListener());
 	}
 
-	public void setTextOnCommandArea(String text) {
-		commandArea.setText("Nuovo testo: " + System.getProperty("line.separator")
-				+ text);
-		scrollCommandAreaBottom();
-	}
-
-	public void addTextOnCommandArea(String text) {
-		commandArea.setText(commandArea.getText() + System.getProperty("line.separator")
-				+ text);
-		scrollCommandAreaBottom();
-	}
-
 	public int getCommandAreaOffset() {
 		return commandArea.getText().length() + 1;
 	}
 
 	public StyleRange[] getCommandAreaStyleRanges() {
 		return commandArea.getStyleRanges();
-	}
-
-	public void setCommandAreaStyleRanges(StyleRange[] ranges) {
-		commandArea.setStyleRanges(ranges);
-	}
-
-	private void scrollCommandAreaBottom() {
-		commandArea.setTopIndex(commandArea.getLineCount() - 1);
 	}
 
 	public String getCommandLineText() {
@@ -109,8 +90,32 @@ public class SpeakingView extends ViewPart {
 		commandLine.setText("");
 	}
 
+	private void scrollCommandAreaBottom() {
+		commandArea.setTopIndex(commandArea.getLineCount() - 1);
+	}
+
+	public void setCommandAreaStyleRanges(StyleRange[] ranges) {
+		commandArea.setStyleRanges(ranges);
+	}
+
 	public void setCommandLineText(String str) {
 		commandLine.setText(str);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.part.WorkbenchPart#setFocus()
+	 */
+	@Override
+	public void setFocus() {
+		commandLine.setFocus();
+	}
+
+	public void setTextOnCommandArea(String text) {
+		commandArea.setText("Nuovo testo: "
+				+ System.getProperty("line.separator") + text);
+		scrollCommandAreaBottom();
 	}
 
 }

@@ -8,13 +8,22 @@ import com.gtranslate.Language;
 public class SpeakingReferee extends Thread {
 
 	private static SpeakingReferee instance;
-	private SpeakingQueue queue;
-	private Speech lastSpeech;
+
+	public static SpeakingReferee getInstance() {
+		if (instance == null)
+			instance = new SpeakingReferee();
+		return instance;
+	}
+
 	private String language;
+	private Speech lastSpeech;
+
+	private SpeakingQueue queue;
 
 	private SpeakingReferee() {
 		this.queue = new SpeakingQueue();
-		switch(new SpeakingPreferences().getPreferenceStore().getString(PreferenceConstants.MULTILANGUAGE)){
+		switch (new SpeakingPreferences().getPreferenceStore().getString(
+				PreferenceConstants.MULTILANGUAGE)) {
 		case "en":
 			this.language = Language.ENGLISH;
 			break;
@@ -24,10 +33,8 @@ public class SpeakingReferee extends Thread {
 		}
 	}
 
-	public static SpeakingReferee getInstance() {
-		if (instance == null)
-			instance = new SpeakingReferee();
-		return instance;
+	public SpeakingQueue getQueue() {
+		return queue;
 	}
 
 	@Override
@@ -44,16 +51,13 @@ public class SpeakingReferee extends Thread {
 			lastSpeech = speech;
 		}
 	}
-	
+
 	/**
-	 * @param language the language to set
+	 * @param language
+	 *            the language to set
 	 */
 	public void setLanguage(String language) {
 		this.language = language;
-	}
-
-	public SpeakingQueue getQueue() {
-		return queue;
 	}
 
 }

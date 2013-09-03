@@ -20,50 +20,16 @@ import ch.supsi.dti.views.SpeakingView;
 
 public class CommandLineListener implements KeyListener {
 
-	private int counter;
 	private ArrayList<String> commandList;
-	private StringBuilder wordAccumulator;
+	private int counter;
 	private StringBuilder lineAccumulator;
+	private StringBuilder wordAccumulator;
 
 	public CommandLineListener() {
 		counter = 0;
 		commandList = new ArrayList<>();
 		wordAccumulator = new StringBuilder();
 		lineAccumulator = new StringBuilder();
-	}
-
-	@Override
-	public void keyPressed(KeyEvent event) {
-		SpeakingView speakingView = PluginElements.getSpeakingView();
-		switch (event.keyCode) {
-		case SWT.CR:
-			checkToSpeechCR();
-			executeCommand();
-			counter = commandList.size();
-			break;
-		case SWT.SPACE:
-			checkToSpeechSPACE();
-			break;
-		case SWT.ARROW_UP:
-			if (counter > 0) {
-				counter--;
-				speakingView.setCommandLineText(commandList.get(counter));
-				SpeakingHandler.getInstance().addToQueue(
-						commandList.get(counter));
-			}
-			break;
-		case SWT.ARROW_DOWN:
-			if (counter < commandList.size() - 1) {
-				counter++;
-				speakingView.setCommandLineText(commandList.get(counter));
-				SpeakingHandler.getInstance().addToQueue(
-						commandList.get(counter));
-			}
-			break;
-		default:
-			wordAccumulator.append(event.character);
-			break;
-		}
 	}
 
 	private void checkToSpeechCR() {
@@ -77,21 +43,9 @@ public class CommandLineListener implements KeyListener {
 		counter++;
 		lineAccumulator = new StringBuilder(PluginElements.getSpeakingView()
 				.getCommandLineText());
-		SpeakingHandler.getInstance().addToQueue(Messages.traduceText(wordAccumulator.toString()));
+		SpeakingHandler.getInstance().addToQueue(
+				Messages.traduceText(wordAccumulator.toString()));
 		wordAccumulator = new StringBuilder();
-	}
-
-	@Override
-	public void keyReleased(KeyEvent event) {
-		SpeakingView speakingView = PluginElements.getSpeakingView();
-		switch (event.keyCode) {
-		case SWT.BS:
-			String tmpStr = PluginElements.getSpeakingView()
-					.getCommandLineText();
-			wordAccumulator = new StringBuilder(tmpStr.substring(
-					tmpStr.lastIndexOf(' ') + 1, tmpStr.length()));
-			break;
-		}
 	}
 
 	private void executeCommand() {
@@ -132,16 +86,63 @@ public class CommandLineListener implements KeyListener {
 
 				speakingView.setCommandAreaStyleRanges(textStyleRanges);
 				commandList.add(commandLineText);
-				
+
 				SpeakingHandler.getInstance().addToQueue(
 						Messages.traduceText(commandLineText) + "."
-//						commandLineText + "."
+								// commandLineText + "."
 								+ System.getProperty("line.separator")
 								+ rensponse);
 			} catch (ParseException e) {
 				SpeakingHandler.getInstance().addToQueue(Messages.syntaxError);
 			}
 
+		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent event) {
+		SpeakingView speakingView = PluginElements.getSpeakingView();
+		switch (event.keyCode) {
+		case SWT.CR:
+			checkToSpeechCR();
+			executeCommand();
+			counter = commandList.size();
+			break;
+		case SWT.SPACE:
+			checkToSpeechSPACE();
+			break;
+		case SWT.ARROW_UP:
+			if (counter > 0) {
+				counter--;
+				speakingView.setCommandLineText(commandList.get(counter));
+				SpeakingHandler.getInstance().addToQueue(
+						commandList.get(counter));
+			}
+			break;
+		case SWT.ARROW_DOWN:
+			if (counter < commandList.size() - 1) {
+				counter++;
+				speakingView.setCommandLineText(commandList.get(counter));
+				SpeakingHandler.getInstance().addToQueue(
+						commandList.get(counter));
+			}
+			break;
+		default:
+			wordAccumulator.append(event.character);
+			break;
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent event) {
+		SpeakingView speakingView = PluginElements.getSpeakingView();
+		switch (event.keyCode) {
+		case SWT.BS:
+			String tmpStr = PluginElements.getSpeakingView()
+					.getCommandLineText();
+			wordAccumulator = new StringBuilder(tmpStr.substring(
+					tmpStr.lastIndexOf(' ') + 1, tmpStr.length()));
+			break;
 		}
 	}
 

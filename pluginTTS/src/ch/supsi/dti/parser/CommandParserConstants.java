@@ -8,73 +8,73 @@ package ch.supsi.dti.parser;
  */
 public interface CommandParserConstants {
 
-	/** End of File. */
-	int EOF = 0;
-	/** RegularExpression Id. */
-	int INFO = 5;
-	/** RegularExpression Id. */
-	int OPEN = 6;
-	/** RegularExpression Id. */
-	int EXPAND = 7;
-	/** RegularExpression Id. */
-	int SELECT = 8;
 	/** RegularExpression Id. */
 	int BINARY = 9;
-	/** RegularExpression Id. */
-	int PROJECT = 10;
-	/** RegularExpression Id. */
-	int PACKAGE = 11;
-	/** RegularExpression Id. */
-	int METHOD = 12;
-	/** RegularExpression Id. */
-	int CLASS = 13;
-	/** RegularExpression Id. */
-	int SINGLES = 14;
-	/** RegularExpression Id. */
-	int PROJECTS = 15;
-	/** RegularExpression Id. */
-	int PACKAGES = 16;
-	/** RegularExpression Id. */
-	int CLASSES = 17;
-	/** RegularExpression Id. */
-	int METHODS = 18;
-	/** RegularExpression Id. */
-	int EDITOR = 19;
-	/** RegularExpression Id. */
-	int CURSOR = 20;
-	/** RegularExpression Id. */
-	int DEFAULTS = 21;
-	/** RegularExpression Id. */
-	int DEFAULTT = 22;
-	/** RegularExpression Id. */
-	int SELECTED = 23;
-	/** RegularExpression Id. */
-	int NUMBER = 24;
-	/** RegularExpression Id. */
-	int FLOAT = 25;
-	/** RegularExpression Id. */
-	int INTEGER = 26;
-	/** RegularExpression Id. */
-	int DIGIT = 27;
-	/** RegularExpression Id. */
-	int LINE_COMMENT = 28;
-	/** RegularExpression Id. */
-	int MULTI_LINE_COMMENT = 29;
-	/** RegularExpression Id. */
-	int IDENTIFIER = 30;
-	/** RegularExpression Id. */
-	int LETTER = 31;
-	/** RegularExpression Id. */
-	int SPECIAL_CHARS = 32;
 	/** RegularExpression Id. */
 	int BIND = 33;
 	/** RegularExpression Id. */
 	int CHAR_LITERAL = 34;
 	/** RegularExpression Id. */
-	int QUOTED_IDENTIFIER = 35;
-
+	int CLASS = 13;
+	/** RegularExpression Id. */
+	int CLASSES = 17;
+	/** RegularExpression Id. */
+	int CURSOR = 20;
 	/** Lexical state. */
 	int DEFAULT = 0;
+	/** RegularExpression Id. */
+	int DEFAULTS = 21;
+	/** RegularExpression Id. */
+	int DEFAULTT = 22;
+	/** RegularExpression Id. */
+	int DIGIT = 27;
+	/** RegularExpression Id. */
+	int EDITOR = 19;
+	/** End of File. */
+	int EOF = 0;
+	/** RegularExpression Id. */
+	int EXPAND = 7;
+	/** RegularExpression Id. */
+	int FLOAT = 25;
+	/** RegularExpression Id. */
+	int IDENTIFIER = 30;
+	/** RegularExpression Id. */
+	int INFO = 5;
+	/** RegularExpression Id. */
+	int INTEGER = 26;
+	/** RegularExpression Id. */
+	int LETTER = 31;
+	/** RegularExpression Id. */
+	int LINE_COMMENT = 28;
+	/** RegularExpression Id. */
+	int METHOD = 12;
+	/** RegularExpression Id. */
+	int METHODS = 18;
+	/** RegularExpression Id. */
+	int MULTI_LINE_COMMENT = 29;
+	/** RegularExpression Id. */
+	int NUMBER = 24;
+	/** RegularExpression Id. */
+	int OPEN = 6;
+	/** RegularExpression Id. */
+	int PACKAGE = 11;
+	/** RegularExpression Id. */
+	int PACKAGES = 16;
+	/** RegularExpression Id. */
+	int PROJECT = 10;
+	/** RegularExpression Id. */
+	int PROJECTS = 15;
+	/** RegularExpression Id. */
+	int QUOTED_IDENTIFIER = 35;
+	/** RegularExpression Id. */
+	int SELECT = 8;
+	/** RegularExpression Id. */
+	int SELECTED = 23;
+	/** RegularExpression Id. */
+	int SINGLES = 14;
+
+	/** RegularExpression Id. */
+	int SPECIAL_CHARS = 32;
 
 	/** Literal token values. */
 	String[] tokenImage = { "<EOF>", "\" \"", "\"\\t\"", "\"\\r\"", "\"\\n\"",

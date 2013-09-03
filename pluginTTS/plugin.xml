@@ -15,7 +15,7 @@
             </separator>
          </menu>
          <action
-               accelerator="Alt+C"
+               accelerator="Alt+F"
                class="ch.supsi.dti.actions.SetFocusOnCommandLine"
                icon="icons/sample.gif"
                id="ch.supsi.dti.actions.SetFocusOnCommandLine"

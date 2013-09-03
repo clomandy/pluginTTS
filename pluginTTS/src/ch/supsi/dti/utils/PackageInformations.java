@@ -24,7 +24,7 @@ public class PackageInformations {
 						i++;
 						sb.append(i + ", " + thePackage.getElementName() + ".");
 						sb.append(System.getProperty("line.separator"));
-				
+
 					}
 				} catch (JavaModelException e) {
 					// TODO Auto-generated catch block
@@ -37,37 +37,16 @@ public class PackageInformations {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		first.append(Messages.thereAre + " " +String.valueOf(i) + " " +Messages.packages + ".");
+		if (i > 1) {
+			first.append(Messages.thereAre + " " + String.valueOf(i) + " "
+					+ Messages.packages + ".");
+		} else {
+			first.append(Messages.thereIs + " " + String.valueOf(i) + " "
+					+ Messages.thePackage + ".");
+		}
+
 		first.append(System.getProperty("line.separator"));
 		return first.toString() + sb.toString();
-	}
-
-	public static String getPunctalInfo(JavaProject javaProject,
-			String packageName) {
-		
-		IPackageFragment[] packages;
-		StringBuilder sb = new StringBuilder();
-		try {
-			IPackageFragment thePackage = getPackage(javaProject, packageName);
-
-			
-			if(thePackage == null)
-				return Messages.packageNotFound;
-			
-			if (thePackage.isOpen())
-				sb.append(Messages.thePackage + " " + Messages.openedM + ".");
-			else
-				sb.append(Messages.thePackage + " " + Messages.closedM + ".");
-
-			sb.append(System.getProperty("line.separator"));
-			
-			sb.append(Messages.thereAre + " " + thePackage.getCompilationUnits().length + " " + Messages.classes + ".");
-			sb.append(System.getProperty("line.separator"));
-		} catch (JavaModelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return sb.toString();
 	}
 
 	public static IPackageFragment getPackage(JavaProject javaProject,
@@ -77,12 +56,48 @@ public class PackageInformations {
 
 		IPackageFragment thePackage = null;
 		for (IPackageFragment thePackageTmp : packages) {
-			if (thePackageTmp.getElementName().equals(packageName)){
+			if (thePackageTmp.getElementName().equals(packageName)) {
 				thePackage = thePackageTmp;
 				break;
 			}
 		}
 		return thePackage;
+	}
+
+	public static String getPunctalInfo(JavaProject javaProject,
+			String packageName) {
+
+		IPackageFragment[] packages;
+		StringBuilder sb = new StringBuilder();
+		try {
+			IPackageFragment thePackage = getPackage(javaProject, packageName);
+
+			if (thePackage == null)
+				return Messages.packageNotFound;
+
+			if (thePackage.isOpen())
+				sb.append(Messages.thePackage + " " + Messages.openedM + ".");
+			else
+				sb.append(Messages.thePackage + " " + Messages.closedM + ".");
+
+			sb.append(System.getProperty("line.separator"));
+
+			if (thePackage.getCompilationUnits().length > 1) {
+				sb.append(Messages.thereAre + " "
+						+ thePackage.getCompilationUnits().length + " "
+						+ Messages.classes + ".");
+			} else {
+				sb.append(Messages.thereIs + " "
+						+ thePackage.getCompilationUnits().length + " "
+						+ Messages.theClass + ".");
+			}
+
+			sb.append(System.getProperty("line.separator"));
+		} catch (JavaModelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return sb.toString();
 	}
 
 }
