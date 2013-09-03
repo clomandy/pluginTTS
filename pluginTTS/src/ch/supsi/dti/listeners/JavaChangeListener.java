@@ -1,7 +1,5 @@
 package ch.supsi.dti.listeners;
 
-import java.util.Properties;
-
 import org.eclipse.jdt.core.ElementChangedEvent;
 import org.eclipse.jdt.core.IElementChangedListener;
 import org.eclipse.jdt.core.IJavaElement;
@@ -11,19 +9,33 @@ import org.eclipse.jdt.core.JavaCore;
 import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.tospeech.SpeakingHandler;
 
+/**
+ * Class which allows you to listen the changes of the Java elements
+ * 
+ * @author Claudio
+ * 
+ */
 public class JavaChangeListener implements IElementChangedListener {
 
-	private static final String FILENAME = "clean-cache.properties"; //$NON-NLS-1$
+	/**
+	 * The shared instance
+	 */
 	private static JavaChangeListener instance;
 
+	/**
+	 * Returns the shared instance
+	 * 
+	 * @return the shared instance
+	 */
 	public static JavaChangeListener getInstance() {
 		if (instance == null)
 			instance = new JavaChangeListener();
 		return instance;
 	}
 
-	private Properties fTable = new Properties();
-
+	/**
+	 * The constructor, private for the singleton pattern
+	 */
 	private JavaChangeListener() {
 	}
 
@@ -43,16 +55,27 @@ public class JavaChangeListener implements IElementChangedListener {
 		}
 	}
 
+	/**
+	 * This method shutdowns itself
+	 */
 	public void shutdown() {
 		JavaCore.removeElementChangedListener(this);
 		// save();
 	}
 
+	/**
+	 * This method starts itself
+	 */
 	public void start() {
 		JavaCore.addElementChangedListener(this);
 		// load();
 	}
 
+	/**
+	 * @param delta
+	 *            recursive method for traverse the java element that are
+	 *            changed
+	 */
 	private void traverseAndPrint(IJavaElementDelta delta) {
 		StringBuilder sb = new StringBuilder();
 

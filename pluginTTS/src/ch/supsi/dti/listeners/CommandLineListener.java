@@ -18,13 +18,36 @@ import ch.supsi.dti.tospeech.SpeakingHandler;
 import ch.supsi.dti.utils.PluginElements;
 import ch.supsi.dti.views.SpeakingView;
 
+/**
+ * Class which listen to the command line, it says every word (after space),
+ * every command (after enter). It executes the command and says the answer of
+ * the command. It keeps the entire list of the commands which are executed.
+ * 
+ * @author Claudio
+ * 
+ */
 public class CommandLineListener implements KeyListener {
 
+	/**
+	 * List of commands which are executed
+	 */
 	private ArrayList<String> commandList;
+	/**
+	 * Counter for the accumulators
+	 */
 	private int counter;
+	/**
+	 * Accumulator for the entire line, for the synthesizer
+	 */
 	private StringBuilder lineAccumulator;
+	/**
+	 * Accumulator for the last word, for the synthesizer
+	 */
 	private StringBuilder wordAccumulator;
 
+	/**
+	 * The constructor, reset every field
+	 */
 	public CommandLineListener() {
 		counter = 0;
 		commandList = new ArrayList<>();
@@ -32,6 +55,9 @@ public class CommandLineListener implements KeyListener {
 		lineAccumulator = new StringBuilder();
 	}
 
+	/**
+	 * It is executed when Enter is pressed, it update the accumulator.
+	 */
 	private void checkToSpeechCR() {
 		lineAccumulator = new StringBuilder(PluginElements.getSpeakingView()
 				.getCommandLineText());
@@ -39,6 +65,9 @@ public class CommandLineListener implements KeyListener {
 		lineAccumulator = new StringBuilder();
 	}
 
+	/**
+	 * It is executed when Space is pressed, it update the accumulator.
+	 */
 	private void checkToSpeechSPACE() {
 		counter++;
 		lineAccumulator = new StringBuilder(PluginElements.getSpeakingView()
@@ -48,6 +77,9 @@ public class CommandLineListener implements KeyListener {
 		wordAccumulator = new StringBuilder();
 	}
 
+	/**
+	 * It is executed when Enter is pressed, it executes the right command and update the Speacking view. It send the sentences to say to the SpeakingHandler.
+	 */
 	private void executeCommand() {
 		SpeakingView speakingView = PluginElements.getSpeakingView();
 		String commandLineText = speakingView.getCommandLineText();
@@ -99,6 +131,9 @@ public class CommandLineListener implements KeyListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.swt.events.KeyListener#keyPressed(org.eclipse.swt.events.KeyEvent)
+	 */
 	@Override
 	public void keyPressed(KeyEvent event) {
 		SpeakingView speakingView = PluginElements.getSpeakingView();
@@ -133,6 +168,9 @@ public class CommandLineListener implements KeyListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.swt.events.KeyListener#keyReleased(org.eclipse.swt.events.KeyEvent)
+	 */
 	@Override
 	public void keyReleased(KeyEvent event) {
 		SpeakingView speakingView = PluginElements.getSpeakingView();

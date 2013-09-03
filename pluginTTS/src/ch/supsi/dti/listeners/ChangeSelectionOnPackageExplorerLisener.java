@@ -7,6 +7,12 @@ import org.eclipse.ui.views.contentoutline.ContentOutline;
 
 import ch.supsi.dti.utils.PluginElements;
 
+/**
+ * 
+ * Class which listen the change in outline and change the selection on the Package Explorer for coherence with the cursor on editor
+ * @author Claudio
+ *
+ */
 public class ChangeSelectionOnPackageExplorerLisener implements
 		ISelectionChangedListener {
 

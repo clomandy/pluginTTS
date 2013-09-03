@@ -17,10 +17,22 @@ import ch.supsi.dti.tospeech.SpeakingHandler;
 
 public class ActiveEditorListener implements ISelectionListener {
 
+	/**
+	 * Old line, if it is the same of the last one, the synthesizer not speak (it means that the user moved cursor on the same line)
+	 */
 	private int line;
+	/**
+	 * Old titleFocused, if it is the same of the last one, the synthesizer not speak (it means that the user not had changed the active editor)
+	 */
 	private String titleFocused;
+	/**
+	 * Old string to say, double control, if it is the same of the last one, the synthesizer not speak 
+	 */
 	private String toSayOld = "";
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.ISelectionListener#selectionChanged(org.eclipse.ui.IWorkbenchPart, org.eclipse.jface.viewers.ISelection)
+	 */
 	@Override
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 
