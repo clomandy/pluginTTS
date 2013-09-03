@@ -8,8 +8,22 @@ import org.eclipse.jdt.core.JavaModelException;
 import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.parser.MethodNotFoundException;
 
+/**
+ * Class which retrieves the informations of the methods in the workspace with
+ * static methods
+ * 
+ * @author Claudio
+ * 
+ */
 public class MethodInformations {
 
+	/**
+	 * Returns the general information about the methods in a given class
+	 * 
+	 * @param theClass
+	 *            the class in which the methods are
+	 * @return the string with the informations about the methods
+	 */
 	public static String getGeneralInfo(ICompilationUnit theClass) {
 		StringBuilder first = new StringBuilder();
 		StringBuilder sb = new StringBuilder();
@@ -42,6 +56,18 @@ public class MethodInformations {
 		return first.toString() + sb.toString();
 	}
 
+	/**
+	 * Returns the method (IMethod) with the method naem and the class in which
+	 * it is.
+	 * 
+	 * @param theClass
+	 *            the class in which the method is
+	 * @param methodName
+	 *            the method name
+	 * @return the method in IMethod object
+	 * @throws MethodNotFoundException
+	 *             exception thrown if it doesn't found the method
+	 */
 	public static IMethod getMethod(ICompilationUnit theClass, String methodName)
 			throws MethodNotFoundException {
 		try {
@@ -60,6 +86,17 @@ public class MethodInformations {
 		throw new MethodNotFoundException();
 	}
 
+	/**
+	 * 
+	 * Returns the informations about a given method
+	 * 
+	 * @param theClass
+	 *            the class in which the method is
+	 * @param methodName
+	 *            the method name
+	 * @return the string with the informations about the method
+	 * 
+	 */
 	public static String getPunctalInfo(ICompilationUnit theClass,
 			String methodName) {
 

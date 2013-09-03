@@ -7,8 +7,22 @@ import org.eclipse.jdt.internal.core.JavaProject;
 
 import ch.supsi.dti.multilanguage.Messages;
 
+/**
+ * Class which retrieves the informations of the pakages in the workspace with
+ * static methods
+ * 
+ * @author Claudio
+ * 
+ */
 public class PackageInformations {
 
+	/**
+	 * Returns the general information about the classes in a given project
+	 * 
+	 * @param javaProject
+	 *            the project in which the packages are
+	 * @return the string with the informations about the packages
+	 */
 	public static String getGeneralInfo(JavaProject javaProject) {
 		StringBuilder sb = new StringBuilder();
 		StringBuilder first = new StringBuilder();
@@ -49,6 +63,18 @@ public class PackageInformations {
 		return first.toString() + sb.toString();
 	}
 
+	/**
+	 * Returns the package (IPackageFragment) with the package name and the
+	 * project in which it is.
+	 * 
+	 * @param javaProject
+	 *            the project in which the package is
+	 * @param packageName
+	 *            the package name
+	 * @return the package in IPackageFragment object
+	 * @throws JavaModelException
+	 *             exception thrown if there are problems with the JavaModel
+	 */
 	public static IPackageFragment getPackage(JavaProject javaProject,
 			String packageName) throws JavaModelException {
 		IPackageFragment[] packages;
@@ -64,6 +90,15 @@ public class PackageInformations {
 		return thePackage;
 	}
 
+	/**
+	 * Returns the informations about a given pacakge
+	 * 
+	 * @param javaProject
+	 *            the project in which the package is
+	 * @param packageName
+	 *            the package name
+	 * @return the string with the informations about the pacakge
+	 */
 	public static String getPunctalInfo(JavaProject javaProject,
 			String packageName) {
 

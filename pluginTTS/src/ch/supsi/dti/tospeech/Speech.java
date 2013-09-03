@@ -6,11 +6,27 @@ import java.net.URLEncoder;
 
 import com.gtranslate.Audio;
 
+/**
+ * Thread which is build for the sentences to say with the synthesizer
+ * @author Claudio
+ *
+ */
 public class Speech extends Thread {
 
+	/**
+	 * Language using to say toSay string
+	 */
 	private String language;
+	/**
+	 * String to say with the synthesizer
+	 */
 	private String toSay;
 
+	/**
+	 * The constructor, set the language and the string toSay, set the encoding and replace ".java" string with ""
+	 * @param toSay
+	 * @param language
+	 */
 	public Speech(String toSay, String language) {
 		this.language = language;
 		// In italian doesn't speek the dot.
@@ -24,6 +40,9 @@ public class Speech extends Thread {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Thread#run()
+	 */
 	@Override
 	public void run() {
 		Audio audio = Audio.getInstance();

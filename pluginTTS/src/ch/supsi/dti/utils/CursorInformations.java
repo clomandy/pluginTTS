@@ -10,8 +10,21 @@ import org.eclipse.ui.views.contentoutline.ContentOutline;
 
 import ch.supsi.dti.multilanguage.Messages;
 
+/**
+ * Class which retrieves the informations of the cursor in the active editor
+ * with static methods
+ * 
+ * @author Claudio
+ * 
+ */
 public class CursorInformations {
 
+	/**
+	 * Returns the informations about the cursor located in the active editor,
+	 * return in which element is located and the name of this element
+	 * 
+	 * @return the string with the informations about the cursor
+	 */
 	public static String getGeneralInfo() {
 
 		ContentOutline outline = PluginElements.getOutline();

@@ -10,18 +10,29 @@ import org.eclipse.ui.views.contentoutline.ContentOutline;
 
 import ch.supsi.dti.views.SpeakingView;
 
+/**
+ * Class which retrieves the component of the Plugin
+ * 
+ * @author Claudio
+ * 
+ */
 public class PluginElements {
 
+	/**
+	 * Returns the active editor
+	 * 
+	 * @return the active editor
+	 */
 	public static IEditorPart getActiveEditor() {
 		return PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 				.getActivePage().getActiveEditor();
 	}
 
-	public static ITextEditor getActiveTextEditor() {
-		return (ITextEditor) PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-	}
-
+	/**
+	 * Returns the Outline View object
+	 * 
+	 * @return the Outline View in ContentOutline object
+	 */
 	public static ContentOutline getOutline() {
 
 		return (ContentOutline) PlatformUI.getWorkbench()
@@ -29,6 +40,11 @@ public class PluginElements {
 				.findViewReference(IPageLayout.ID_OUTLINE).getView(true);
 	}
 
+	/**
+	 * Returns the Package Explorer, if it is closed, the method open it.
+	 * 
+	 * @return the Pacakge Explorer in PackageExplorerPart object
+	 */
 	public static PackageExplorerPart getPackageExplorer() {
 		PackageExplorerPart part = PackageExplorerPart
 				.getFromActivePerspective();
@@ -40,6 +56,11 @@ public class PluginElements {
 		return part;
 	}
 
+	/**
+	 * Returns the Speaking View, if it is closed, the method open it.
+	 * 
+	 * @return the Speaking View in SpeakingView object
+	 */
 	public static SpeakingView getSpeakingView() {
 		SpeakingView speakingView = null;
 		try {

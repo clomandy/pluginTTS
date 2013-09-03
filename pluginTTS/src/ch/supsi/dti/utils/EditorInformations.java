@@ -7,8 +7,21 @@ import org.eclipse.ui.texteditor.ITextEditor;
 
 import ch.supsi.dti.multilanguage.Messages;
 
+/**
+ * Class which retrieves the informations of the editors in the workspace with
+ * static methods
+ * 
+ * @author Claudio
+ * 
+ */
 public class EditorInformations {
 
+	/**
+	 * Return the informations about the editors opened in the workspace, which
+	 * are opened, which is focused
+	 * 
+	 * @return the string with the informations about the editors
+	 */
 	public static String getGeneralInformations() {
 		StringBuilder sb = new StringBuilder();
 		IEditorReference[] editorReferences = PlatformUI.getWorkbench()

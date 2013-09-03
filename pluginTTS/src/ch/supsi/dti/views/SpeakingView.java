@@ -29,18 +29,27 @@ import ch.supsi.dti.listeners.CommandLineListener;
 public class SpeakingView extends ViewPart {
 
 	/**
-	 * 
+	 * TextArea in which there are written the commands and the answers
 	 */
 	private StyledText commandArea;
+	/**
+	 * Field in which the user write the commands
+	 */
 	private Text commandLine;
 
 	/**
-	 * Constructor
+	 * The constructor
 	 */
 	public SpeakingView() {
 		super();
 	}
 
+	/**
+	 * Adds the text on the command area
+	 * 
+	 * @param text
+	 *            the text to add
+	 */
 	public void addTextOnCommandArea(String text) {
 		commandArea.setText(commandArea.getText()
 				+ System.getProperty("line.separator") + text);
@@ -74,30 +83,63 @@ public class SpeakingView extends ViewPart {
 		commandLine.addKeyListener(new CommandLineListener());
 	}
 
+	/**
+	 * Returns the offset of the command area
+	 * 
+	 * @return the offset of the command area
+	 */
 	public int getCommandAreaOffset() {
 		return commandArea.getText().length() + 1;
 	}
 
+	/**
+	 * Returns the styles of the command area
+	 * 
+	 * @return the styles of the command area
+	 */
 	public StyleRange[] getCommandAreaStyleRanges() {
 		return commandArea.getStyleRanges();
 	}
 
+	/**
+	 * Returns the string contained in the command line
+	 * 
+	 * @return the string contained in the command line
+	 */
 	public String getCommandLineText() {
 		return commandLine.getText();
 	}
 
+	/**
+	 * Resets the command line
+	 */
 	public void resetCommandLine() {
 		commandLine.setText("");
 	}
 
+	/**
+	 * Scroll the command area to the bottom
+	 */
 	private void scrollCommandAreaBottom() {
 		commandArea.setTopIndex(commandArea.getLineCount() - 1);
 	}
 
+	/**
+	 * Sets the styles of the text in the command area
+	 * 
+	 * @param ranges
+	 *            styles to set in the command area
+	 */
 	public void setCommandAreaStyleRanges(StyleRange[] ranges) {
 		commandArea.setStyleRanges(ranges);
 	}
 
+	/**
+	 * Set the text in the command line
+	 * 
+	 * @param str
+	 *            the text to set
+	 */
 	public void setCommandLineText(String str) {
 		commandLine.setText(str);
 	}
@@ -112,6 +154,12 @@ public class SpeakingView extends ViewPart {
 		commandLine.setFocus();
 	}
 
+	/**
+	 * Set the text on the command area
+	 * 
+	 * @param text
+	 *            the text to set
+	 */
 	public void setTextOnCommandArea(String text) {
 		commandArea.setText("Nuovo testo: "
 				+ System.getProperty("line.separator") + text);

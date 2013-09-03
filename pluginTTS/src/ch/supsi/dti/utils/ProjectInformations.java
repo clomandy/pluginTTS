@@ -9,8 +9,20 @@ import org.eclipse.core.runtime.CoreException;
 
 import ch.supsi.dti.multilanguage.Messages;
 
+/**
+ * Class which retrieves the informations of the projects in the workspace with
+ * static methods
+ * 
+ * @author Claudio
+ * 
+ */
 public class ProjectInformations {
 
+	/**
+	 * Returns the general information about the projects in the workspace
+	 * 
+	 * @return the string with the informations about the projects
+	 */
 	public static String getGeneralInfo() {
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IWorkspaceRoot root = workspace.getRoot();
@@ -37,6 +49,13 @@ public class ProjectInformations {
 
 	}
 
+	/**
+	 * Returns the informations about a given project
+	 * 
+	 * @param projectName
+	 *            the project name
+	 * @return the string with the informations about the project
+	 */
 	public static String getPunctalInfo(String projectName) {
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IWorkspaceRoot root = workspace.getRoot();

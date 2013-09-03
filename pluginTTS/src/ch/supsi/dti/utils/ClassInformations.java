@@ -9,8 +9,29 @@ import org.eclipse.jdt.internal.core.JavaProject;
 import ch.supsi.dti.multilanguage.Messages;
 import ch.supsi.dti.parser.ClassMultipleException;
 
+/**
+ * Class which retrieves the informations of the classes in the workspace with
+ * static methods
+ * 
+ * @author Claudio
+ * 
+ */
 public class ClassInformations {
 
+	/**
+	 * Returns the class (ICompilationUnit) with the class name, the project and
+	 * the package in which it is.
+	 * 
+	 * @param javaProject
+	 *            the project in which the class is
+	 * @param thePackage
+	 *            the pacakge in which the class is
+	 * @param className
+	 *            the class name
+	 * @return the class in ICompilationUnit object
+	 * @throws ClassMultipleException
+	 *             exception thrown if there are multiple classes found
+	 */
 	public static ICompilationUnit getClass(JavaProject javaProject,
 			IPackageFragment thePackage, String className)
 			throws ClassMultipleException {
@@ -44,6 +65,17 @@ public class ClassInformations {
 		return theClass;
 	}
 
+	/**
+	 * 
+	 * Returns the general information about the classes in a given package and
+	 * project
+	 * 
+	 * @param javaProject
+	 *            the project in which the classes are
+	 * @param thePackage
+	 *            the package in which the classes are
+	 * @return the string with the informations about the classes
+	 */
 	public static String getGeneralInfo(JavaProject javaProject,
 			IPackageFragment thePackage) {
 		StringBuilder sb = new StringBuilder();
@@ -80,6 +112,17 @@ public class ClassInformations {
 		return first.toString() + sb.toString();
 	}
 
+	/**
+	 * Returns the informations about a given class
+	 * 
+	 * @param javaProject
+	 *            the project in which the class is
+	 * @param thePackage
+	 *            the package in which the class is
+	 * @param className
+	 *            the class name
+	 * @return the string with the informations about the class
+	 */
 	public static String getPunctalInfo(JavaProject javaProject,
 			IPackageFragment thePackage, String className) {
 

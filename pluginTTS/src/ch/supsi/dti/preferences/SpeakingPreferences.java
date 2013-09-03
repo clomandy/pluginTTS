@@ -26,8 +26,9 @@ import com.gtranslate.Language;
 public class SpeakingPreferences extends FieldEditorPreferencePage implements
 		IWorkbenchPreferencePage {
 
-	private static SpeakingPreferences instance;
-
+	/**
+	 * The constructor
+	 */
 	public SpeakingPreferences() {
 		super(GRID);
 		setPreferenceStore(Activator.getDefault().getPreferenceStore());
@@ -61,6 +62,9 @@ public class SpeakingPreferences extends FieldEditorPreferencePage implements
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.preference.FieldEditorPreferencePage#performOk()
+	 */
 	@Override
 	public boolean performOk() {
 		boolean ret = super.performOk();
