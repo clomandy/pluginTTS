@@ -92,7 +92,7 @@ public class ClassInformations {
 		}
 
 		if (theClass == null)
-			return Messages.noClass + className + Messages.commaExpand;
+			return Messages.noClass + className + ", " + Messages.expand;
 
 		if (theClass.isOpen()) {
 			sb.append(Messages.theClass + " " + Messages.openedF + ".");

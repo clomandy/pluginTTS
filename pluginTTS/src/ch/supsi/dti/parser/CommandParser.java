@@ -30,304 +30,69 @@ import ch.supsi.dti.utils.PackageInformations;
 import ch.supsi.dti.utils.PluginElements;
 import ch.supsi.dti.utils.ProjectInformations;
 
+/**
+ * Parser which executes the commands of the command line.
+ * @author Claudio
+ *
+ */
 public class CommandParser implements CommandParserConstants {
-	static private int[] jj_la1_0;
-
-	static private int[] jj_la1_1;
-
-	static {
-		jj_la1_init_0();
-		jj_la1_init_1();
-	}
-
-	private static void jj_la1_init_0() {
-		jj_la1_0 = new int[] { 0x4200, 0x1e0, };
-	}
-
-	private static void jj_la1_init_1() {
-		jj_la1_1 = new int[] { 0x0, 0x0, };
-	}
-
-	private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
-
-	private int[] jj_expentry;
-
-	private int jj_gen;
-
-	SimpleCharStream jj_input_stream;
-
-	private int jj_kind = -1;
-	final private int[] jj_la1 = new int[2];
-	/** Next token. */
-	public Token jj_nt;
-	private int jj_ntk;
-	/** Current token. */
-	public Token token;
-	/** Generated Token Manager. */
-	public CommandParserTokenManager token_source;
 	String value;
 
-	/** Constructor with generated Token Manager. */
-	public CommandParser(CommandParserTokenManager tm) {
-		token_source = tm;
-		token = new Token();
-		jj_ntk = -1;
-		jj_gen = 0;
-		for (int i = 0; i < 2; i++)
-			jj_la1[i] = -1;
-	}
-
-	/** Constructor with InputStream. */
-	public CommandParser(java.io.InputStream stream) {
-		this(stream, null);
-	}
-
-	/** Constructor with InputStream and supplied encoding */
-	public CommandParser(java.io.InputStream stream, String encoding) {
-		try {
-			jj_input_stream = new SimpleCharStream(stream, encoding, 1, 1);
-		} catch (java.io.UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
-		}
-		token_source = new CommandParserTokenManager(jj_input_stream);
-		token = new Token();
-		jj_ntk = -1;
-		jj_gen = 0;
-		for (int i = 0; i < 2; i++)
-			jj_la1[i] = -1;
-	}
-
-	/** Constructor. */
-	public CommandParser(java.io.Reader stream) {
-		jj_input_stream = new SimpleCharStream(stream, 1, 1);
-		token_source = new CommandParserTokenManager(jj_input_stream);
-		token = new Token();
-		jj_ntk = -1;
-		jj_gen = 0;
-		for (int i = 0; i < 2; i++)
-			jj_la1[i] = -1;
-	}
-
-	// Mine
-	private JavaProject checkSelectionAndReturnProject()
-			throws ProjectNotFoundException {
-		ISelectionService service = PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getSelectionService();
-
-		TreeSelection structured = (TreeSelection) service
-				.getSelection("org.eclipse.jdt.ui.PackageExplorer");
-
-		if (structured.isEmpty())
-			throw new ProjectNotFoundException();
-
-		PackageExplorerPart packageExplorer = PluginElements
-				.getPackageExplorer();
-
-		Tree tree = packageExplorer.getTreeViewer().getTree();
-
-		TreeItem[] items = tree.getSelection();
-
-		TreeItem selectedItem = items[0];
-		TreeItem parent = selectedItem.getParentItem();
-		TreeItem tmpParent = null;
-		while (parent != null) {
-			tmpParent = parent;
-			parent = tmpParent.getParentItem();
-		}
-		if (tmpParent != null)
-			parent = tmpParent;
-		else
-			parent = selectedItem;
-
-		tree.setSelection(parent);
-		// parent.setExpanded(true);
-		// tree.setFocus();
-
-		structured = (TreeSelection) service
-				.getSelection("org.eclipse.jdt.ui.PackageExplorer");
-		JavaProject project = (JavaProject) structured.getFirstElement();
-		tree.setSelection(selectedItem);
-		return project;
-	}
-
-	/** Disable tracing. */
-	final public void disable_tracing() {
-	}
-
-	/** Enable tracing. */
-	final public void enable_tracing() {
-	}
-
-	final public String expandBinary() throws ParseException {
-
-		Token id;
-		jj_consume_token(DEFAULTS);
-		PackageExplorerPart packageExplorer = PluginElements
-				.getPackageExplorer();
-		// ISelectionService service = PlatformUI.getWorkbench()
-		// .getActiveWorkbenchWindow().getSelectionService();
-		//
-		// TreeSelection selection = (TreeSelection) service
-		// .getSelection("org.eclipse.jdt.ui.PackageExplorer");
-
-		TreeViewer treeViewer = packageExplorer.getTreeViewer();
-		Tree tree = treeViewer.getTree();
-		TreeItem[] items = tree.getSelection();
-
-		TreeItem selectedItem = items[0];
-		treeViewer.expandToLevel(selectedItem, AbstractTreeViewer.ALL_LEVELS);
-
-		selectedItem.setExpanded(true);
-		tree.redraw();
-		return Messages.done;
-	}
-
-	/** Generate ParseException. */
-	public ParseException generateParseException() {
-		jj_expentries.clear();
-		boolean[] la1tokens = new boolean[36];
-		if (jj_kind >= 0) {
-			la1tokens[jj_kind] = true;
-			jj_kind = -1;
-		}
-		for (int i = 0; i < 2; i++) {
-			if (jj_la1[i] == jj_gen) {
-				for (int j = 0; j < 32; j++) {
-					if ((jj_la1_0[i] & (1 << j)) != 0) {
-						la1tokens[j] = true;
-					}
-					if ((jj_la1_1[i] & (1 << j)) != 0) {
-						la1tokens[32 + j] = true;
-					}
-				}
-			}
-		}
-		for (int i = 0; i < 36; i++) {
-			if (la1tokens[i]) {
-				jj_expentry = new int[1];
-				jj_expentry[0] = i;
-				jj_expentries.add(jj_expentry);
-			}
-		}
-		int[][] exptokseq = new int[jj_expentries.size()][];
-		for (int i = 0; i < jj_expentries.size(); i++) {
-			exptokseq[i] = jj_expentries.get(i);
-		}
-		return new ParseException(token, exptokseq, tokenImage);
-	}
-
-	/** Get the next Token. */
-	final public Token getNextToken() {
-		if (token.next != null)
-			token = token.next;
-		else
-			token = token.next = token_source.getNextToken();
-		jj_ntk = -1;
-		jj_gen++;
-		return token;
-	}
-
-	/** Get the specific Token. */
-	final public Token getToken(int index) {
-		Token t = token;
-		for (int i = 0; i < index; i++) {
-			if (t.next != null)
-				t = t.next;
-			else
-				t = t.next = token_source.getNextToken();
-		}
-		return t;
-	}
-
-	final public String identifier(Token t) throws ParseException {
-		{
-			return t.toString();
-		}
-		// throw new Error("Missing return statement in function");
-	}
-
-	final public String infoBinary(Token t) throws ParseException {
+	final public String parse() throws ParseException {
 		String ret;
-
-		Token id;
-		id = jj_consume_token(IDENTIFIER);
-		ret = identifier(id);
+		ret = instructions();
 		{
-
-			ISelectionService service = PlatformUI.getWorkbench()
-					.getActiveWorkbenchWindow().getSelectionService();
-			TreeSelection selection = (TreeSelection) service
-					.getSelection("org.eclipse.jdt.ui.PackageExplorer");
-			JavaElement element = null;
-			IPackageFragment thePackage = null;
-			JavaProject javaProject = null;
-			switch (t.toString().toLowerCase()) {
-			case "project":
-				return ProjectInformations.getPunctalInfo(ret);
-			case "package":
-				try {
-					javaProject = checkSelectionAndReturnProject();
-				} catch (ProjectNotFoundException e) {
-					return Messages.projectNotSelected;
-				}
-
-				return PackageInformations.getPunctalInfo(javaProject, ret);
-			case "class":
-				element = (JavaElement) selection.getFirstElement();
-
-				if (element.getElementType() == IJavaElement.JAVA_PROJECT) {
-					javaProject = (JavaProject) element;
-				} else if (element.getElementType() == IJavaElement.PACKAGE_FRAGMENT) {
-					thePackage = (IPackageFragment) element;
-					try {
-						javaProject = checkSelectionAndReturnProject();
-
-					} catch (ProjectNotFoundException e) {
-						return Messages.projectNotSelected;
-					}
-				} else {
-
-					// TODO: entra anche quando  un oggetto sconosciuto
-					try {
-						javaProject = checkSelectionAndReturnProject();
-
-					} catch (ProjectNotFoundException e) {
-						return Messages.projectNotSelected;
-					}
-				}
-				return ClassInformations.getPunctalInfo(javaProject,
-						thePackage, ret);
-			case "method":
-				element = (JavaElement) selection.getFirstElement();
-				IMethod method = null;
-				ICompilationUnit theClass;
-				if (element == null)
-					return Messages.classNotSelected;
-
-				if (element.getElementType() == IJavaElement.COMPILATION_UNIT) {
-					theClass = (ICompilationUnit) element;
-
-					try {
-						method = MethodInformations.getMethod(theClass, ret);
-					} catch (MethodNotFoundException e) {
-						return Messages.methodNotFoundInClass;
-					}
-
-				} else {
-					theClass = element.getCompilationUnit();
-					if (theClass == null)
-						return Messages.classNotSelected;
-					try {
-						method = MethodInformations.getMethod(theClass, ret);
-
-					} catch (MethodNotFoundException e) {
-						return Messages.methodNotFoundInClass;
-					}
-				}
-				return MethodInformations.getPunctalInfo(theClass, ret);
-			}
+			if (true)
+				return ret;
 		}
+		jj_consume_token(0);
 		throw new Error("Missing return statement in function");
+	}
+
+	final public String instructions() throws ParseException {
+		String ret;
+		Token t;
+		switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
+		case INFO:
+			t = new Token();
+			jj_consume_token(INFO);
+			switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
+			case SINGLES:
+				t = jj_consume_token(SINGLES);
+				ret = infoSingles(t);
+				break;
+			case BINARY:
+				t = jj_consume_token(BINARY);
+				ret = infoBinary(t);
+				break;
+			default:
+				jj_la1[0] = jj_gen;
+				jj_consume_token(-1);
+				throw new ParseException();
+			}
+			break;
+		case OPEN:
+			jj_consume_token(OPEN);
+			t = jj_consume_token(BINARY);
+			ret = openBinary(t);
+			break;
+		case EXPAND:
+			jj_consume_token(EXPAND);
+			ret = expandBinary();
+			break;
+		case SELECT:
+			jj_consume_token(SELECT);
+			t = jj_consume_token(BINARY);
+			ret = selectBinary(t);
+			break;
+		default:
+			jj_la1[1] = jj_gen;
+			jj_consume_token(-1);
+			throw new ParseException();
+		}
+
+		return ret;
+		// throw new Error("Missing return statement in function");
 	}
 
 	final public String infoSingles(Token t) throws ParseException {
@@ -337,7 +102,7 @@ public class CommandParser implements CommandParserConstants {
 			TreeSelection selection = (TreeSelection) service
 					.getSelection("org.eclipse.jdt.ui.PackageExplorer");
 			JavaProject javaProject = null;
-			switch (t.toString().toLowerCase()) {
+			switch(t.toString().toLowerCase()){
 			case "projects":
 				return ProjectInformations.getGeneralInfo();
 			case "packages":
@@ -392,215 +157,202 @@ public class CommandParser implements CommandParserConstants {
 			case "editor":
 				return EditorInformations.getGeneralInformations();
 			}
-
+				
+			
 		}
 		throw new Error("Missing return statement in function");
 	}
 
-	final public String instructions() throws ParseException {
+	final public String infoBinary(Token t) throws ParseException {
 		String ret;
-		Token t;
-		switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
-		case INFO:
-			t = new Token();
-			jj_consume_token(INFO);
-			switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
-			case SINGLES:
-				t = jj_consume_token(SINGLES);
-				ret = infoSingles(t);
-				break;
-			case BINARY:
-				t = jj_consume_token(BINARY);
-				ret = infoBinary(t);
-				break;
-			default:
-				jj_la1[0] = jj_gen;
-				jj_consume_token(-1);
-				throw new ParseException();
+
+		Token id;
+		id = jj_consume_token(IDENTIFIER);
+		ret = identifier(id);
+		{
+
+			ISelectionService service = PlatformUI.getWorkbench()
+					.getActiveWorkbenchWindow().getSelectionService();
+			TreeSelection selection = (TreeSelection) service
+					.getSelection("org.eclipse.jdt.ui.PackageExplorer");
+			JavaElement element = null;
+			IPackageFragment thePackage = null;
+			JavaProject javaProject = null;
+			switch(t.toString().toLowerCase()){
+			case "project":
+				return ProjectInformations.getPunctalInfo(ret);
+			case "package":
+				try {
+					javaProject = checkSelectionAndReturnProject();
+				} catch (ProjectNotFoundException e) {
+					return Messages.projectNotSelected;
+				}
+
+				return PackageInformations.getPunctalInfo(javaProject, ret);
+			case "class":
+				element = (JavaElement) selection.getFirstElement();
+				
+				if (element.getElementType() == IJavaElement.JAVA_PROJECT) {
+					javaProject = (JavaProject) element;
+				} else if (element.getElementType() == IJavaElement.PACKAGE_FRAGMENT) {
+					thePackage = (IPackageFragment) element;
+					try {
+						javaProject = checkSelectionAndReturnProject();
+
+					} catch (ProjectNotFoundException e) {
+						return Messages.projectNotSelected;
+					}
+				} else {
+
+					// TODO: entra anche quando  un oggetto sconosciuto
+					try {
+						javaProject = checkSelectionAndReturnProject();
+
+					} catch (ProjectNotFoundException e) {
+						return Messages.projectNotSelected;
+					}
+				}
+				return ClassInformations.getPunctalInfo(javaProject,
+						thePackage, ret);
+			case "method":
+				element = (JavaElement) selection.getFirstElement();
+				IMethod method = null;
+				ICompilationUnit theClass;
+				if (element == null)
+					return Messages.classNotSelected;
+
+				if (element.getElementType() == IJavaElement.COMPILATION_UNIT) {
+					theClass = (ICompilationUnit)element;
+					
+					try {
+						method = MethodInformations.getMethod(theClass, ret);
+					} catch (MethodNotFoundException e) {
+						return Messages.methodNotFoundInClass;
+					}
+
+				}else{
+					theClass = element.getCompilationUnit();
+					if(theClass == null)
+						return Messages.classNotSelected;
+					try {
+						method = MethodInformations.getMethod(theClass, ret);
+						
+					} catch (MethodNotFoundException e) {
+						return Messages.methodNotFoundInClass;
+					}
+				}
+				return MethodInformations.getPunctalInfo(theClass, ret);
 			}
-			break;
-		case OPEN:
-			jj_consume_token(OPEN);
-			t = jj_consume_token(BINARY);
-			ret = openBinary(t);
-			break;
-		case EXPAND:
-			jj_consume_token(EXPAND);
-			ret = expandBinary();
-			break;
-		case SELECT:
-			jj_consume_token(SELECT);
-			t = jj_consume_token(BINARY);
-			ret = selectBinary(t);
-			break;
-		default:
-			jj_la1[1] = jj_gen;
-			jj_consume_token(-1);
-			throw new ParseException();
 		}
-
-		return ret;
-		// throw new Error("Missing return statement in function");
-	}
-
-	private Token jj_consume_token(int kind) throws ParseException {
-		Token oldToken;
-		if ((oldToken = token).next != null)
-			token = token.next;
-		else
-			token = token.next = token_source.getNextToken();
-		jj_ntk = -1;
-		if (token.kind == kind) {
-			jj_gen++;
-			return token;
-		}
-		token = oldToken;
-		jj_kind = kind;
-		throw generateParseException();
-	}
-
-	private int jj_ntk() {
-		if ((jj_nt = token.next) == null)
-			return (jj_ntk = (token.next = token_source.getNextToken()).kind);
-		else
-			return (jj_ntk = jj_nt.kind);
+		throw new Error("Missing return statement in function");
 	}
 
 	final public String openBinary(Token t) throws ParseException {
-		// String ret;
-		//
-		// Token id;
-		// id = jj_consume_token(IDENTIFIER);
-		// ret = identifier(id);
-		// {
-		//
+//		String ret;
+//
+//		Token id;
+//		id = jj_consume_token(IDENTIFIER);
+//		ret = identifier(id);
+//		{
+//
+//			ISelectionService service = PlatformUI.getWorkbench()
+//					.getActiveWorkbenchWindow().getSelectionService();
+//			TreeSelection selection = (TreeSelection) service
+//					.getSelection("org.eclipse.jdt.ui.PackageExplorer");
+//			JavaElement element = null;
+//			IPackageFragment thePackage = null;
+//			JavaProject javaProject = null;
+//			switch(t.toString().toLowerCase()){
+//			case "project":
+//				return ProjectInformations.getPunctalInfo(ret);
+//			case "package":
+//				try {
+//					javaProject = checkSelectionAndReturnProject();
+//				} catch (ProjectNotFoundException e) {
+//					return Messages.projectNotSelected;
+//				}
+//
+//				return PackageInformations.getPunctalInfo(javaProject, ret);
+//			case "class":
+//				element = (JavaElement) selection.getFirstElement();
+//				
+//				if (element.getElementType() == JavaElement.JAVA_PROJECT) {
+//					javaProject = (JavaProject) element;
+//				} else if (element.getElementType() == JavaElement.PACKAGE_FRAGMENT) {
+//					thePackage = (IPackageFragment) element;
+//					try {
+//						javaProject = checkSelectionAndReturnProject();
+//
+//					} catch (ProjectNotFoundException e) {
+//						return Messages.projectNotSelected;
+//					}
+//				} else {
+//
+//					// TODO: entra anche quando  un oggetto sconosciuto
+//					try {
+//						javaProject = checkSelectionAndReturnProject();
+//
+//					} catch (ProjectNotFoundException e) {
+//						return Messages.projectNotSelected;
+//					}
+//				}
+//				return ClassInformations.getPunctalInfo(javaProject,
+//						thePackage, ret);
+//			case "method":
+//				element = (JavaElement) selection.getFirstElement();
+//				IMethod method = null;
+//				ICompilationUnit theClass;
+//				if (element == null)
+//					return Messages.CommandParser_22;
+//
+//				if (element.getElementType() == JavaElement.COMPILATION_UNIT) {
+//					theClass = (ICompilationUnit)element;
+//					
+//					try {
+//						method = MethodInformations.getMethod(theClass, ret);
+//					} catch (MethodNotFoundException e) {
+//						return Messages.CommandParser_23;
+//					}
+//
+//				}else{
+//					theClass = element.getCompilationUnit();
+//					if(theClass == null)
+//						return Messages.CommandParser_24;
+//					try {
+//						method = MethodInformations.getMethod(theClass, ret);
+//						
+//					} catch (MethodNotFoundException e) {
+//						return Messages.CommandParser_25;
+//					}
+//				}
+//				return MethodInformations.getPunctalInfo(theClass, ret);
+//			}
+//		}
+		throw new Error("Missing return statement in function");
+	}
+
+	final public String expandBinary() throws ParseException {
+
+		Token id;
+		jj_consume_token(DEFAULTS);
+		PackageExplorerPart packageExplorer = PluginElements
+				.getPackageExplorer();
 		// ISelectionService service = PlatformUI.getWorkbench()
 		// .getActiveWorkbenchWindow().getSelectionService();
+		//
 		// TreeSelection selection = (TreeSelection) service
 		// .getSelection("org.eclipse.jdt.ui.PackageExplorer");
-		// JavaElement element = null;
-		// IPackageFragment thePackage = null;
-		// JavaProject javaProject = null;
-		// switch(t.toString().toLowerCase()){
-		// case "project":
-		// return ProjectInformations.getPunctalInfo(ret);
-		// case "package":
-		// try {
-		// javaProject = checkSelectionAndReturnProject();
-		// } catch (ProjectNotFoundException e) {
-		// return Messages.projectNotSelected;
-		// }
-		//
-		// return PackageInformations.getPunctalInfo(javaProject, ret);
-		// case "class":
-		// element = (JavaElement) selection.getFirstElement();
-		//
-		// if (element.getElementType() == JavaElement.JAVA_PROJECT) {
-		// javaProject = (JavaProject) element;
-		// } else if (element.getElementType() == JavaElement.PACKAGE_FRAGMENT)
-		// {
-		// thePackage = (IPackageFragment) element;
-		// try {
-		// javaProject = checkSelectionAndReturnProject();
-		//
-		// } catch (ProjectNotFoundException e) {
-		// return Messages.projectNotSelected;
-		// }
-		// } else {
-		//
-		// // TODO: entra anche quando  un oggetto sconosciuto
-		// try {
-		// javaProject = checkSelectionAndReturnProject();
-		//
-		// } catch (ProjectNotFoundException e) {
-		// return Messages.projectNotSelected;
-		// }
-		// }
-		// return ClassInformations.getPunctalInfo(javaProject,
-		// thePackage, ret);
-		// case "method":
-		// element = (JavaElement) selection.getFirstElement();
-		// IMethod method = null;
-		// ICompilationUnit theClass;
-		// if (element == null)
-		// return Messages.CommandParser_22;
-		//
-		// if (element.getElementType() == JavaElement.COMPILATION_UNIT) {
-		// theClass = (ICompilationUnit)element;
-		//
-		// try {
-		// method = MethodInformations.getMethod(theClass, ret);
-		// } catch (MethodNotFoundException e) {
-		// return Messages.CommandParser_23;
-		// }
-		//
-		// }else{
-		// theClass = element.getCompilationUnit();
-		// if(theClass == null)
-		// return Messages.CommandParser_24;
-		// try {
-		// method = MethodInformations.getMethod(theClass, ret);
-		//
-		// } catch (MethodNotFoundException e) {
-		// return Messages.CommandParser_25;
-		// }
-		// }
-		// return MethodInformations.getPunctalInfo(theClass, ret);
-		// }
-		// }
-		throw new Error("Missing return statement in function");
-	}
 
-	final public String parse() throws ParseException {
-		String ret;
-		ret = instructions();
-		{
-			if (true)
-				return ret;
-		}
-		jj_consume_token(0);
-		throw new Error("Missing return statement in function");
-	}
+		TreeViewer treeViewer = packageExplorer.getTreeViewer();
+		Tree tree = treeViewer.getTree();
+		TreeItem[] items = tree.getSelection();
 
-	/** Reinitialise. */
-	public void ReInit(CommandParserTokenManager tm) {
-		token_source = tm;
-		token = new Token();
-		jj_ntk = -1;
-		jj_gen = 0;
-		for (int i = 0; i < 2; i++)
-			jj_la1[i] = -1;
-	}
+		TreeItem selectedItem = items[0];
+		treeViewer.expandToLevel(selectedItem, AbstractTreeViewer.ALL_LEVELS);
 
-	/** Reinitialise. */
-	public void ReInit(java.io.InputStream stream) {
-		ReInit(stream, null);
-	}
-
-	/** Reinitialise. */
-	public void ReInit(java.io.InputStream stream, String encoding) {
-		try {
-			jj_input_stream.ReInit(stream, encoding, 1, 1);
-		} catch (java.io.UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
-		}
-		token_source.ReInit(jj_input_stream);
-		token = new Token();
-		jj_ntk = -1;
-		jj_gen = 0;
-		for (int i = 0; i < 2; i++)
-			jj_la1[i] = -1;
-	}
-
-	/** Reinitialise. */
-	public void ReInit(java.io.Reader stream) {
-		jj_input_stream.ReInit(stream, 1, 1);
-		token_source.ReInit(jj_input_stream);
-		token = new Token();
-		jj_ntk = -1;
-		jj_gen = 0;
-		for (int i = 0; i < 2; i++)
-			jj_la1[i] = -1;
+		selectedItem.setExpanded(true);
+		tree.redraw();
+		return Messages.done;
 	}
 
 	final public String selectBinary(Token t) throws ParseException {
@@ -619,9 +371,9 @@ public class CommandParser implements CommandParserConstants {
 			JavaProject javaProject = null;
 			IPackageFragment thePackage = null;
 			ICompilationUnit theClass = null;
-			switch (t.toString().toLowerCase()) {
+			switch(t.toString().toLowerCase()){
 			case "project":
-
+			
 				IWorkspace workspace = ResourcesPlugin.getWorkspace();
 				IWorkspaceRoot root = workspace.getRoot();
 				IProject project = root.getProject(ret);
@@ -685,21 +437,21 @@ public class CommandParser implements CommandParserConstants {
 					return Messages.classNotSelected;
 
 				if (element.getElementType() == IJavaElement.COMPILATION_UNIT) {
-					theClass = (ICompilationUnit) element;
-
+					theClass = (ICompilationUnit)element;
+					
 					try {
 						method = MethodInformations.getMethod(theClass, ret);
 					} catch (MethodNotFoundException e) {
 						return Messages.methodNotFoundInClass;
 					}
 
-				} else {
+				}else{
 					theClass = element.getCompilationUnit();
-					if (theClass == null)
+					if(theClass == null)
 						return Messages.classNotSelected;
 					try {
 						method = MethodInformations.getMethod(theClass, ret);
-
+						
 					} catch (MethodNotFoundException e) {
 						return Messages.methodNotFoundInClass;
 					}
@@ -712,21 +464,255 @@ public class CommandParser implements CommandParserConstants {
 		throw new Error("Missing return statement in function");
 	}
 
-	// public void expandTreeItem(Tree p0, TreeItem p1, boolean p2) {
-	// p0.setRedraw(false);
-	// p1.setExpanded(p2);
-	// expandTreeItem(p1, p2);
-	// p0.setRedraw(true);
-	// p0.redraw();
-	// }
-	//
-	// private static void expandTreeItem(TreeItem p0, boolean p1){
-	// int c = p0.getItemCount();
-	// for(int i = 0; i > TreeItem s = p0.getItems()[0];
-	// s.setExpanded(p1);
-	// if(s.getItemCount() > 0)
-	// expandTreeItem(s, p1);
-	// }
-	// }
+	final public String identifier(Token t) throws ParseException {
+		{
+			return t.toString();
+		}
+		// throw new Error("Missing return statement in function");
+	}
 
+	/** Generated Token Manager. */
+	public CommandParserTokenManager token_source;
+	SimpleCharStream jj_input_stream;
+	/** Current token. */
+	public Token token;
+	/** Next token. */
+	public Token jj_nt;
+	private int jj_ntk;
+	private int jj_gen;
+	final private int[] jj_la1 = new int[2];
+	static private int[] jj_la1_0;
+	static private int[] jj_la1_1;
+	static {
+		jj_la1_init_0();
+		jj_la1_init_1();
+	}
+
+	private static void jj_la1_init_0() {
+		jj_la1_0 = new int[] { 0x4200, 0x1e0, };
+	}
+
+	private static void jj_la1_init_1() {
+		jj_la1_1 = new int[] { 0x0, 0x0, };
+	}
+
+	/** Constructor with InputStream. */
+	public CommandParser(java.io.InputStream stream) {
+		this(stream, null);
+	}
+
+	/** Constructor with InputStream and supplied encoding */
+	public CommandParser(java.io.InputStream stream, String encoding) {
+		try {
+			jj_input_stream = new SimpleCharStream(stream, encoding, 1, 1);
+		} catch (java.io.UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
+		token_source = new CommandParserTokenManager(jj_input_stream);
+		token = new Token();
+		jj_ntk = -1;
+		jj_gen = 0;
+		for (int i = 0; i < 2; i++)
+			jj_la1[i] = -1;
+	}
+
+	/** Reinitialise. */
+	public void ReInit(java.io.InputStream stream) {
+		ReInit(stream, null);
+	}
+
+	/** Reinitialise. */
+	public void ReInit(java.io.InputStream stream, String encoding) {
+		try {
+			jj_input_stream.ReInit(stream, encoding, 1, 1);
+		} catch (java.io.UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
+		token_source.ReInit(jj_input_stream);
+		token = new Token();
+		jj_ntk = -1;
+		jj_gen = 0;
+		for (int i = 0; i < 2; i++)
+			jj_la1[i] = -1;
+	}
+
+	/** Constructor. */
+	public CommandParser(java.io.Reader stream) {
+		jj_input_stream = new SimpleCharStream(stream, 1, 1);
+		token_source = new CommandParserTokenManager(jj_input_stream);
+		token = new Token();
+		jj_ntk = -1;
+		jj_gen = 0;
+		for (int i = 0; i < 2; i++)
+			jj_la1[i] = -1;
+	}
+
+	/** Reinitialise. */
+	public void ReInit(java.io.Reader stream) {
+		jj_input_stream.ReInit(stream, 1, 1);
+		token_source.ReInit(jj_input_stream);
+		token = new Token();
+		jj_ntk = -1;
+		jj_gen = 0;
+		for (int i = 0; i < 2; i++)
+			jj_la1[i] = -1;
+	}
+
+	/** Constructor with generated Token Manager. */
+	public CommandParser(CommandParserTokenManager tm) {
+		token_source = tm;
+		token = new Token();
+		jj_ntk = -1;
+		jj_gen = 0;
+		for (int i = 0; i < 2; i++)
+			jj_la1[i] = -1;
+	}
+
+	/** Reinitialise. */
+	public void ReInit(CommandParserTokenManager tm) {
+		token_source = tm;
+		token = new Token();
+		jj_ntk = -1;
+		jj_gen = 0;
+		for (int i = 0; i < 2; i++)
+			jj_la1[i] = -1;
+	}
+
+	private Token jj_consume_token(int kind) throws ParseException {
+		Token oldToken;
+		if ((oldToken = token).next != null)
+			token = token.next;
+		else
+			token = token.next = token_source.getNextToken();
+		jj_ntk = -1;
+		if (token.kind == kind) {
+			jj_gen++;
+			return token;
+		}
+		token = oldToken;
+		jj_kind = kind;
+		throw generateParseException();
+	}
+
+	/** Get the next Token. */
+	final public Token getNextToken() {
+		if (token.next != null)
+			token = token.next;
+		else
+			token = token.next = token_source.getNextToken();
+		jj_ntk = -1;
+		jj_gen++;
+		return token;
+	}
+
+	/** Get the specific Token. */
+	final public Token getToken(int index) {
+		Token t = token;
+		for (int i = 0; i < index; i++) {
+			if (t.next != null)
+				t = t.next;
+			else
+				t = t.next = token_source.getNextToken();
+		}
+		return t;
+	}
+
+	private int jj_ntk() {
+		if ((jj_nt = token.next) == null)
+			return (jj_ntk = (token.next = token_source.getNextToken()).kind);
+		else
+			return (jj_ntk = jj_nt.kind);
+	}
+
+	private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
+	private int[] jj_expentry;
+	private int jj_kind = -1;
+
+	/** Generate ParseException. */
+	public ParseException generateParseException() {
+		jj_expentries.clear();
+		boolean[] la1tokens = new boolean[36];
+		if (jj_kind >= 0) {
+			la1tokens[jj_kind] = true;
+			jj_kind = -1;
+		}
+		for (int i = 0; i < 2; i++) {
+			if (jj_la1[i] == jj_gen) {
+				for (int j = 0; j < 32; j++) {
+					if ((jj_la1_0[i] & (1 << j)) != 0) {
+						la1tokens[j] = true;
+					}
+					if ((jj_la1_1[i] & (1 << j)) != 0) {
+						la1tokens[32 + j] = true;
+					}
+				}
+			}
+		}
+		for (int i = 0; i < 36; i++) {
+			if (la1tokens[i]) {
+				jj_expentry = new int[1];
+				jj_expentry[0] = i;
+				jj_expentries.add(jj_expentry);
+			}
+		}
+		int[][] exptokseq = new int[jj_expentries.size()][];
+		for (int i = 0; i < jj_expentries.size(); i++) {
+			exptokseq[i] = jj_expentries.get(i);
+		}
+		return new ParseException(token, exptokseq, tokenImage);
+	}
+
+	/** Enable tracing. */
+	final public void enable_tracing() {
+	}
+
+	/** Disable tracing. */
+	final public void disable_tracing() {
+	}
+
+	/**
+	 * Return the Java project referenced any element selected in the Package Explorer
+	 * @return the java project selected
+	 * @throws ProjectNotFoundException
+	 */
+	private JavaProject checkSelectionAndReturnProject()
+			throws ProjectNotFoundException {
+		ISelectionService service = PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow().getSelectionService();
+
+		TreeSelection structured = (TreeSelection) service
+				.getSelection("org.eclipse.jdt.ui.PackageExplorer");
+
+		if (structured.isEmpty())
+			throw new ProjectNotFoundException();
+
+		PackageExplorerPart packageExplorer = PluginElements
+				.getPackageExplorer();
+
+		Tree tree = packageExplorer.getTreeViewer().getTree();
+
+		TreeItem[] items = tree.getSelection();
+
+		TreeItem selectedItem = items[0];
+		TreeItem parent = selectedItem.getParentItem();
+		TreeItem tmpParent = null;
+		while (parent != null) {
+			tmpParent = parent;
+			parent = tmpParent.getParentItem();
+		}
+		if (tmpParent != null)
+			parent = tmpParent;
+		else
+			parent = selectedItem;
+
+		tree.setSelection(parent);
+		// parent.setExpanded(true);
+		// tree.setFocus();
+
+		structured = (TreeSelection) service
+				.getSelection("org.eclipse.jdt.ui.PackageExplorer");
+		JavaProject project = (JavaProject) structured.getFirstElement();
+		tree.setSelection(selectedItem);
+		return project; 
+	}
 }
