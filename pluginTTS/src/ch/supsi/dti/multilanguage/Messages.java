@@ -272,6 +272,9 @@ public class Messages extends NLS {
 		case "it":
 			NLS.initializeMessages(BUNDLE_NAME_IT, Messages.class);
 			break;
+		default:
+			NLS.initializeMessages(BUNDLE_NAME_EN, Messages.class);
+			break;
 		}
 
 	}
