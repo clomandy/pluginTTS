@@ -107,14 +107,13 @@ public class JavaChangeListener implements IElementChangedListener {
 			if ((delta.getFlags() & IJavaElementDelta.F_CHILDREN) != 0) {
 				// System.out.println("The change was in its children");
 				sb = new StringBuilder();
-				check = false;
 			}
 			if ((delta.getFlags() & IJavaElementDelta.F_CONTENT) != 0) {
 				// System.out.println("The change was in its content");
 				sb = new StringBuilder();
-				check = false;
 			}
 			/* Others flags can also be checked */
+			check = false;
 			break;
 		case IJavaElementDelta.REMOVED:
 			sb.append(delta.getElement().getElementName() + " ");

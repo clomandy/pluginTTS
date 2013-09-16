@@ -48,14 +48,19 @@ public class SpeakingReferee extends Thread {
 	 */
 	private SpeakingReferee() {
 		this.queue = new SpeakingQueue();
-		switch (new SpeakingPreferences().getPreferenceStore().getString(
-				PreferenceConstants.MULTILANGUAGE)) {
+		String str = new SpeakingPreferences().getPreferenceStore().getString(
+				PreferenceConstants.MULTILANGUAGE);
+		switch (str) {
 		case "en":
 			this.language = Language.ENGLISH;
 			break;
 		case "it":
 			this.language = Language.ITALIAN;
 			break;
+		default:
+			this.language = Language.ENGLISH;
+			break;
+
 		}
 	}
 

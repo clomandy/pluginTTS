@@ -22,8 +22,12 @@ public class ChangeSelectionOnPackageExplorerLisener implements
 		ContentOutline outline = PluginElements.getOutline();
 
 		TreeSelection treeSelection = (TreeSelection) outline.getSelection();
+		try{
 		PluginElements.getPackageExplorer().selectAndReveal(
 				treeSelection.getFirstElement());
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 }

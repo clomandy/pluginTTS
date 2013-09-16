@@ -204,7 +204,6 @@ public class CommandParser implements CommandParserConstants {
 					}
 				} else {
 
-					// TODO: entra anche quando è un oggetto sconosciuto
 					try {
 						javaProject = checkSelectionAndReturnProject();
 
@@ -288,7 +287,6 @@ public class CommandParser implements CommandParserConstants {
 //					}
 //				} else {
 //
-//					// TODO: entra anche quando è un oggetto sconosciuto
 //					try {
 //						javaProject = checkSelectionAndReturnProject();
 //
